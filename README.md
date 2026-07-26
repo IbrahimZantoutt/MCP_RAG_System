@@ -20,7 +20,7 @@ combines passages from several files and cites each one.
      Alternative: commit the file and use <video src="docs/demo.mp4" controls>.
 -->
 
-https://github.com/USER/REPO/assets/REPLACE-ME/demo.mp4
+<img width="1318" height="628" alt="rag_answering" src="https://github.com/user-attachments/assets/2ca224ae-3185-40b4-a2f5-26ca2432495b" />
 
 <table>
 <tr>
@@ -28,7 +28,8 @@ https://github.com/USER/REPO/assets/REPLACE-ME/demo.mp4
 
 **Sources cited in the answer**
 
-<img src="docs/sources.png" alt="Cited passages with vector, BM25, rerank and RRF scores" width="100%">
+
+<img src="https://github.com/user-attachments/assets/74f9b486-f030-4b5e-ac1d-ee0076fbfb57" alt="Cited passages with vector, BM25, rerank and RRF scores" width="100%">
 
 </td>
 <td width="50%" valign="top">
