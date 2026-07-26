@@ -1,19 +1,27 @@
-# Vector index — rebuild with: python scripts/index_data.py
+# Vector index — regenerate with: python scripts/index_data.py
 storage/
 
 # Python
 __pycache__/
 *.py[cod]
 *.egg-info/
+.pytest_cache/
 .venv/
 venv/
 env/
 
 # Model caches
 .cache/
+*.safetensors
+*.onnx
+
+# Local overrides
+.env
+*.local.json
 
 # Editors / OS
 .vscode/
 .idea/
+*.swp
 .DS_Store
 Thumbs.db
