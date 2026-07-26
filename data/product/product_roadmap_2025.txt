@@ -1,0 +1,195 @@
+HELIX ROBOTICS — PRODUCT ROADMAP 2025
+Owner: Grace Chen, Director of Product
+Approved by: Rowan Achebe (CEO), Dana Whitfield (CTO), Elena Vasquez (VP Sales),
+             Sam Delacroix (CFO)
+Approval date: 2024-12-11
+Last revised: 2024-12-11
+Classification: Internal — Confidential. Do not share externally. Roadmap
+                commitments to specific customers must be made through the
+                account team, not from this document.
+
+
+STRATEGIC CONTEXT
+
+Helix enters 2025 with 412 employees, 33.2 million USD in ARR, and roughly 1,510
+robots deployed across 38 customer sites. We are not yet profitable; Q3 2024
+closed at a net loss of 4.1 million USD with 61 million USD cash on hand. The
+board's expectation is that we reach operating breakeven during 2026, which means
+2025 is the year we convert engineering investment into gross margin rather than
+into new product surface area.
+
+Three things constrain the 2025 plan.
+
+First, INC-2024-017 cost us 148,000 USD in SLA credits and a substantial amount
+of trust with our largest customer. The remediation is complete and Cardinal
+Foods renewed, but the incident exposed structural debt — two subsystems solving
+resource reservation differently, no cross-version testing, alerting that only
+looked at individual robots. We are spending real 2025 capacity paying that down
+rather than shipping features, and that is the correct call.
+
+Second, gross margin at 51 percent is below where a hardware-plus-software
+business needs to be. The software attach rate is good; the hardware bill of
+materials is not. Cost reduction on the HX-200 is a first-class roadmap item.
+
+Third, we are losing deals in two identifiable places: facilities with high-bay
+racking that the HX-450 cannot reach, and regulated customers who require SSO
+and stronger audit controls. Voss Pharma has made SSO an explicit blocker on
+expansion beyond Basel.
+
+
+THEME 1 — RELIABILITY AND ARCHITECTURAL DEBT
+
+The largest single allocation in the 2025 plan, at roughly 30 percent of
+engineering capacity in H1.
+
+1.1  Fleet OS 5.0 — unified reservation system                      H1 2025
+     Merge the Traffic Manager and Charge Scheduler reservation implementations
+     onto a single leased-resource model. This is postmortem action item AI-9
+     from INC-2024-017, deferred from the hotfix as tracked architectural debt.
+     The 4.2.2 leases closed the operational risk; this closes the structural
+     one. Owner: Jae-won Park.
+
+1.2  Facility map lifecycle management                              H1 2025
+     Maps are currently edited in a desktop tool and imported as an opaque
+     binary blob with no diff, no review, and no rollback. A bad map import is
+     currently a site-down event with no undo. Introduce versioned map storage,
+     visual diff, review workflow, and one-click rollback. Owner: Grace Chen
+     with Fleet Software.
+
+1.3  Site Adapter sandboxing                                        H2 2025
+     Adapter plugins run in-process and unsandboxed. A misbehaving adapter can
+     consume unbounded memory in the Fleet OS process and take down the facility.
+     Move adapters to a supervised out-of-process model with resource limits.
+
+1.4  Predictive battery health                                      H2 2025
+     Firmware 3.9.0 added per-cell voltage deviation and cumulative cycle count
+     to telemetry. Build the model that turns that into scheduled replacement
+     before failure. Requested by Field Operations; batteries are currently
+     replaced reactively, which means an unplanned robot outage every time.
+
+1.5  Expanded cross-version CI matrix                               H1 2025
+     The matrix established in November 2024 covers Fleet OS against HX-200
+     firmware. Extend to HX-450 2.x firmware, dock firmware, and Helix Vision
+     module firmware. Every independently versioned artifact in the system
+     should be in the matrix. Owner: Deepa Nair.
+
+
+THEME 2 — MARGIN
+
+Roughly 20 percent of engineering capacity, concentrated in hardware.
+
+2.1  HX-200 hardware revision D — cost reduction                    H2 2025
+     Target: 14 percent bill-of-materials reduction without changing the
+     certified safety envelope. Principal levers are drive board integration,
+     a single-vendor LiDAR strategy replacing the current dual-source approach,
+     and chassis part-count reduction. Any change touching the safety scanner
+     chain requires re-assessment against IEC 61508 SIL 2, which is a long pole;
+     Nikolai Petrov is engaged from the start rather than at the end.
+
+2.2  Helix Vision cost-down and attach rate                         H1 2025
+     Vision attaches on only 31 percent of units. It is high margin and it
+     materially improves obstacle handling. Reduce module cost and simplify the
+     upsell by making the base capability visible in the Operator Console for
+     non-Vision fleets, so customers can see what they are missing.
+
+2.3  Remote diagnostics and reduced truck rolls                     H2 2025
+     Field Operations dispatches a technician for a meaningful fraction of
+     issues that are diagnosable remotely. Each avoided truck roll is direct
+     margin. Build the remote diagnostic capture and guided-resolution flow into
+     the support tooling.
+
+
+THEME 3 — MARKET EXPANSION
+
+Roughly 35 percent of engineering capacity.
+
+3.1  Operator Console SSO and audit controls                        H1 2025
+     SAML and OIDC single sign-on, role-based access control refinement, and a
+     complete tamper-evident audit log. This is an explicit expansion blocker at
+     Voss Pharma and appears in the objection log on most regulated-industry
+     deals. Highest-confidence revenue unlock on the roadmap.
+
+3.2  HX-700 high-bay concept — feasibility only                     H1 2025
+     The HX-450 reaches 1,800 mm on the base mast and 2,400 mm extended. Neither
+     reaches high-bay racking, and we are systematically absent from that
+     segment. This is a feasibility study and a business case in H1, not a
+     product commitment. A decision gate in July 2025 determines whether it
+     enters development. Nobody should represent this to a customer as planned.
+
+3.3  Mixed-fleet planning efficiency                                H1 2025
+     Fleet OS 4.2 supports mixed HX-200 and HX-450 fleets, but traffic planning
+     for mixed fleets is measurably worse than for homogeneous fleets. As more
+     sites run both models this becomes a throughput tax on exactly our largest
+     accounts.
+
+3.4  EMEA deployment tooling                                        H2 2025
+     Rotterdam is running EMEA deployments on tooling built for North American
+     sites. Multi-language Operator Console, EU data residency for telemetry
+     export, and CE documentation generation.
+
+3.5  Cold-chain HX-450 improvements                                 H2 2025
+     The -25 C variant works but runtime drops to about 4.5 hours and charge
+     time extends roughly 40 percent. Several early freezer proposals were
+     sized without accounting for this and underdelivered. Improve low-
+     temperature battery performance and fix the site sizing model.
+
+
+THEME 4 — CUSTOMER EXPERIENCE
+
+Roughly 15 percent of engineering capacity.
+
+4.1  Self-service site health dashboard                             H1 2025
+     Customers currently ask their TAM for information that should be visible to
+     them directly. Fleet availability, throughput against baseline, dock
+     utilization, fault trends.
+
+4.2  Guided troubleshooting in the Operator Console                 H2 2025
+     Bring the Troubleshooting Guide's fault-code procedures directly into the
+     console, contextual to the actual fault. Reduce the volume of tickets that
+     are really documentation lookups.
+
+4.3  Upgrade orchestration                                          H2 2025
+     Fleet OS and firmware upgrades are currently coordinated manually between
+     Field Operations and the customer. Given that INC-2024-017 required
+     deploying two coordinated patches across 240 robots, and that partial
+     firmware rollouts create exactly the kind of mixed-version exposure that
+     caused it, this deserves real tooling.
+
+
+EXPLICITLY NOT ON THE 2025 ROADMAP
+
+Recorded so that the answer is consistent when these come up, which they will.
+
+  - Outdoor or yard operations. The HX-200 is IP54 and the safety certification
+    covers indoor mixed-traffic use only. This is not a firmware change; it is a
+    different product.
+  - Cloud-hosted Fleet OS control plane. Robot motion will not depend on
+    internet connectivity. This is a deliberate architectural commitment, not an
+    unbuilt feature.
+  - Multi-tenant Fleet OS. Each facility gets an isolated instance. Customers
+    with multiple DCs run multiple instances.
+  - Automatic warm-standby failover. Manual failover is a safety decision, not a
+    missing capability. Two controllers that both believe they own the floor is
+    worse than a two-minute human cutover.
+  - Raising the HX-450 mast-extended speed limit above 0.3 m/s. Asked for
+    regularly. Permanently declined; it is tied to the stability envelope.
+  - Third-party robot support in Fleet OS. Occasionally raised by prospects with
+    existing mixed vendor fleets. Not in 2025.
+
+
+DEPENDENCIES AND RISKS
+
+  - Theme 2.1 (hardware cost reduction) depends on safety re-assessment
+    timelines that are outside our control. If IEC 61508 re-assessment slips,
+    revision D slips with it. Mitigation: engage Nikolai Petrov and the
+    certification body in Q1 rather than Q3.
+  - Theme 3.1 (SSO) is the single highest-confidence revenue item and should be
+    protected from reallocation. If H1 capacity comes under pressure, 3.2
+    (HX-700 feasibility) yields first.
+  - Theme 1.1 (Fleet OS 5.0 reservation unification) is a large refactor of the
+    two most safety-adjacent subsystems in the product. It carries genuine
+    regression risk. It is also the correct fix for the structural cause of our
+    worst incident. Deepa Nair's team is staffing dedicated test capacity
+    against it from the start.
+  - Hiring plan assumes 34 net engineering additions in 2025. Slower hiring
+    compresses Theme 3 first.

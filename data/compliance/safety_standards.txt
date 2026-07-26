@@ -1,0 +1,233 @@
+HELIX ROBOTICS — SAFETY STANDARDS AND CERTIFICATION
+Owner: Nikolai Petrov, Safety and Compliance Manager
+Technical review: Tobias Lindqvist (Firmware), Dana Whitfield (CTO)
+Last revised: 2024-12-03
+Classification: Internal. Certificate numbers and scope statements in section 2
+                may be shared with customers on request.
+
+
+1. SCOPE AND AUTHORITY
+
+Helix Robotics builds machines that move loads of up to 450 kg through buildings
+where people work, continuously, without physical separation. Everything in this
+document follows from that.
+
+The Safety and Compliance function holds absolute veto over any change affecting
+motion safety, on any product, at any point in the development cycle. This
+authority is not advisory and does not route through engineering management. It
+was established at company founding and has been exercised eleven times since
+2021.
+
+Changes requiring Safety and Compliance sign-off:
+
+  - Any firmware change touching motion control, emergency stop handling,
+    obstacle detection, speed envelope enforcement, or load stability monitoring
+  - Any hardware change to the safety scanner chain, emergency stop hardware, or
+    drive train
+  - Any change to the interface between Fleet OS and firmware that could affect
+    what commands firmware accepts
+  - Any change to certified configuration defaults
+  - Any facility map feature affecting zone classification
+
+
+2. CERTIFICATIONS HELD
+
+HX-200 COURIER
+  ISO 3691-4:2020        Industrial trucks — Safety requirements and
+                         verification — Part 4: Driverless industrial trucks and
+                         their systems. Certificate HX2-3691-2021-0447, issued
+                         2021-05-18, most recent surveillance 2024-06-11.
+  ANSI/RIA R15.08-1      Industrial mobile robots — Safety requirements.
+                         Certificate HX2-R1508-2021-0112.
+  IEC 61508 SIL 2        Functional safety of the safety scanner chain,
+                         comprising dual safety-rated LiDAR, safety controller,
+                         and the stop function. Certificate SC-61508-2021-3391.
+  UL 3100                Automated mobile platforms. File E518824.
+  CE marking             Machinery Directive 2006/42/EC, EMC Directive
+                         2014/30/EU. Declaration of Conformity issued
+                         2022-03-09, revised 2024-04-22 for the dynamic speed
+                         envelope feature.
+
+HX-450 STACKER
+  ISO 3691-4:2020        Certificate HX4-3691-2023-0891, issued 2023-02-27.
+                         Assessed separately from the HX-200 owing to the
+                         lifting function. The Courier certificate does not
+                         cover the Stacker and never has, a point that has been
+                         misstated in at least two customer proposals and must
+                         not be repeated.
+  ANSI/RIA R15.08-1      Certificate HX4-R1508-2023-0204.
+  IEC 61508 SIL 2        Safety scanner chain plus load stability monitoring
+                         and lift interlock. Certificate SC-61508-2023-4118.
+  UL 3100                File E518824, supplement 2.
+  CE marking             Declaration of Conformity issued 2023-06-14.
+
+Surveillance audits are annual. The next HX-200 surveillance is scheduled for
+June 2025 and the next HX-450 for February 2025.
+
+
+3. THE SAFETY ARCHITECTURE PRINCIPLE
+
+The single most important statement in this document:
+
+  All safety functions are implemented in robot firmware and in safety-rated
+  hardware. Helix Fleet OS has no authority over any of them.
+
+Fleet OS tells a robot where to go. Firmware decides how to get there and
+retains absolute authority to refuse or abort any command that would violate a
+safety constraint. Fleet OS cannot override an emergency stop, disable obstacle
+detection, or command motion outside the certified speed envelope.
+
+This is a certification requirement under ISO 3691-4 and it is not configurable,
+not negotiable, and not bypassable — including for testing, including for
+demonstrations, and including at customer request. There is no debug flag. There
+is no service mode that relaxes it. Engineers who ask for one are told no.
+
+The practical value of this separation was demonstrated during incident
+INC-2024-017 in September 2024. A Fleet OS scheduling defect deadlocked 61 robots
+at Cardinal Foods for nearly seven hours. The safety consequence was zero. No
+robot moved unsafely, no near-miss was reported, no injury occurred, and no
+property was damaged. The robots sat still, which is exactly what the
+architecture is designed to make them do when the fleet layer is confused.
+
+A fleet software defect should be an availability problem, never a safety
+problem. That incident is our best evidence that the separation holds under real
+failure conditions, and I have cited it in the 2024 surveillance audit.
+
+
+4. CERTIFIED SAFETY FUNCTIONS
+
+Common to both products:
+
+  4.1  Protective field monitoring. Dual safety-rated 2D LiDAR scanners, front
+       and rear, generating a protective field around the robot. Field violation
+       triggers an immediate controlled stop. Always active, cannot be disabled.
+
+  4.2  Emergency stop. Physical buttons on all four chassis faces, plus one at
+       mast height on the HX-450. Wireless facility-wide stop via operator
+       pendant. E-stop is a hardware-level function; software participates in
+       reporting it, never in deciding it.
+
+  4.3  Speed envelope enforcement. Maximum speeds are enforced in firmware
+       against the certified envelope. HX-200: 2.0 m/s unladen, 1.6 m/s at rated
+       load, 1.2 m/s in mixed-traffic zones. HX-450: 1.5 m/s unladen, 1.1 m/s at
+       rated load, 0.9 m/s mixed-traffic, and 0.3 m/s with the mast extended.
+
+  4.4  Dynamic speed envelope. Automatic speed reduction in zones flagged
+       mixed-traffic in the facility map. Introduced in HX-200 firmware 3.7.0
+       and included in the 2024 CE Declaration revision.
+
+  4.5  Fail-static behavior. Loss of Fleet OS connectivity, loss of localization
+       confidence, or any unrecoverable fault produces a controlled stop and
+       hold position. Robots never continue under uncertainty.
+
+HX-200 specific:
+
+  4.6  Payload shift detection (E-118). IMU signature analysis halts the robot
+       when a load moves in transit. Introduced in firmware 3.8.0 following
+       three tote spill events at Cardinal Foods in Q2 2024. Assessed as a
+       safety enhancement; no re-certification required, notified to the
+       certification body at the 2024 surveillance.
+
+HX-450 specific:
+
+  4.7  Load stability monitoring (E-822). Fork load sensors plus IMU detect
+       asymmetric or shifting loads.
+
+  4.8  Lift interlock (E-826). The mast cannot rise while the robot exceeds
+       0.3 m/s, and the robot cannot exceed 0.3 m/s with the mast extended.
+       Enforced bidirectionally in firmware. This limit derives from the
+       stability envelope calculated for rated load at maximum lift height. It
+       cannot be raised by configuration, by Fleet OS, or by service tooling.
+       Customers ask regularly. The answer is permanently no.
+
+  4.9  Overhead clearance check (E-831). Mast depth camera verifies clearance
+       before lift.
+
+  4.10 Fault behavior with extended mast. On an unrecoverable fault with the
+       mast extended, the robot holds the load at its current height rather than
+       lowering it. Lowering under fault conditions was assessed as the more
+       dangerous option and this behavior is part of the certified
+       configuration.
+
+
+5. CONFIGURATION BOUNDARIES
+
+The following void certification if altered, and no Helix employee may assist a
+customer in doing so:
+
+  - Disabling or bypassing the safety scanner chain
+  - Disabling the dynamic speed envelope
+  - Raising any speed limit above the certified envelope
+  - Removing or disabling emergency stop hardware
+  - Operating outside the certified environment: the HX-200 is IP54 and
+    certified for indoor use only. Outdoor and yard operation is not a
+    configuration option and is not on any roadmap.
+  - Operating above rated payload. The HX-200 derated mode (240 kg at 1.0 m/s)
+    is part of the certified configuration; anything beyond it is not.
+  - Modifying facility map zone classifications to remove mixed-traffic flags
+    from areas where people are present
+
+
+6. INCIDENT REPORTING OBLIGATIONS
+
+Any event meeting the following must be reported to Safety and Compliance within
+24 hours, regardless of severity assessment by support or engineering:
+
+  - Any contact between a robot and a person, however minor
+  - Any near-miss reported by customer or Helix staff
+  - Any unexpected robot motion
+  - Any failure of a safety function to operate as designed
+  - Any e-stop that could not be cleared after physical reset, which indicates a
+    fault in the e-stop chain
+  - Any property damage caused by a robot
+
+Reportable to the certification body: any failure of a certified safety function.
+Reportable to regulators, jurisdiction-dependent: any injury.
+
+Recorded for completeness: INC-2024-017 was not reportable under any of these
+criteria. It was a fleet availability failure with no safety dimension. I make
+this point because during the initial hours of that incident there was internal
+uncertainty about whether it was safety-relevant, and the answer was determinable
+immediately from the architecture — Fleet OS cannot cause unsafe motion. Knowing
+that quickly matters during an incident, and it is why the safety architecture
+principle in section 3 is the first thing every engineer learns.
+
+
+7. TRAINING REQUIREMENTS
+
+  - All engineering staff without exception, including those who will never
+    touch firmware: two-hour safety orientation in week one. Required for Austin
+    test bay access.
+  - Field technicians: full certification programme, covering floor entry
+    protocol, lockout procedure, and safety function verification. Renewed
+    annually. Covered in the Field Technician Training Manual.
+  - Customer facility operators: operator training delivered at deployment,
+    covering e-stop use, floor entry protocol, and fault acknowledgement.
+  - Anyone entering a robot operating area at any Helix or customer facility:
+    floor entry protocol briefing, no exceptions, including executives and
+    visitors.
+
+
+8. OPEN COMPLIANCE ITEMS
+
+  - HX-200 hardware revision D (H2 2025) includes a single-vendor LiDAR strategy
+    that touches the safety scanner chain and will require IEC 61508 SIL 2
+    re-assessment. I have been engaged from Q1 2025 rather than at design
+    freeze, which is the correct sequencing and a change from how revision C was
+    handled. Re-assessment timelines are set by the certification body and are
+    the critical path.
+  - Fleet OS 5.0 unifies the Traffic Manager and Charge Scheduler reservation
+    systems. This is fleet-layer work with no direct safety function impact, but
+    it is a large refactor adjacent to motion planning and I have asked to review
+    the interface boundary specifically.
+  - EU Machinery Regulation 2023/1230 replaces the Machinery Directive from
+    January 2027. Gap assessment scheduled Q2 2025. Early reading suggests
+    limited impact on our certified configuration, but the substantial changes
+    around software and cybersecurity require proper analysis rather than
+    optimism.
+  - Two aisles at Trellis Home Goods Columbus operate below 200 lux, degrading
+    Helix Vision obstacle classification. This is not a certified safety function
+    — the safety scanner chain is unaffected by lighting — but it produces
+    increased conservative stops and I have asked that the site requirement for
+    illumination be stated explicitly in future site assessments rather than
+    assumed.

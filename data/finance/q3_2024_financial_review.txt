@@ -1,0 +1,213 @@
+HELIX ROBOTICS, INC. — QUARTERLY FINANCIAL REVIEW
+Period: Q3 2024 (July 1 — September 30, 2024)
+Prepared by: Sam Delacroix, Chief Financial Officer
+Presented to: Board of Directors, 2024-10-29
+Last revised: 2024-10-24
+Classification: Internal — Confidential. Not for distribution outside the
+                company or the board.
+
+
+EXECUTIVE SUMMARY
+
+Q3 2024 was a quarter of solid top-line performance undermined by a single
+operational event.
+
+Revenue came in at 22.4 million USD, up 31 percent year over year and modestly
+ahead of plan. Annual recurring revenue closed the quarter at 33.2 million USD.
+Gross margin was 51 percent, roughly flat sequentially and below where this
+business needs to operate. Net loss was 4.1 million USD. Cash and equivalents
+stood at 61.0 million USD at quarter end, giving approximately 14 quarters of
+runway at the current burn.
+
+The quarter's defining event was incident INC-2024-017, the charge dock
+reservation deadlock at Cardinal Foods' Memphis distribution center on
+September 14. The direct financial impact was 148,000 USD in service credits
+plus approximately 190,000 USD in unplanned engineering and field cost. The
+indirect impact — a roughly two-month delay to the Cardinal Foods Atlanta
+expansion decision — is larger than both, and is the reason this incident
+appears in a financial review rather than only in an engineering document.
+
+
+REVENUE
+
+  Hardware                                14.1 million USD      63 percent
+  Software licence (recurring)             6.2 million USD      28 percent
+  Support and services                     2.1 million USD       9 percent
+  Total revenue                           22.4 million USD
+
+  Year over year growth                   31 percent
+  Sequential growth (Q2 2024)              9 percent
+  Plan                                    21.8 million USD
+  Variance to plan                        +0.6 million USD (+2.8 percent)
+
+  Annual recurring revenue (exit)         33.2 million USD
+  ARR growth, year over year              44 percent
+  Net revenue retention                   118 percent
+
+Recurring revenue growing faster than total revenue is the trend we want. The
+long-term thesis of this business is high-margin recurring software attached to
+lower-margin hardware, and the mix is moving in the right direction, though
+slowly.
+
+Units shipped in the quarter: 214 (168 HX-200, 46 HX-450). Cumulative deployed
+fleet at quarter end: approximately 1,455 units across 36 sites, rising to 1,510
+across 38 sites by the December close.
+
+
+GROSS MARGIN
+
+  Hardware gross margin                   34 percent
+  Software gross margin                   88 percent
+  Services gross margin                   22 percent
+  Blended gross margin                    51 percent
+
+Blended gross margin of 51 percent is the central financial problem of this
+company and it is almost entirely a hardware bill-of-materials issue. At 34
+percent, hardware margin is thin enough that hardware discounting materially
+damages company economics, which is why the discount floor is set at 38 percent
+blended and why software licence discounting requires my approval and is
+essentially never granted.
+
+Two levers are in motion:
+
+  - HX-200 hardware revision D, targeting a 14 percent BOM reduction, scheduled
+    H2 2025. Principal savings are drive board integration, a single-vendor
+    LiDAR strategy replacing the current dual-source arrangement, and chassis
+    part-count reduction. The critical path risk is IEC 61508 SIL 2 re-assessment
+    on any change touching the safety scanner chain; engineering has engaged
+    Nikolai Petrov and the certification body from the start rather than at the
+    end, which is the right sequencing.
+
+  - Helix Vision attach rate, currently 31 percent. Vision is a high-margin
+    add-on at 8,900 USD per unit and every point of attach rate improvement flows
+    almost directly to gross margin.
+
+Services margin of 22 percent is low but not concerning; services are a
+deployment enabler, not a profit center, and site assessments in particular are
+credited against orders.
+
+
+OPERATING EXPENSES
+
+  Research and development                 9.8 million USD      44 percent
+  Sales and marketing                      6.4 million USD      29 percent
+  General and administrative               3.1 million USD      14 percent
+  Total operating expenses                19.3 million USD
+
+  Headcount at quarter end                 412
+    Engineering                            143
+    Field Operations and Support            97
+    Sales and Marketing                     78
+    Manufacturing and Supply Chain          61
+    General and Administrative              33
+
+R&D at 44 percent of revenue is high and deliberately so. It will decline as a
+percentage through 2025 as revenue grows rather than through absolute reduction.
+The 2025 plan assumes 34 net engineering additions.
+
+
+NET RESULT AND CASH
+
+  Operating loss                          (4.3) million USD
+  Interest income                           0.3 million USD
+  Other                                    (0.1) million USD
+  Net loss                                (4.1) million USD
+
+  Cash and equivalents, quarter end        61.0 million USD
+  Quarterly net burn                        3.8 million USD
+  Implied runway                          ~14 quarters
+
+Runway is comfortable. The board's expectation remains operating breakeven during
+2026, which requires gross margin improvement rather than expense reduction. This
+is why the 2025 roadmap allocates roughly 20 percent of engineering capacity
+directly to margin work.
+
+
+INCIDENT INC-2024-017 — FINANCIAL IMPACT
+
+Recorded here in full because the board asked for it explicitly at the October
+meeting.
+
+Direct costs recognized in Q3 2024
+
+  Service credit, Cardinal Foods Memphis            148,000 USD
+  Unplanned engineering cost (approx. 90 hours
+    remediation plus 8 weeks of partial capacity
+    across four teams on postmortem action items)   142,000 USD
+  Field operations and travel (on-site executive
+    review, emergency deployment support)            31,000 USD
+  Legal and account management time                  17,000 USD
+  Total direct                                      338,000 USD
+
+On the service credit specifically: the contractual formula figure was 31,800
+USD, calculated as 50 percent of the Memphis monthly licence fee of 63,600 USD
+(240 units at 265 USD Enterprise). The assessed and paid figure was 148,000 USD.
+
+The difference is a negotiated goodwill credit that Rowan Achebe and I approved
+jointly, covering the full quarter's Memphis licence fees plus a contribution
+toward Cardinal Foods' expedited freight on two missed outbound trailers. This
+was a commercial decision to protect a 4.42 million USD annual relationship and a
+2.8 million USD expansion pipeline. It was, in my assessment, correct and cheap.
+
+It is explicitly not precedent, it is documented as such in the revised SLA
+policy, and any future request to match it routes through me.
+
+Indirect cost
+
+  The Cardinal Foods Atlanta expansion decision, approximately 1.9 million USD,
+  was expected to close in Q4 2024. The conversation did not resume until
+  November and the decision is now expected in Q1 2025. That is roughly a
+  two-month revenue deferral on the largest single item in the pipeline.
+
+  I want to be precise about the causal claim: the customer did not pause the
+  expansion as a punishment. Their attention was consumed by remediation and
+  their internal confidence-rebuilding took time. But the delay is real, it is
+  attributable, and it is larger than every direct cost combined.
+
+Contract terms impact
+
+  The revised SLA policy effective 2024-10-01 changed availability measurement to
+  require dispatch eligibility rather than mere power, connection, and absence of
+  faults. Under the old definition, the worst outage in company history measured
+  as near-perfect availability, which was an untenable position with a customer
+  who could do the arithmetic.
+
+  The revision increases our credit exposure. I modelled it against the trailing
+  twelve months of incidents and estimate incremental annual credit exposure of
+  120,000 to 200,000 USD under the new definition. I recommended it anyway and
+  the board endorsed it. An availability commitment that a customer does not
+  believe is worth nothing commercially, and Sales now leads with the tightened
+  definition as a differentiator against competitors whose definitions remain
+  loose.
+
+
+CUSTOMER CONCENTRATION
+
+  Cardinal Foods                          4.42 million USD ARR    13.3 percent
+  Voss Pharma                             1.18 million USD ARR     3.6 percent
+  Trellis Home Goods                      1.04 million USD ARR     3.1 percent
+  Meridian Grocers                        0.91 million USD ARR     2.7 percent
+  Top 4 (all Enterprise tier)                                     22.7 percent
+  Top 10                                                          39.1 percent
+
+Cardinal Foods at 13.3 percent of ARR is our largest concentration risk, and
+September made that concrete rather than theoretical. The mitigation is not to
+reduce Cardinal Foods; it is to grow everything else, and specifically to unblock
+the regulated segment.
+
+Approximately 4.4 million USD of pipeline is currently gated on a single missing
+feature — Operator Console single sign-on — of which 2.6 million USD is Voss
+Pharma expansion into Frankfurt and Dublin. That is the highest-confidence
+revenue unlock available to this company and it is scheduled for H1 2025. I have
+asked that it be protected from reallocation, and the roadmap reflects that.
+
+
+Q4 2024 OUTLOOK
+
+  Revenue guidance                        23.5 to 25.0 million USD
+  ARR exit guidance                       35.5 to 36.5 million USD
+  Gross margin                            51 to 52 percent
+  Net loss                                (3.6) to (4.2) million USD
+
+Q4 excludes any Cardinal Foods Atlanta contribution, which is now modelled in
+Q1 2025.

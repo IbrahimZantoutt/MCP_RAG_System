@@ -1,0 +1,208 @@
+HELIX ROBOTICS — ENGINEERING HIRING AND LEVELING GUIDE
+Owner: Priya Raghunathan, VP People Ops
+Technical owner: Dana Whitfield, Chief Technology Officer
+Last revised: 2024-12-02
+Classification: Internal. Compensation bands in section 5 are internal only.
+
+
+1. PURPOSE
+
+This guide defines engineering levels, what is expected at each, how we
+interview, and how promotion works. It applies to the 143 people in engineering
+across Fleet Software, Firmware, Perception, Platform and SRE, and Quality.
+
+The 2025 plan assumes 34 net engineering additions.
+
+
+2. LEVELS
+
+E1 — ENGINEER I
+  Early career. Delivers well-defined tasks with support. Learning the domain.
+  Expected to ask questions constantly and to ship a real change in week one.
+  Typical tenure at level: 12 to 24 months.
+
+E2 — ENGINEER II
+  Delivers features independently within an established area. Writes tests
+  without being asked. Reviews peers' code substantively. Participates in
+  on-call after approximately three months in role.
+  Typical tenure: 18 to 36 months.
+
+E3 — SENIOR ENGINEER
+  Owns a component or subsystem. Designs solutions, not just implementations.
+  Makes tradeoffs visible rather than resolving them silently. Mentors E1 and
+  E2. Trusted as a designated owner for two-approver changes in their area.
+  This is a terminal level; many excellent engineers stay here indefinitely and
+  that is entirely fine.
+
+E4 — STAFF ENGINEER
+  Owns a problem area that spans components or teams. Identifies work nobody
+  asked for and that turns out to matter. Leads incident response and writes
+  postmortems that change how the company operates.
+
+  The reference example: Jae-won Park identified the root cause of INC-2024-017
+  by noticing that 61 robots all reported state of charge in a 0.5 percentage
+  point band, wrote the postmortem, owned four of its nine action items, and
+  then ran the audit of every remaining resource reservation in Fleet OS for
+  missing expiry semantics — which found two more defects nobody had asked about.
+  That last part is the difference between E3 and E4.
+
+E5 — PRINCIPAL ENGINEER
+  Sets technical direction for a discipline. Owns architectural decisions with
+  multi-year consequences. External credibility in the domain. Trusted to say no
+  to executives.
+
+  Tobias Lindqvist is the reference at this level. His post-incident note in the
+  firmware 3.8.1 release record — stating plainly that the change was locally
+  correct, that its consequences were outside the scope of what firmware testing
+  could have caught, and that the defect was process rather than individual — is
+  what E5 judgement looks like under pressure.
+
+E6 — DISTINGUISHED ENGINEER
+  Company-level technical authority. No current holders. The level exists so
+  that the ladder does not end at E5, and we would rather leave it empty than
+  award it loosely.
+
+Management track
+  M1 Engineering Manager, M2 Senior Manager, M3 Director, M4 VP. Management is a
+  different job, not a promotion from E3. Moving between tracks in either
+  direction is normal and carries no penalty.
+
+
+3. WHAT WE ASSESS
+
+Four dimensions, weighted differently by level.
+
+Technical depth
+  Does the candidate understand systems, not just APIs? For firmware and
+  perception roles, real-time and embedded experience matters. For Fleet Software,
+  distributed systems reasoning matters more than any particular language.
+
+Systems judgement
+  Weighted heavily from E3 upward. Can the candidate reason about failure modes,
+  about what happens when a component behaves unexpectedly, about the difference
+  between a system that fails safely and one that fails unpredictably?
+
+  Our standard probe: describe a resource that one actor holds and another needs.
+  Ask what happens if the holder never releases it. Candidates who immediately
+  reach for timeouts, leases, or expiry are demonstrating exactly the instinct
+  whose absence in the Charge Scheduler caused our worst outage.
+
+Collaboration
+  Code review norms here expect reviewers to state what they actually checked,
+  and expect change descriptions to flag assumptions other subsystems might
+  depend on. Candidates who describe review as approval-granting rather than
+  as shared understanding tend to struggle.
+
+Safety mindset
+  Assessed for every engineering role, including those that never touch firmware.
+  We build machines that move 200 to 450 kg through rooms containing people. A
+  candidate who treats safety as someone else's department is not a fit,
+  regardless of technical strength.
+
+
+4. INTERVIEW PROCESS
+
+  1. Recruiter screen                       30 minutes
+  2. Hiring manager conversation            45 minutes
+  3. Technical deep dive                    60 minutes — a real problem from
+                                            the candidate's own past, examined
+                                            in depth. No algorithm puzzles.
+  4. Systems design                         60 minutes — E2 and above
+  5. Practical exercise                     90 minutes — debugging a realistic
+                                            failure in a simplified version of
+                                            our stack. Candidates may use any
+                                            documentation or tooling they like.
+  6. Collaboration and values               45 minutes
+  7. Debrief and decision
+
+Target: 3 weeks from first screen to offer. 2024 actual median was 24 days.
+
+Principles
+  - No whiteboard algorithm puzzles. They do not predict performance in this
+    domain.
+  - The practical exercise mirrors real work: something is broken, the symptoms
+    are ambiguous, and the candidate has full access to tools. What we watch is
+    how they narrow the problem.
+  - Every panel includes someone outside the hiring team.
+  - Debriefs are written before they are discussed, so the first strong opinion
+    in the room does not anchor everyone else.
+  - Any interviewer may veto. Vetoes require a written reason.
+  - We give feedback to every candidate who reaches stage 3.
+
+
+5. COMPENSATION BANDS
+
+Base salary, Austin. Reno at 96 percent, Rotterdam per local benchmarking. Fully
+remote US employees are paid on the Austin band regardless of location.
+
+  E1     115,000 — 140,000 USD
+  E2     138,000 — 172,000 USD
+  E3     168,000 — 215,000 USD
+  E4     205,000 — 262,000 USD
+  E5     250,000 — 320,000 USD
+
+  M1     165,000 — 205,000 USD
+  M2     195,000 — 245,000 USD
+  M3     235,000 — 300,000 USD
+
+Equity at hire scales with level. Refresh grants at the annual review from year
+two. Bonus target is 8 percent for individual contributors and 12 to 20 percent
+for M3 and above.
+
+We benchmark annually against Austin market data and against comparable robotics
+and industrial automation companies rather than against consumer software
+compensation. We are candid with candidates that we do not match large tech
+company cash compensation at senior levels.
+
+Band placement is not negotiated separately from level. If a candidate belongs at
+E4, they are placed on the E4 band; we do not resolve a leveling disagreement by
+paying an E3 at the top of the band.
+
+
+6. PROMOTION
+
+Promotion recognizes that someone is already operating at the next level
+consistently. It is not a bet on future growth and it is not a retention tool.
+
+Process
+  - Nominations at the March review cycle, with an off-cycle window in September
+    for clear cases.
+  - The manager writes a case with concrete evidence: specific work, specific
+    scope, specific impact.
+  - Reviewed by a committee of the group lead, one peer-level engineer from
+    another group, and People Ops.
+  - E4 and above additionally require CTO approval.
+
+What does not constitute a promotion case
+  - Time served
+  - A competing offer
+  - Volume of work completed at the current level
+  - Being the only person who understands a component, which is a problem to fix
+    rather than a level to reward
+
+What does
+  - Scope that has genuinely expanded, sustained over at least two quarters
+  - Work that changed how others operate. The cross-version CI matrix that Deepa
+    Nair's team built after INC-2024-017 is the clearest 2024 example: it did not
+    ship a feature, it changed the failure surface of the entire product.
+  - Judgement demonstrated under pressure, particularly during incidents
+  - Mentorship that measurably improved others
+
+
+7. WHAT WE LOOK FOR, STATED PLAINLY
+
+Engineers who ask what happens when this fails. Our architecture is built around
+failing static — when the system does not know what is safe, it stops. That
+instinct has to be native.
+
+Engineers who notice when two parts of a system solve the same problem
+differently. The Traffic Manager had leases; the Charge Scheduler did not; that
+gap deadlocked 61 robots for most of a Saturday at our largest customer. We hire
+for the disposition that notices such things before an incident rather than
+during one.
+
+Engineers who write things down. Postmortems, design documents, and honest
+release notes are how a 143-person organization stays coherent.
+
+Engineers who are comfortable saying they do not know. In a domain where being
+confidently wrong can hurt someone, calibrated uncertainty is a technical skill.

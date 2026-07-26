@@ -1,0 +1,213 @@
+HELIX ROBOTICS — CUSTOMER FREQUENTLY ASKED QUESTIONS
+Owner: Aisha Bello, Director of Customer Support
+Last revised: 2024-12-08
+Classification: Customer-facing. This document may be shared freely with
+                customers and prospects.
+
+
+GENERAL
+
+What does Helix Fleet OS actually do?
+  Fleet OS is the software that coordinates your robots. It decides which robot
+  does which task, routes them through shared floor space without collisions or
+  deadlocks, schedules charging, and connects to your warehouse management
+  system. One Fleet OS instance manages one facility.
+
+Does Fleet OS run in the cloud?
+  No. Fleet OS runs on an appliance in your facility. This is deliberate. A
+  network partition between your site and the internet must never be able to
+  stop your robots from working. We export telemetry to Helix Cloud for support
+  and analytics, but that path is one-way and non-critical; if it fails, your
+  fleet keeps running normally.
+
+What happens if the Fleet OS server fails?
+  Robots complete their current task and hold position. Nothing moves unsafely.
+  The system fails static by design. Restarting the service takes under a minute,
+  with a planning pause of 20 to 40 seconds. No durable data is lost and robots
+  do not need to be re-homed.
+
+Can one Fleet OS instance manage multiple buildings?
+  No. Each facility runs its own isolated instance. Instances do not share floor
+  space or communicate with each other.
+
+How many robots can one instance handle?
+  Up to 400. Our largest production deployment is 240 HX-200 units at a single
+  customer site.
+
+
+SAFETY
+
+Are the robots safe to operate around people?
+  Yes. Both the HX-200 Courier and HX-450 Stacker are certified for continuous
+  mixed-traffic operation — robots and people sharing the same floor — under
+  ISO 3691-4 and ANSI/RIA R15.08, with the safety scanner chain certified to
+  IEC 61508 SIL 2.
+
+Can the fleet software override a safety function?
+  No, and this is architectural rather than a policy choice. All safety functions
+  live in robot firmware and in safety-rated hardware. Fleet OS tells a robot
+  where to go; firmware decides how to get there and retains absolute authority
+  to refuse or abort any command that would violate a safety constraint. Fleet OS
+  cannot override an emergency stop, disable obstacle detection, or command
+  motion outside the certified speed envelope. This is a certification
+  requirement and is not configurable, including for testing.
+
+What happens if a robot loses connectivity or gets confused about its position?
+  It performs a controlled stop and holds position. Robots never continue under
+  uncertainty.
+
+How do we stop the whole fleet in an emergency?
+  Every robot has physical emergency stop buttons on all four chassis faces (the
+  HX-450 adds one at mast height), and a wireless operator pendant triggers a
+  facility-wide stop. You can also pause the fleet from the Operator Console,
+  though for genuine emergencies use the physical or pendant e-stop.
+
+
+OPERATIONS
+
+How long do the robots run on a charge?
+  The HX-200 Courier runs about 8.5 hours on a typical duty cycle, or about 6
+  hours under continuous heavy duty. Charging from 20 to 90 percent takes about
+  75 minutes. The HX-450 Stacker runs about 7 hours typical and takes about 110
+  minutes to charge from 20 to 90 percent.
+
+How many charging docks do we need?
+  One dock per four HX-200 units, and one dock per three HX-450 units. The
+  Stacker ratio is higher because it charges more slowly and runs for less time.
+  Under-provisioning docks is the most common site design error we see, and it
+  produces a chronic throughput shortfall that is easy to mistake for a robot
+  performance problem.
+
+Do robots decide when to charge, or does the software?
+  Fleet OS decides. Robots report their state of charge; the Charge Scheduler
+  decides when each robot stops working, which dock it uses, and when it returns
+  to the floor. The scheduler balances keeping enough robots on the floor to meet
+  your throughput against never letting a robot run too low to reach a dock.
+
+What happens during a Fleet OS upgrade?
+  A planning pause of 20 to 40 seconds. Robots hold position and resume
+  automatically. We recommend scheduling upgrades at a shift boundary.
+
+Do we have to take every software update?
+  No. We maintain a long-term-support firmware line for customers with formal
+  change control requirements, receiving security and critical fixes only.
+  Several regulated customers run on LTS deliberately. Your TAM can advise on
+  which line suits your change management process.
+
+Why do Fleet OS and firmware have different version numbers?
+  They are released independently, because robot firmware and fleet software
+  change at genuinely different rates. We support any Fleet OS release against
+  firmware from the preceding twelve months, and since November 2024 every
+  supported combination is verified nightly by an automated cross-version test
+  matrix rather than by documentation alone.
+
+
+TROUBLESHOOTING
+
+Our robots are queuing at the chargers and not doing work. What is happening?
+  Contact support. This can indicate a charge dock scheduling problem, and it is
+  worth telling you plainly that we had a serious defect of exactly this shape in
+  September 2024: on Fleet OS 4.2.0 and 4.2.1 combined with HX-200 firmware
+  3.8.1, robots could hold a charging dock reservation that was never released,
+  while reporting themselves perfectly healthy. It is fixed in Fleet OS 4.2.2 and
+  firmware 3.8.2, both of which are required. If you are on any earlier
+  combination, contact your TAM about upgrading. Fleet OS 4.2.3 also adds a
+  one-click action to clear stale dock reservations.
+
+A robot has stopped and shows an error code. What do I do?
+  Your facility operators have the Troubleshooting Guide, which covers each code
+  with diagnostic steps. The most common codes are E-207 (LiDAR occlusion,
+  usually resolved by cleaning the sensor window), E-330 (WMS sync failure,
+  usually a credential or certificate expiry on your side), and E-115 (emergency
+  stop engaged).
+
+We keep getting E-207 on multiple robots.
+  Usually airborne dust. Cleaning sensor windows resolves most cases. If the rate
+  is rising across many robots, it generally reflects facility air quality rather
+  than robot failures. Firmware 3.9.0 lets E-207 clear automatically once the
+  obstruction is gone, which substantially reduces the operational nuisance;
+  earlier firmware requires manual acknowledgement.
+
+Tasks have stopped arriving from our WMS.
+  That is E-330. The most common causes are expired credentials, expired TLS
+  certificates, or a change to your WMS. We cannot rotate your credentials, so
+  these usually need your IT team. Open a ticket and we will work it jointly.
+
+A robot stopped and says it does not know where it is.
+  That is E-611. The usual cause is that something in the facility moved without
+  the map being updated — racking changes, seasonal displays, temporary staging.
+  Tell us what changed and we will update the map. If several robots report it in
+  the same area, it is almost certainly a map issue rather than a robot issue.
+
+
+SUPPORT AND SERVICE LEVELS
+
+What are the support tiers?
+  Standard (99.0 percent availability, next-business-day critical response),
+  Professional (99.5 percent, 4-hour critical response 24x7, named support
+  engineer), and Enterprise (99.9 percent, 1-hour critical response 24x7, named
+  Technical Account Manager, quarterly business review, 24-hour on-site response
+  for critical issues where remote resolution has failed).
+
+How exactly do you measure availability?
+  A robot counts as available if it is powered, connected, not faulted, and
+  eligible to be assigned work. That last condition matters: a robot that is
+  online and unfaulted but unable to do any work is not available.
+
+  We tightened this definition in October 2024. Under our previous definition, a
+  robot sitting idle at a charging dock while unable to accept tasks would still
+  have counted as available. An incident in September 2024 showed us that this
+  allowed a serious operational failure to measure as near-perfect availability,
+  which was not a defensible position. We changed the definition against our own
+  commercial interest because the old one was wrong.
+
+  Normal charging cycles within your provisioned dock capacity are excluded from
+  the calculation entirely, since charging is expected. Scheduled maintenance
+  agreed at least five business days in advance is also excluded, as are outages
+  caused by facility power loss, your network, your WMS, or facility Wi-Fi below
+  the contracted coverage requirement.
+
+What if you miss the availability commitment?
+  Service credits apply against the monthly software licence fee for the affected
+  site, on a banded scale, with an additional band for any single critical
+  incident exceeding six hours. Your account team will walk you through the
+  specifics in your agreement.
+
+Will you tell us what went wrong when something breaks?
+  Yes. Every critical incident gets a written postmortem within five business
+  days, and for Enterprise customers that is a contractual commitment. Our
+  postmortems name the actual mechanism — the specific code, the specific
+  interaction, the specific process gap. We would rather tell you exactly what
+  happened than give you a summary that protects us.
+
+Do you notify us, or do we notify you?
+  We should notify you. We record the detection method for every incident, and
+  any significant incident that a customer reported before our monitoring caught
+  it is automatically treated internally as a monitoring defect, regardless of
+  how well we handled the response afterward. The standard we hold ourselves to
+  is that the customer is not our monitoring.
+
+
+CAPABILITIES WE DO NOT HAVE
+
+Asked often enough to be worth stating plainly.
+
+  Outdoor or yard operation. Our robots are IP54 and certified for indoor use
+  only. This is not a configuration option.
+
+  High-bay racking. The HX-450 reaches 1,800 mm on the base mast and 2,400 mm
+  with the extended mast. We do not serve high-bay today.
+
+  Single sign-on for the Operator Console. Authentication is currently local to
+  Fleet OS. SAML and OIDC SSO with role-based access control and a tamper-evident
+  audit log is scheduled for the first half of 2025.
+
+  EU data residency for telemetry. Telemetry currently exports to US regions.
+  EU residency is scheduled for the second half of 2025.
+
+  Automatic failover between redundant Fleet OS servers. Failover is manual by
+  design. Two controllers that both believe they own the floor is a considerably
+  worse outcome than a brief cutover performed by a person who has confirmed the
+  primary is genuinely down.
+
+  Third-party robot support. Fleet OS manages Helix robots only.

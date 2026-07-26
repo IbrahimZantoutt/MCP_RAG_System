@@ -1,0 +1,221 @@
+HELIX ROBOTICS — FIRMWARE RELEASE NOTES
+Product line: HX-200 Courier — firmware 3.x
+Maintainer: Tobias Lindqvist, Principal Engineer, Firmware
+Last revised: 2024-12-05
+Classification: Internal — Engineering. Customer-facing release notes are
+                published separately and omit internal defect references.
+
+
+VERSIONING AND SUPPORT POLICY
+
+HX-200 firmware is versioned independently of Helix Fleet OS. Fleet OS release N
+is supported against any firmware release from the preceding twelve months.
+Since Q4 2024 that compatibility window is enforced by an automated cross-version
+CI matrix rather than by a maintained document. Prior to November 2024 it was
+documentation only, which is a contributing cause of INC-2024-017.
+
+Firmware owns everything safety-critical and everything real-time: motor
+control, emergency stop handling, obstacle detection, localization, and battery
+management. Fleet OS cannot override these. Any firmware change touching motion
+safety requires sign-off from Nikolai Petrov (Safety and Compliance) and may
+require re-certification against ISO 3691-4.
+
+Update channels:
+  STABLE   — general availability. Default for all production sites.
+  STAGED   — released to opt-in sites 14 days before STABLE promotion.
+  LTS      — 3.6.x line, security and critical fixes only, supported until
+             2026-06-30. Used by Voss Pharma Basel under their change-control
+             requirements.
+
+
+=============================================================================
+3.9.0  —  released 2024-12-02  (STABLE)
+=============================================================================
+
+Features
+  - Adaptive obstacle clearance. Robots now modulate passing distance based on
+    obstacle classification from Helix Vision rather than applying a fixed
+    400 mm envelope. Reduces unnecessary stops in congested aisles by roughly
+    30 percent in field trials at Trellis Home Goods.
+  - Battery health telemetry expanded: per-cell voltage deviation and cumulative
+    charge-cycle count now reported on the standard telemetry frame. Feeds the
+    predictive battery replacement model requested by Field Operations.
+  - Reduced cold-start localization time from 22 s to 9 s typical.
+
+Fixes
+  - Fixed rare localization drift in aisles with highly repetitive rack geometry.
+    Affected Brightline Apparel Reno specifically; their rack layout is unusually
+    uniform and defeated the previous scan-matching heuristic.
+  - E-207 (LiDAR occlusion) no longer latches after the occlusion clears. Robots
+    previously required a manual fault acknowledgement; they now self-clear after
+    3 consecutive clean scans.
+  - Corrected motor current reporting scale factor on units manufactured after
+    2024-06 with the revised drive board.
+
+Compatibility
+  - Requires Fleet OS 4.2.0 or later. Verified against 4.2.0 through 4.2.3 in the
+    cross-version CI matrix.
+
+
+=============================================================================
+3.8.2  —  released 2024-09-17  (STABLE)  —  CRITICAL
+=============================================================================
+
+This release is one half of the fix for INC-2024-017. It MUST be deployed
+together with Fleet OS 4.2.2 or later. Neither patch alone is sufficient — they
+address different halves of the interaction.
+
+Fixes
+  - State-of-charge reporting now crosses configured threshold boundaries
+    cleanly rather than latching inside the 0.5 percent hysteresis band
+    introduced in 3.8.1. The hysteresis band is retained for display smoothing
+    but is now bypassed when the underlying value crosses a threshold registered
+    by Fleet OS.
+
+    Background: in 3.8.1, a robot arriving at a dock near the 20 percent charge
+    threshold could latch a reported SoC in the 20.0 to 20.5 percent range and
+    hold it while physically charging to full. Fleet OS 4.2.1 compared reported
+    SoC against the release target using a strict inequality and therefore never
+    released the dock reservation. Because dock reservations had no expiry lease,
+    the robot held the dock indefinitely. At Cardinal Foods Memphis this affected
+    61 of 240 units and cost 6 hours 47 minutes of degraded throughput.
+
+  - Added a diagnostic counter, soc_report_latch_events, exposed on telemetry.
+    Any non-zero value on 3.8.2 or later indicates the latch condition was
+    detected and bypassed, and should be reported to firmware engineering.
+
+Upgrade urgency
+  CRITICAL for any site running 3.8.0 or 3.8.1. All affected production sites
+  were upgraded by 2024-09-30.
+
+
+=============================================================================
+3.8.1  —  released 2024-08-19  (STABLE)  —  SUPERSEDED, DO NOT DEPLOY
+=============================================================================
+
+WITHDRAWN. This release, in combination with Fleet OS 4.2.0 or 4.2.1, causes the
+charge dock reservation deadlock documented in INC-2024-017. Any site still
+running 3.8.1 must upgrade to 3.8.2 or later immediately.
+
+Changes as originally released
+  - Battery state-of-charge reporting changed from integer percentage to float,
+    with a 0.5 percent hysteresis band applied to suppress display oscillation.
+    The motivation was cosmetic: SoC readings visibly flickered between adjacent
+    integer values on the Operator Console, and several customers had reported it
+    as a defect.
+  - Improved charge current regulation in the 80 to 100 percent region, reducing
+    time to full charge by approximately 6 minutes.
+  - Fixed spurious E-502 (battery thermal cutoff) reports on units operating in
+    ambient temperatures above 32 C.
+
+Post-incident note from Tobias Lindqvist
+  The hysteresis change was reviewed, tested, and shipped correctly against
+  Fleet OS 4.1.x, which was current at the time. It was never tested against
+  4.2.x. The change was locally sound and its consequences were entirely outside
+  the scope of what firmware testing could have been expected to catch in
+  isolation. That is precisely the argument for the cross-version CI matrix,
+  which is now in place. I want it on record that the defect here is process,
+  not the individual change.
+
+
+=============================================================================
+3.8.0  —  released 2024-07-29  (STABLE)
+=============================================================================
+
+Features
+  - Support for the revised drive board (hardware revision C), shipping on units
+    manufactured from 2024-06 onward.
+  - Payload shift detection (E-118) added. Uses IMU signature analysis to detect
+    load movement during transit and halt before the load is lost. Requested by
+    Cardinal Foods after three tote spills in Q2 2024.
+  - Charging dock handshake protocol v2, reducing failed dock attempts from
+    approximately 2 percent to under 0.2 percent.
+
+Fixes
+  - Fixed a race in the e-stop reset path that could require two physical reset
+    presses. Safety-reviewed by Nikolai Petrov; no certification impact, as the
+    failure mode was fail-safe (robot remained stopped).
+  - Corrected wheel odometry calibration drift on units with more than 4,000
+    operating hours.
+
+
+=============================================================================
+3.7.2  —  released 2024-06-11  (STABLE)
+=============================================================================
+
+Fixes
+  - Fixed Wi-Fi roaming handoff failure that could cause a robot to lose Fleet OS
+    connectivity for 8 to 15 seconds when crossing between access points. Robots
+    correctly held position during the outage, but the resulting task
+    reassignment churn was disruptive at high fleet density. Reported by Cardinal
+    Foods Memphis.
+  - Reduced idle power draw by 11 percent, extending standby endurance.
+
+
+=============================================================================
+3.7.1  —  released 2024-05-20  (STABLE)
+=============================================================================
+
+Fixes
+  - Fixed E-115 (e-stop engaged) failing to clear on the Operator Console after
+    physical reset, on units with hardware revision A only.
+  - Improved recovery from transient LiDAR occlusion caused by airborne dust,
+    which had been generating nuisance E-207 faults at Cardinal Foods.
+
+
+=============================================================================
+3.7.0  —  released 2024-04-15  (STABLE)
+=============================================================================
+
+Features
+  - Helix Vision integration. Stereo perception module support, enabling
+    obstacle classification (person, pallet, debris, forklift) rather than
+    undifferentiated occupancy. Requires the Helix Vision hardware add-on.
+  - Dynamic speed envelope: robots reduce maximum speed automatically in zones
+    flagged as mixed-traffic in the facility map. Certification-relevant; signed
+    off by Nikolai Petrov and included in the ISO 3691-4 re-assessment.
+
+Fixes
+  - Fixed a localization failure when starting from a fully powered-off state in
+    a location not matching the last known pose.
+
+
+=============================================================================
+3.6.4  —  released 2024-11-19  (LTS)
+=============================================================================
+
+LTS backport release. Security and critical fixes only.
+
+Fixes
+  - Backported the 3.8.2 state-of-charge threshold crossing fix. Although the
+    3.6.x line predates the hysteresis band and is not vulnerable to
+    INC-2024-017, the threshold-crossing logic was aligned for consistency at
+    the request of Voss Pharma, whose change control process requires that all
+    known-relevant fixes be applied or formally waived.
+  - Patched a TLS certificate validation weakness in the telemetry upload path.
+    No evidence of exploitation. Reported through the Helix responsible
+    disclosure process.
+
+Support
+  3.6.x LTS is supported until 2026-06-30. Voss Pharma Basel is the only
+  production site on this line.
+
+
+=============================================================================
+KNOWN ISSUES — CURRENT ACROSS 3.9.0
+=============================================================================
+
+  - FW-1142: Charging dock handshake occasionally fails on docks with firmware
+    older than dock-fw 1.4. Workaround is to update dock firmware. Affects two
+    docks at Brightline Apparel Reno.
+  - FW-1156: Helix Vision obstacle classification degrades below 200 lux.
+    Facilities with dim aisle lighting see increased conservative stops. Trellis
+    Home Goods Columbus is affected in two aisles. Lighting remediation is a
+    facility-side change; documented in the site requirements.
+  - FW-1163: Cumulative charge-cycle count resets if the battery management
+    board is replaced without running the cycle-count transfer utility. Field
+    technicians must follow the battery replacement procedure exactly.
+  - FW-1171: On hardware revision A units only, cold-start localization can
+    exceed 30 s in facilities with more than 60 percent rack occupancy. Revision
+    A units represent under 8 percent of the deployed fleet and are being
+    retired through normal replacement.

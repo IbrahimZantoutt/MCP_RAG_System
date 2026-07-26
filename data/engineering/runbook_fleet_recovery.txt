@@ -1,0 +1,286 @@
+HELIX ROBOTICS — OPERATIONS RUNBOOK
+Document: Fleet Recovery Runbook
+Applies to: Helix Fleet OS 4.2.x
+Owner: Marcus Ozturk, Director of Field Operations
+Contributors: Rosa Iglesias (SRE Lead), Aisha Bello (Director of Customer Support)
+Last revised: 2024-10-30
+Audience: Helix field technicians, Helix on-call engineers, customer facility
+          operators with Operator role or above
+Classification: Internal — may be shared with Enterprise-tier customer staff
+
+
+HOW TO USE THIS RUNBOOK
+
+Each section is a self-contained procedure. Find the symptom, follow the steps
+in order, and do not skip verification steps. If a procedure does not resolve
+the issue within its stated time budget, escalate rather than improvising.
+
+Escalation path and response commitments are defined in the Support SLA and
+Escalation Policy. This runbook covers what to do; that document covers who to
+call and how fast they must answer.
+
+SAFETY NOTICE. Every procedure in this runbook is performed from the Operator
+Console or from a Helix appliance. Nothing here requires entering the robot
+operating area while robots are live. If a procedure appears to require floor
+access, stop and follow the floor entry protocol in the Field Technician
+Training Manual: the fleet must be paused and the zone locked out before entry.
+Emergency stop authority always rests with firmware and with the physical e-stop
+hardware, never with Fleet OS.
+
+
+SECTION 1 — TRIAGE: WHICH PROCEDURE DO I NEED
+
+Start here. Open the Operator Console dashboard and answer in order:
+
+  Q1. Is the Fleet OS service reachable? If the console will not load, go to
+      SECTION 2 (Fleet OS service recovery).
+
+  Q2. Are robots faulted with a specific error code? If yes, look up the code in
+      the Troubleshooting Guide first. Most coded faults have a specific remedy
+      and do not need a fleet-level procedure.
+
+  Q3. Are robots reporting healthy but not being assigned work? Go to SECTION 3
+      (Dispatch stall).
+
+  Q4. Are robots queuing at chargers, or is the number of robots available for
+      dispatch declining while individual robots all report healthy? Go to
+      SECTION 4 (Charge dock reservation deadlock). This is the signature of
+      INC-2024-017.
+
+  Q5. Is the customer WMS reporting sync errors, or are tasks not arriving at
+      all? Go to SECTION 6 (Site Adapter recovery). Check for E-330.
+
+  Q6. Is the primary Fleet OS appliance confirmed hardware-dead? Go to
+      SECTION 5 (Warm standby failover). Enterprise tier only.
+
+
+SECTION 2 — FLEET OS SERVICE RECOVERY
+
+Symptom: Operator Console unreachable, or Fleet OS service unresponsive. Robots
+will have completed their current task and be holding position. Nothing is
+moving. The system has failed static — this is the designed behavior and is
+safe.
+
+Time budget: 10 minutes to restored service.
+
+  2.1  SSH to the Fleet OS appliance. Credentials are in the site handover
+       document; Helix staff use the field engineering jump host.
+
+  2.2  Check service status:
+           systemctl status helix-fleet-os
+
+  2.3  If the service is running but unresponsive, capture diagnostics BEFORE
+       restarting. This is not optional — a restart destroys the in-memory
+       floor state that will be needed to explain what happened:
+           helixctl diag capture --full --out /var/helix/diag/
+       This takes 30 to 60 seconds.
+
+  2.4  Restart the service:
+           systemctl restart helix-fleet-os
+
+  2.5  Wait for planning to resume. Expect 20 to 40 seconds. Durable state
+       (facility map, robot registry, task history) is in PostgreSQL and is not
+       lost. Live floor state is rebuilt from robot reports. Robots do NOT need
+       to be re-homed.
+
+  2.6  Verify:
+           helixctl fleet status
+       Confirm robot count matches expected fleet size and that task assignment
+       has resumed.
+
+  2.7  If the service fails to start, check disk space first — a full telemetry
+       volume is the most common cause:
+           df -h /var/helix
+       Telemetry retention is 90 days. If the volume is full, do not delete
+       files by hand. Run:
+           helixctl telemetry prune --older-than 60d
+
+  2.8  If still down after 10 minutes, escalate to Helix on-call.
+
+
+SECTION 3 — DISPATCH STALL
+
+Symptom: Robots are online, healthy, idle, and not receiving tasks. Work exists
+in the customer WMS.
+
+Time budget: 15 minutes.
+
+  3.1  Confirm work is actually arriving. Check Site Adapter inbound task count:
+           helixctl adapter stats
+       If inbound count is zero or static, this is not a dispatch problem. Go to
+       SECTION 6.
+
+  3.2  Check the dispatch queue:
+           helixctl dispatch queue --depth
+       A deep queue with idle robots means assignment is failing, not that work
+       is missing.
+
+  3.3  Check for a fleet-wide pause. An operator may have paused the fleet from
+       the console and not resumed it. This is more common than it sounds,
+       particularly after a shift change:
+           helixctl fleet state
+       If paused, confirm with facility staff that the floor is clear, then
+       resume from the Operator Console.
+
+  3.4  Check whether robots are eligible for dispatch. A robot can be online and
+       healthy but ineligible — below charge threshold, outside its assigned
+       zone, or lacking the capability class the queued tasks require:
+           helixctl fleet status --show-eligibility
+       Pay attention to the ineligibility reason column. If a large number of
+       robots are ineligible for charge reasons, go to SECTION 4.
+
+  3.5  If eligibility looks correct and the queue is still not draining, restart
+       the Dispatcher alone rather than the whole service:
+           helixctl service restart dispatcher
+       This is less disruptive than a full restart; the Traffic Manager keeps
+       its floor state and in-flight tasks continue.
+
+  3.6  Escalate if unresolved after 15 minutes.
+
+
+SECTION 4 — CHARGE DOCK RESERVATION DEADLOCK
+
+Symptom: Robots accumulating at or near charging docks. Dock queue depth
+climbing. Robots available for dispatch declining. Critically: every individual
+robot reports HEALTHY and no fault codes are present. Throughput degrades
+progressively rather than dropping suddenly.
+
+This procedure was added following INC-2024-017 (Cardinal Foods Memphis,
+2024-09-14), in which 61 robots held dock reservations that were never released
+and the fleet lost 71 percent of throughput over 6 hours 47 minutes. Read the
+postmortem for that incident if you want the full root cause; the short version
+is that a firmware SoC hysteresis change combined with a strict threshold
+comparison in the Charge Scheduler, and dock reservations had no expiry lease to
+recover from it.
+
+Time budget: 20 minutes.
+
+  4.1  FIRST: confirm version compatibility. This defect is fixed in Fleet OS
+       4.2.2 and firmware 3.8.2. If the site is running Fleet OS 4.2.0 or 4.2.1
+       together with firmware 3.8.1, you are almost certainly looking at
+       INC-2024-017 recurrence.
+           helixctl version
+           helixctl fleet firmware --summary
+       If this combination is present, plan the upgrade in step 4.7. Clearing
+       reservations without upgrading only buys time — the units will re-enter
+       the deadlock.
+
+  4.2  Identify stuck reservations:
+           helixctl dock reservations --stale
+       On 4.2.2 and later, stale reservations are flagged automatically once
+       their lease expires. On 4.2.0 and 4.2.1 there is no lease, so use:
+           helixctl dock reservations --held-longer-than 2h
+
+  4.3  Inspect the reported state of charge on the flagged units. The
+       INC-2024-017 signature is a cluster of robots all reporting SoC pinned in
+       a narrow band just above a configured threshold — typically 20.0 to 20.5
+       percent — while physically fully charged:
+           helixctl fleet status --show-soc --filter docked
+
+  4.4  Clear the stale reservations. On 4.2.3 and later use the bulk action,
+       which was added specifically because clearing 61 of these by hand during
+       INC-2024-017 took 2 hours 20 minutes:
+           helixctl dock reservations clear --stale --confirm
+       From the Operator Console: Fleet > Charging > Clear Stale Reservations.
+
+  4.5  On 4.2.0 through 4.2.2 there is no bulk action. Clear individually:
+           helixctl dock reservations clear --robot <ROBOT_ID>
+       Or per robot from the console: select robot > Charging > Cancel
+       Reservation. Budget roughly two minutes per robot.
+
+  4.6  Verify the dock queue drains and robots return to dispatch:
+           helixctl dock queue --watch
+       Recovery to baseline throughput typically takes 30 to 60 minutes after
+       the queue clears, as the backlog of robots needing charge works through.
+
+  4.7  Schedule the upgrade. Fleet OS 4.2.2 or later AND firmware 3.8.2 or
+       later. Both are required — the Fleet OS fix (tolerance-band comparison
+       plus dock reservation leases) and the firmware fix (clean threshold
+       crossing) address different halves of the interaction. Coordinate with
+       the customer through their TAM.
+
+  4.8  Escalate to Helix on-call regardless of outcome. Any occurrence of this
+       signature is reportable so we can confirm whether it is a recurrence or a
+       new variant.
+
+
+SECTION 5 — WARM STANDBY FAILOVER
+
+Enterprise tier only. Failover is deliberately manual; do not automate it.
+Two controllers that both believe they own the floor is a far worse outcome than
+a two-minute cutover performed by a human.
+
+Time budget: 5 minutes once the decision is made.
+
+  5.1  CONFIRM THE PRIMARY IS GENUINELY DOWN. Not slow, not unreachable from
+       your location — down. Verify from the appliance console or via out-of-band
+       management. A split-brain failover is the worst outcome available here.
+
+  5.2  Fence the primary. Power it off via the management interface. Do not skip
+       this even if the primary appears already dead.
+
+  5.3  On the standby:
+           helixctl standby promote --confirm
+
+  5.4  Wait for robot re-registration. Expect 60 to 90 seconds for the full
+       fleet. Robots hold position during this window.
+
+  5.5  Verify fleet size matches expected count:
+           helixctl fleet status
+
+  5.6  Notify the customer TAM and open an incident record. A failover is always
+       incident-worthy even when it goes perfectly.
+
+
+SECTION 6 — SITE ADAPTER RECOVERY
+
+Symptom: E-330 WMS sync failure. Tasks not arriving, or task state diverging
+between Fleet OS and the customer WMS. This is the highest-volume support
+category by ticket count, and the cause is usually a change on the customer side.
+
+Time budget: 30 minutes before escalation, longer if customer IT engagement is
+needed.
+
+  6.1  Check adapter health and last successful sync:
+           helixctl adapter status
+
+  6.2  Check connectivity to the WMS endpoint. Credential expiry and certificate
+       expiry are the two most common causes, in that order:
+           helixctl adapter test-connection
+
+  6.3  Review adapter logs for the specific failure:
+           journalctl -u helix-site-adapter --since "1 hour ago"
+
+  6.4  If credentials or certificates have expired, this requires customer IT.
+       Helix cannot rotate customer WMS credentials. Engage the TAM and the
+       customer's integration contact.
+
+  6.5  If the WMS is reachable and credentials are valid but message parsing is
+       failing, the customer has likely changed their WMS schema or upgraded
+       their WMS version. Capture a sample failing message and escalate to
+       engineering with it attached. Do not attempt to hand-edit adapter
+       mappings in production.
+
+  6.6  Restart the adapter only after capturing logs:
+           helixctl service restart site-adapter
+
+
+SECTION 7 — POST-RECOVERY OBLIGATIONS
+
+After any procedure in this runbook:
+
+  7.1  Capture diagnostics if you have not already:
+           helixctl diag capture --full
+
+  7.2  Record the incident, including start time, detection method, procedure
+       followed, and resolution time. Detection method matters — if the customer
+       told us before our monitoring did, that is a monitoring gap and must be
+       recorded as one. This was the single worst aspect of INC-2024-017.
+
+  7.3  For any SEV-1, or any event with customer-visible throughput impact
+       exceeding 30 minutes, a written postmortem is required within five
+       business days. Use the postmortem for INC-2024-017 as the template.
+
+  7.4  Check whether the event triggers an SLA credit. Assessment criteria are in
+       the Support SLA and Escalation Policy. Do not discuss credit eligibility
+       with the customer directly; that conversation belongs to the account team.

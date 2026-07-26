@@ -1,0 +1,3244 @@
+HELIX ROBOTICS — SUPPORT TICKET LOG
+Period: Q3 2024 (July 1 — September 30)
+Owner: Aisha Bello, Director of Customer Support
+Classification: Internal — Support and Field Operations
+
+NOTE: This quarter contains incident INC-2024-017 (2024-09-14, Cardinal Foods
+Memphis charge dock reservation deadlock). The ticket cluster for that
+incident is appended at the end of this log under INCIDENT CLUSTER.
+
+Severity definitions and response commitments are in the Support SLA and
+Escalation Policy. Fault code diagnostics are in the Troubleshooting Guide.
+Detection method is recorded on every ticket; any SEV-1 or SEV-2 detected
+by customer report is automatically raised with SRE as a monitoring defect.
+
+===========================================================================
+
+TKT-8100  |  2024-07-01  |  SEV-3  |  E-820
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : HX-450 pallet pocket detection failures on inbound pool
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Low contrast in staging lane. Fork camera upgrade quoted to customer.
+
+TKT-8101  |  2024-07-01  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 29 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8102  |  2024-07-01  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0090 persistent E-207 on forward safety scanner
+  Agent       : T. Osei
+  Detection   : Helix staff observation
+  Time to res.: 7 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8103  |  2024-07-01  |  SEV-2  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 13 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8104  |  2024-07-01  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : D. Achterberg
+  Detection   : Helix staff observation
+  Time to res.: 2 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8105  |  2024-07-01  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8106  |  2024-07-01  |  SEV-2  |  E-502
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Unit HX2-0134 E-502 recurring during afternoon shift
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8107  |  2024-07-01  |  SEV-3  |  E-704
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0127
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 21 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8108  |  2024-07-02  |  SEV-2  |  E-611
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0019 cannot localize after cold start
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 1 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8109  |  2024-07-02  |  SEV-3  |  E-115
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : E-115 on unit HX2-0219 after contact with pallet jack
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8110  |  2024-07-02  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 16 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8111  |  2024-07-02  |  SEV-2  |  E-611
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-611 cluster in aisle 4 after racking change
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 9 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8112  |  2024-07-02  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-06-29
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8113  |  2024-07-02  |  SEV-3  |  E-502
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0132 E-502 recurring during afternoon shift
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 25 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8114  |  2024-07-02  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : Expected post-upgrade spike after enabling E-118 on 3.8.0. Reflects pre-existing loading practice.
+
+TKT-8115  |  2024-07-03  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 15-44
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 29 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8116  |  2024-07-03  |  SEV-3  |  E-611
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-611 cluster in aisle 13 after racking change
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 13 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8117  |  2024-07-03  |  SEV-2  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0145 E-502 recurring during afternoon shift
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8118  |  2024-07-03  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : How do we export task history for internal audit?
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8119  |  2024-07-03  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-06-30
+  Agent       : L. Brenner
+  Detection   : Helix staff observation
+  Time to res.: 6 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8120  |  2024-07-03  |  SEV-3  |  E-118
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : E-118 rate spike after firmware upgrade
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 27 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8121  |  2024-07-04  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0170 e-stop engaged, will not clear
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 30 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8122  |  2024-07-04  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-03
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8123  |  2024-07-04  |  SEV-4  |  n/a
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8124  |  2024-07-04  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8125  |  2024-07-05  |  SEV-3  |  E-115
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : L. Brenner
+  Detection   : Helix staff observation
+  Time to res.: 16 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8126  |  2024-07-05  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 29 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8127  |  2024-07-05  |  SEV-3  |  E-207
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Unit HX2-0127 persistent E-207 on forward safety scanner
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 26 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8128  |  2024-07-05  |  SEV-3  |  E-704
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0206 drive motor overcurrent, stopped in aisle 20
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 18 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8129  |  2024-07-05  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 10 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8130  |  2024-07-05  |  SEV-3  |  E-118
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Unit HX2-0181 E-118 in transit from pick face 19
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 26 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8131  |  2024-07-06  |  SEV-2  |  E-207
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : E-207 rate elevated across fleet since 2024-07-03
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8132  |  2024-07-06  |  SEV-3  |  E-118
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : A. Bello
+  Detection   : Helix staff observation
+  Time to res.: 21 h
+  Resolution  : Expected post-upgrade spike after enabling E-118 on 3.8.0. Reflects pre-existing loading practice.
+
+TKT-8133  |  2024-07-07  |  SEV-2  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8134  |  2024-07-07  |  SEV-3  |  E-502
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8135  |  2024-07-08  |  SEV-3  |  E-502
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 28 h
+  Resolution  : Spurious reports on firmware 3.8.0 above 32 C. Resolved by upgrade to 3.8.1.
+
+TKT-8136  |  2024-07-08  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Helix staff observation
+  Time to res.: 4 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8137  |  2024-07-08  |  SEV-3  |  E-401
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Charge reservation timeout, units queuing at dock 8
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 20 h
+  Resolution  : Dock firmware 1.2, handshake failures (FW-1142). Dock updated to 1.4.
+
+TKT-8138  |  2024-07-08  |  SEV-3  |  E-401
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Charge reservation timeout, units queuing at dock 9
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 23 h
+  Resolution  : Dock obstructed by manually parked equipment. Cleared with facility staff.
+
+TKT-8139  |  2024-07-08  |  SEV-2  |  E-118
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0170 E-118 in transit from pick face 3
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 3 h
+  Resolution  : Expected post-upgrade spike after enabling E-118 on 3.8.0. Reflects pre-existing loading practice.
+
+TKT-8140  |  2024-07-08  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-05
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8141  |  2024-07-09  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-07
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8142  |  2024-07-09  |  SEV-3  |  E-611
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Localization confidence lost, units HX2-0031 and HX2-0181
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 25 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8143  |  2024-07-09  |  SEV-3  |  E-502
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8144  |  2024-07-09  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8145  |  2024-07-09  |  SEV-2  |  E-611
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0194 cannot localize after cold start
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 13 h
+  Resolution  : Repetitive rack geometry defeating scan matching. Resolved by firmware 3.9.0.
+
+TKT-8146  |  2024-07-09  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 16 h
+  Resolution  : Button mechanically stuck. Replaced by FT-2. Reported to Safety and Compliance per policy.
+
+TKT-8147  |  2024-07-10  |  SEV-4  |  n/a
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 28 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8148  |  2024-07-10  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Question on availability measurement for July invoice
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 18 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8149  |  2024-07-10  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0083 persistent E-207 on forward safety scanner
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 29 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8150  |  2024-07-10  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8151  |  2024-07-10  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 19-45
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 21 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8152  |  2024-07-11  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Operator training refresher request
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 34 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8153  |  2024-07-11  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-07-10
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 28 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8154  |  2024-07-11  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 35 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8155  |  2024-07-11  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-07-08
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 19 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8156  |  2024-07-12  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8157  |  2024-07-12  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0173 drive motor overcurrent, stopped in aisle 21
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Shrink wrap wrapped around drive axle. Removed, unit returned to service.
+
+TKT-8158  |  2024-07-12  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-07-11
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 23 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8159  |  2024-07-12  |  SEV-2  |  E-611
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0100 cannot localize after cold start
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8160  |  2024-07-12  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8161  |  2024-07-12  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-09
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8162  |  2024-07-13  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-11
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8163  |  2024-07-13  |  SEV-1  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8164  |  2024-07-13  |  SEV-3  |  E-820
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX4-0012 repeated E-820 at staging lane 18
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 3 h
+  Resolution  : Damaged stringers in inbound pallet pool. Raised with customer; pallet quality review agreed.
+
+TKT-8165  |  2024-07-14  |  SEV-2  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-11
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8166  |  2024-07-14  |  SEV-3  |  E-207
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-07-13
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8167  |  2024-07-14  |  SEV-2  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0031 e-stop engaged, will not clear
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8168  |  2024-07-15  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-07-14
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8169  |  2024-07-15  |  SEV-2  |  E-822
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : HX-450 load stability fault, unit HX4-0015
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Asymmetric palletizing upstream of DC. Customer engaged supplier.
+
+TKT-8170  |  2024-07-15  |  SEV-1  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-14
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8171  |  2024-07-15  |  SEV-3  |  E-115
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0039 e-stop engaged, will not clear
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 16 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8172  |  2024-07-16  |  SEV-3  |  E-502
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 24 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8173  |  2024-07-16  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0198
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 11 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8174  |  2024-07-17  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0057
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 19 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8175  |  2024-07-17  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8176  |  2024-07-17  |  SEV-2  |  E-611
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Localization confidence lost, units HX2-0013 and HX2-0236
+  Agent       : R. Whitcombe
+  Detection   : Helix staff observation
+  Time to res.: 5 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8177  |  2024-07-17  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 11-37
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8178  |  2024-07-17  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8179  |  2024-07-17  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 22 h
+  Resolution  : Expected post-upgrade spike after enabling E-118 on 3.8.0. Reflects pre-existing loading practice.
+
+TKT-8180  |  2024-07-17  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 19 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8181  |  2024-07-17  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8182  |  2024-07-17  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 22 h
+  Resolution  : Spurious reports on firmware 3.8.0 above 32 C. Resolved by upgrade to 3.8.1.
+
+TKT-8183  |  2024-07-17  |  SEV-2  |  E-611
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-611 cluster in aisle 26 after racking change
+  Agent       : D. Achterberg
+  Detection   : Helix staff observation
+  Time to res.: 8 h
+  Resolution  : Seasonal display staging blocked reference features. Map annotated, customer process agreed.
+
+TKT-8184  |  2024-07-18  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 22 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8185  |  2024-07-18  |  SEV-2  |  E-330
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8186  |  2024-07-18  |  SEV-2  |  E-330
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8187  |  2024-07-18  |  SEV-4  |  n/a
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Request for site health data without going through TAM
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8188  |  2024-07-18  |  SEV-2  |  E-611
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0186 cannot localize after cold start
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8189  |  2024-07-18  |  SEV-3  |  E-820
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Unit HX4-0018 repeated E-820 at staging lane 19
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 11 h
+  Resolution  : Shrink-wrap overhang beyond detection tolerance. Wrapping practice adjusted upstream.
+
+TKT-8190  |  2024-07-18  |  SEV-1  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-16
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8191  |  2024-07-19  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : D. Achterberg
+  Detection   : Helix staff observation
+  Time to res.: 11 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8192  |  2024-07-19  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8193  |  2024-07-19  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Question on availability measurement for July invoice
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8194  |  2024-07-19  |  SEV-2  |  E-822
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-822 on pallets from one supplier
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Load redistributed, unit returned to service.
+
+TKT-8195  |  2024-07-19  |  SEV-3  |  E-401
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0014 could not reach reserved dock in time
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Dock provisioning below recommended ratio. Site design review raised with account team.
+
+TKT-8196  |  2024-07-20  |  SEV-3  |  E-207
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-07-17
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 16 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8197  |  2024-07-20  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-115 on unit HX2-0205 after contact with pallet jack
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 10 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8198  |  2024-07-20  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Question on availability measurement for July invoice
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 33 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8199  |  2024-07-21  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-18
+  Agent       : D. Achterberg
+  Detection   : Helix staff observation
+  Time to res.: 8 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8200  |  2024-07-21  |  SEV-2  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0083 persistent E-207 on forward safety scanner
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8201  |  2024-07-21  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8202  |  2024-07-22  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 28 h
+  Resolution  : Spurious reports on firmware 3.8.0 above 32 C. Resolved by upgrade to 3.8.1.
+
+TKT-8203  |  2024-07-22  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-07-20
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8204  |  2024-07-22  |  SEV-3  |  E-115
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-115 on unit HX2-0218 after contact with pallet jack
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 18 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8205  |  2024-07-22  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 15-31
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8206  |  2024-07-22  |  SEV-3  |  E-401
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Charge reservation timeout, units queuing at dock 4
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Dock obstructed by manually parked equipment. Cleared with facility staff.
+
+TKT-8207  |  2024-07-22  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Question on availability measurement for July invoice
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8208  |  2024-07-22  |  SEV-2  |  E-330
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 9 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8209  |  2024-07-23  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0004 E-118 in transit from pick face 13
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8210  |  2024-07-23  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-115 on unit HX2-0103 after contact with pallet jack
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8211  |  2024-07-23  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8212  |  2024-07-23  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Operator training refresher request
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 34 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8213  |  2024-07-23  |  SEV-3  |  E-115
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-115 on unit HX2-0177 after contact with pallet jack
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8214  |  2024-07-24  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8215  |  2024-07-24  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 23 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8216  |  2024-07-24  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 18 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8217  |  2024-07-24  |  SEV-2  |  E-330
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 14 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8218  |  2024-07-24  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8219  |  2024-07-25  |  SEV-2  |  E-502
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8220  |  2024-07-25  |  SEV-3  |  E-820
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX4-0002 repeated E-820 at staging lane 2
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Shrink-wrap overhang beyond detection tolerance. Wrapping practice adjusted upstream.
+
+TKT-8221  |  2024-07-25  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 24-31
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8222  |  2024-07-25  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0069 drive motor overcurrent, stopped in aisle 2
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 7 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8223  |  2024-07-25  |  SEV-3  |  E-207
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Unit HX2-0237 persistent E-207 on forward safety scanner
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8224  |  2024-07-25  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8225  |  2024-07-26  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Question on availability measurement for July invoice
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 20 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8226  |  2024-07-26  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 18-33
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 8 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8227  |  2024-07-26  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8228  |  2024-07-26  |  SEV-3  |  E-115
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-115 on unit HX2-0027 after contact with pallet jack
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8229  |  2024-07-27  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-118 rate spike after firmware upgrade
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 1 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8230  |  2024-07-28  |  SEV-3  |  E-115
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Unit HX2-0063 e-stop engaged, will not clear
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Button mechanically stuck. Replaced by FT-2. Reported to Safety and Compliance per policy.
+
+TKT-8231  |  2024-07-28  |  SEV-3  |  E-611
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0208 cannot localize after cold start
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8232  |  2024-07-28  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8233  |  2024-07-29  |  SEV-2  |  E-118
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Unit HX2-0167 E-118 in transit from pick face 6
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8234  |  2024-07-30  |  SEV-2  |  E-115
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8235  |  2024-07-30  |  SEV-4  |  n/a
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 48 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8236  |  2024-07-31  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0174
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8237  |  2024-07-31  |  SEV-3  |  E-115
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 9 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8238  |  2024-07-31  |  SEV-3  |  E-207
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Unit HX2-0152 persistent E-207 on forward safety scanner
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 9 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8239  |  2024-07-31  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8240  |  2024-07-31  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0057 E-118 in transit from pick face 14
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Expected post-upgrade spike after enabling E-118 on 3.8.0. Reflects pre-existing loading practice.
+
+TKT-8241  |  2024-08-01  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0013 persistent E-207 on forward safety scanner
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 17 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8242  |  2024-08-01  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0034 drive motor overcurrent, stopped in aisle 22
+  Agent       : T. Osei
+  Detection   : Helix staff observation
+  Time to res.: 1 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8243  |  2024-08-01  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0207 persistent E-207 on forward safety scanner
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8244  |  2024-08-01  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-115 on unit HX2-0125 after contact with pallet jack
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8245  |  2024-08-01  |  SEV-3  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Unit HX2-0108 persistent E-207 on forward safety scanner
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 8 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8246  |  2024-08-01  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8247  |  2024-08-01  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 22 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8248  |  2024-08-02  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0107
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 28 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8249  |  2024-08-02  |  SEV-3  |  E-704
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Repeated E-704 on unit HX2-0225
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8250  |  2024-08-02  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 23 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8251  |  2024-08-02  |  SEV-3  |  E-502
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Spurious reports on firmware 3.8.0 above 32 C. Resolved by upgrade to 3.8.1.
+
+TKT-8252  |  2024-08-02  |  SEV-2  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8253  |  2024-08-03  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-02
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8254  |  2024-08-03  |  SEV-3  |  E-115
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8255  |  2024-08-04  |  SEV-3  |  E-831
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : HX-450 overhead clearance obstruction in aisle 19
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 29 h
+  Resolution  : Sprinkler head lower than surveyed. Facility survey gap; map zone updated.
+
+TKT-8256  |  2024-08-04  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 22-43
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8257  |  2024-08-04  |  SEV-2  |  E-401
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0201 could not reach reserved dock in time
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Dock provisioning below recommended ratio. Site design review raised with account team.
+
+TKT-8258  |  2024-08-05  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Question on availability measurement for August invoice
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8259  |  2024-08-05  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 15-39
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8260  |  2024-08-05  |  SEV-3  |  E-207
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Unit HX2-0021 persistent E-207 on forward safety scanner
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 26 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8261  |  2024-08-05  |  SEV-1  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : C. Villanueva
+  Detection   : Helix staff observation
+  Time to res.: 7 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8262  |  2024-08-06  |  SEV-3  |  E-704
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Unit HX2-0115 drive motor overcurrent, stopped in aisle 25
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8263  |  2024-08-06  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8264  |  2024-08-06  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 42 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8265  |  2024-08-06  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8266  |  2024-08-06  |  SEV-4  |  n/a
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Request for copy of customer-facing incident summary
+  Agent       : C. Villanueva
+  Detection   : Helix staff observation
+  Time to res.: 16 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8267  |  2024-08-06  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0026 persistent E-207 on forward safety scanner
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 17 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8268  |  2024-08-06  |  SEV-2  |  E-207
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Unit HX2-0150 persistent E-207 on forward safety scanner
+  Agent       : A. Bello
+  Detection   : Helix staff observation
+  Time to res.: 11 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8269  |  2024-08-07  |  SEV-3  |  E-611
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0165 cannot localize after cold start
+  Agent       : S. Nakamura
+  Detection   : Helix staff observation
+  Time to res.: 20 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8270  |  2024-08-07  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 27 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8271  |  2024-08-07  |  SEV-2  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8272  |  2024-08-08  |  SEV-2  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 1 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8273  |  2024-08-08  |  SEV-2  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0169 E-502 recurring during afternoon shift
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 11 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8274  |  2024-08-08  |  SEV-3  |  E-831
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : HX-450 overhead clearance obstruction in aisle 9
+  Agent       : J. Kowalski
+  Detection   : Helix staff observation
+  Time to res.: 6 h
+  Resolution  : Improperly stored inventory above lift path. Cleared by facility staff.
+
+TKT-8275  |  2024-08-08  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 24 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8276  |  2024-08-09  |  SEV-2  |  E-611
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Localization confidence lost, units HX2-0017 and HX2-0158
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 5 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8277  |  2024-08-09  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 21 h
+  Resolution  : Spurious reports on firmware 3.8.0 above 32 C. Resolved by upgrade to 3.8.1.
+
+TKT-8278  |  2024-08-09  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : S. Nakamura
+  Detection   : Helix staff observation
+  Time to res.: 5 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8279  |  2024-08-09  |  SEV-2  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-06
+  Agent       : J. Kowalski
+  Detection   : Helix staff observation
+  Time to res.: 6 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8280  |  2024-08-09  |  SEV-3  |  E-820
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : HX-450 pallet pocket detection failures on inbound pool
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 27 h
+  Resolution  : Shrink-wrap overhang beyond detection tolerance. Wrapping practice adjusted upstream.
+
+TKT-8281  |  2024-08-09  |  SEV-1  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8282  |  2024-08-12  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 25-34
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 1 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8283  |  2024-08-12  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 21 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8284  |  2024-08-12  |  SEV-3  |  E-115
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : E-115 on unit HX2-0087 after contact with pallet jack
+  Agent       : L. Brenner
+  Detection   : Helix staff observation
+  Time to res.: 26 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8285  |  2024-08-12  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8286  |  2024-08-13  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0173 persistent E-207 on forward safety scanner
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 24 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8287  |  2024-08-13  |  SEV-1  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8288  |  2024-08-13  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Spurious reports on firmware 3.8.0 above 32 C. Resolved by upgrade to 3.8.1.
+
+TKT-8289  |  2024-08-13  |  SEV-1  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-12
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 8 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8290  |  2024-08-13  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 26 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8291  |  2024-08-13  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8292  |  2024-08-14  |  SEV-3  |  E-502
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0173 E-502 recurring during afternoon shift
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 17 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8293  |  2024-08-14  |  SEV-2  |  E-611
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Localization confidence lost, units HX2-0067 and HX2-0064
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 7 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8294  |  2024-08-14  |  SEV-4  |  n/a
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Request for copy of customer-facing incident summary
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 28 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8295  |  2024-08-14  |  SEV-3  |  E-115
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 20 h
+  Resolution  : Button mechanically stuck. Replaced by FT-2. Reported to Safety and Compliance per policy.
+
+TKT-8296  |  2024-08-14  |  SEV-3  |  E-115
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Unit HX2-0121 e-stop engaged, will not clear
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8297  |  2024-08-15  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0225 e-stop engaged, will not clear
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 22 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8298  |  2024-08-15  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-14
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 10 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8299  |  2024-08-15  |  SEV-2  |  E-611
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-611 cluster in aisle 8 after racking change
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8300  |  2024-08-15  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-08-14
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 22 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8301  |  2024-08-15  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8302  |  2024-08-16  |  SEV-2  |  E-118
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 10 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8303  |  2024-08-16  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 28 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8304  |  2024-08-16  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-08-13
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 26 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8305  |  2024-08-16  |  SEV-2  |  E-401
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0046 could not reach reserved dock in time
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Dock provisioning below recommended ratio. Site design review raised with account team.
+
+TKT-8306  |  2024-08-16  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8307  |  2024-08-17  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8308  |  2024-08-18  |  SEV-2  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 11 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8309  |  2024-08-18  |  SEV-3  |  E-401
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0050 could not reach reserved dock in time
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 21 h
+  Resolution  : Dock obstructed by manually parked equipment. Cleared with facility staff.
+
+TKT-8310  |  2024-08-18  |  SEV-2  |  E-115
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8311  |  2024-08-19  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-118 rate spike after firmware upgrade
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8312  |  2024-08-19  |  SEV-2  |  E-611
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-611 cluster in aisle 6 after racking change
+  Agent       : T. Osei
+  Detection   : Helix staff observation
+  Time to res.: 7 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8313  |  2024-08-19  |  SEV-2  |  E-611
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Unit HX2-0116 cannot localize after cold start
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 9 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8314  |  2024-08-19  |  SEV-3  |  E-704
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0099
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 26 h
+  Resolution  : Shrink wrap wrapped around drive axle. Removed, unit returned to service.
+
+TKT-8315  |  2024-08-19  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-18
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8316  |  2024-08-19  |  SEV-1  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8317  |  2024-08-20  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-17
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8318  |  2024-08-20  |  SEV-1  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8319  |  2024-08-20  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0107 drive motor overcurrent, stopped in aisle 17
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 17 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8320  |  2024-08-20  |  SEV-3  |  E-820
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : HX-450 pallet pocket detection failures on inbound pool
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Low contrast in staging lane. Fork camera upgrade quoted to customer.
+
+TKT-8321  |  2024-08-21  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 25 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8322  |  2024-08-21  |  SEV-1  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8323  |  2024-08-21  |  SEV-2  |  E-611
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Localization confidence lost, units HX2-0147 and HX2-0213
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 5 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8324  |  2024-08-21  |  SEV-3  |  E-118
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Unit HX2-0202 E-118 in transit from pick face 14
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8325  |  2024-08-21  |  SEV-3  |  E-502
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 20 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8326  |  2024-08-21  |  SEV-3  |  E-502
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8327  |  2024-08-21  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8328  |  2024-08-22  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0119 E-502 recurring during afternoon shift
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8329  |  2024-08-22  |  SEV-2  |  E-611
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-611 cluster in aisle 12 after racking change
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8330  |  2024-08-22  |  SEV-3  |  E-502
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Unit HX2-0121 E-502 recurring during afternoon shift
+  Agent       : T. Osei
+  Detection   : Helix staff observation
+  Time to res.: 22 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8331  |  2024-08-22  |  SEV-2  |  E-115
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-115 on unit HX2-0217 after contact with pallet jack
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8332  |  2024-08-22  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 4-40
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 23 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8333  |  2024-08-22  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : How do we export task history for internal audit?
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 16 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8334  |  2024-08-22  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 7-35
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8335  |  2024-08-22  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 7 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8336  |  2024-08-23  |  SEV-2  |  E-330
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8337  |  2024-08-23  |  SEV-2  |  E-822
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : HX-450 load stability fault, unit HX4-0017
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Asymmetric palletizing upstream of DC. Customer engaged supplier.
+
+TKT-8338  |  2024-08-23  |  SEV-2  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8339  |  2024-08-23  |  SEV-3  |  E-502
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0192 E-502 recurring during afternoon shift
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 14 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8340  |  2024-08-23  |  SEV-3  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 27 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8341  |  2024-08-24  |  SEV-2  |  E-502
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8342  |  2024-08-24  |  SEV-3  |  E-401
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Charge reservation timeout, units queuing at dock 9
+  Agent       : T. Osei
+  Detection   : Helix staff observation
+  Time to res.: 4 h
+  Resolution  : Dock provisioning below recommended ratio. Site design review raised with account team.
+
+TKT-8343  |  2024-08-25  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 9-32
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8344  |  2024-08-25  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Request for copy of customer-facing incident summary
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 19 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8345  |  2024-08-26  |  SEV-4  |  n/a
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : How do we export task history for internal audit?
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 12 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8346  |  2024-08-26  |  SEV-3  |  E-115
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Unit HX2-0106 e-stop engaged, will not clear
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8347  |  2024-08-26  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8348  |  2024-08-26  |  SEV-2  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-207 rate elevated across fleet since 2024-08-24
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8349  |  2024-08-26  |  SEV-3  |  E-704
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Unit HX2-0202 drive motor overcurrent, stopped in aisle 20
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 26 h
+  Resolution  : Shrink wrap wrapped around drive axle. Removed, unit returned to service.
+
+TKT-8350  |  2024-08-26  |  SEV-3  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-207 rate elevated across fleet since 2024-08-25
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 29 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8351  |  2024-08-27  |  SEV-4  |  n/a
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Request for site health data without going through TAM
+  Agent       : C. Villanueva
+  Detection   : Helix staff observation
+  Time to res.: 47 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8352  |  2024-08-27  |  SEV-3  |  E-118
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-118 rate spike after firmware upgrade
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8353  |  2024-08-27  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8354  |  2024-08-27  |  SEV-3  |  E-820
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Unit HX4-0002 repeated E-820 at staging lane 7
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 26 h
+  Resolution  : Damaged stringers in inbound pallet pool. Raised with customer; pallet quality review agreed.
+
+TKT-8355  |  2024-08-27  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 32 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8356  |  2024-08-27  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 32 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8357  |  2024-08-27  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 30 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8358  |  2024-08-27  |  SEV-2  |  E-330
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8359  |  2024-08-27  |  SEV-3  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 9-39
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 10 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8360  |  2024-08-27  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8361  |  2024-08-28  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-08-25
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8362  |  2024-08-28  |  SEV-2  |  E-118
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Payload shift detection halting units at same location
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 11 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8363  |  2024-08-29  |  SEV-4  |  n/a
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Operator training refresher request
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 16 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8364  |  2024-08-29  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 1 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8365  |  2024-08-29  |  SEV-2  |  E-822
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Repeated E-822 on pallets from one supplier
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Load redistributed, unit returned to service.
+
+TKT-8366  |  2024-08-29  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8367  |  2024-08-29  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8368  |  2024-08-30  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-08-27
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8369  |  2024-08-30  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0150 drive motor overcurrent, stopped in aisle 11
+  Agent       : T. Osei
+  Detection   : Helix staff observation
+  Time to res.: 4 h
+  Resolution  : Shrink wrap wrapped around drive axle. Removed, unit returned to service.
+
+TKT-8370  |  2024-08-30  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8371  |  2024-09-01  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 8-33
+  Agent       : S. Nakamura
+  Detection   : Customer report
+  Time to res.: 1 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8372  |  2024-09-01  |  SEV-3  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 26 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8373  |  2024-09-01  |  SEV-1  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 7 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8374  |  2024-09-01  |  SEV-3  |  E-115
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 13 h
+  Resolution  : Button mechanically stuck. Replaced by FT-2. Reported to Safety and Compliance per policy.
+
+TKT-8375  |  2024-09-01  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8376  |  2024-09-02  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8377  |  2024-09-02  |  SEV-4  |  n/a
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Question on availability measurement for September invoice
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 40 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8378  |  2024-09-02  |  SEV-2  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8379  |  2024-09-02  |  SEV-3  |  E-207
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 29 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8380  |  2024-09-02  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8381  |  2024-09-02  |  SEV-1  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8382  |  2024-09-03  |  SEV-4  |  n/a
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 46 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8383  |  2024-09-03  |  SEV-3  |  E-502
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8384  |  2024-09-03  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : A. Bello
+  Detection   : Helix staff observation
+  Time to res.: 8 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8385  |  2024-09-03  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Request for copy of customer-facing incident summary
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 21 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8386  |  2024-09-04  |  SEV-3  |  E-207
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 24 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8387  |  2024-09-04  |  SEV-2  |  E-611
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-611 cluster in aisle 1 after racking change
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 1 h
+  Resolution  : Customer moved racking without notifying us. Facility map updated.
+
+TKT-8388  |  2024-09-04  |  SEV-2  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8389  |  2024-09-05  |  SEV-3  |  E-115
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : S. Nakamura
+  Detection   : Helix staff observation
+  Time to res.: 23 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8390  |  2024-09-05  |  SEV-3  |  E-207
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Unit HX2-0172 persistent E-207 on forward safety scanner
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8391  |  2024-09-05  |  SEV-3  |  E-118
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : E-118 rate spike after firmware upgrade
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 19 h
+  Resolution  : Expected post-upgrade spike after enabling E-118 on 3.8.0. Reflects pre-existing loading practice.
+
+TKT-8392  |  2024-09-05  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 38 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8393  |  2024-09-05  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 36 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8394  |  2024-09-06  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : How do we export task history for internal audit?
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 7 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8395  |  2024-09-06  |  SEV-2  |  E-115
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-115 on unit HX2-0102 after contact with pallet jack
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Pendant reset by facility operator. No fault found.
+
+TKT-8396  |  2024-09-07  |  SEV-2  |  E-401
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Charge reservation timeout, units queuing at dock 10
+  Agent       : S. Nakamura
+  Detection   : Helix staff observation
+  Time to res.: 8 h
+  Resolution  : Dock firmware 1.2, handshake failures (FW-1142). Dock updated to 1.4.
+
+TKT-8397  |  2024-09-07  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8398  |  2024-09-08  |  SEV-2  |  E-330
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8399  |  2024-09-08  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 14 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8400  |  2024-09-08  |  SEV-3  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-207 rate elevated across fleet since 2024-09-06
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 21 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8401  |  2024-09-09  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Request for copy of customer-facing incident summary
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 39 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8402  |  2024-09-09  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0120 drive motor overcurrent, stopped in aisle 24
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8403  |  2024-09-10  |  SEV-3  |  E-611
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Localization confidence lost, units HX2-0044 and HX2-0122
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8404  |  2024-09-10  |  SEV-2  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8405  |  2024-09-10  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0062
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Shrink wrap wrapped around drive axle. Removed, unit returned to service.
+
+TKT-8406  |  2024-09-10  |  SEV-3  |  E-704
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Repeated E-704 on unit HX2-0126
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 28 h
+  Resolution  : Shrink wrap wrapped around drive axle. Removed, unit returned to service.
+
+TKT-8407  |  2024-09-10  |  SEV-2  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-502 spike fleet-wide during heatwave
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8408  |  2024-09-11  |  SEV-3  |  E-118
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-118 rate spike after firmware upgrade
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 15 h
+  Resolution  : Totes overloaded beyond rated payload. Customer loading practice addressed.
+
+TKT-8409  |  2024-09-11  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8410  |  2024-09-12  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8411  |  2024-09-12  |  SEV-4  |  n/a
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Request for site health data without going through TAM
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 30 h
+  Resolution  : Answered from Customer FAQ. No action required.
+
+TKT-8412  |  2024-09-12  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8413  |  2024-09-12  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : How do we export task history for internal audit?
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 38 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8414  |  2024-09-12  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : How do we export task history for internal audit?
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8415  |  2024-09-12  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 25 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8416  |  2024-09-12  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-09-09
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8417  |  2024-09-13  |  SEV-3  |  E-207
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Unit HX2-0174 persistent E-207 on forward safety scanner
+  Agent       : T. Osei
+  Detection   : Customer report
+  Time to res.: 19 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8418  |  2024-09-13  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 18 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8419  |  2024-09-13  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX2-0064 persistent E-207 on forward safety scanner
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8420  |  2024-09-13  |  SEV-2  |  E-330
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8421  |  2024-09-13  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8422  |  2024-09-14  |  SEV-3  |  E-704
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Unit HX2-0131 drive motor overcurrent, stopped in aisle 21
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Seized castor wheel replaced by FT-2 technician.
+
+TKT-8423  |  2024-09-14  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Unit HX2-0084 persistent E-207 on forward safety scanner
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8424  |  2024-09-15  |  SEV-3  |  E-401
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0028 could not reach reserved dock in time
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Dock firmware 1.2, handshake failures (FW-1142). Dock updated to 1.4.
+
+TKT-8425  |  2024-09-15  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8426  |  2024-09-16  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 3 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8427  |  2024-09-16  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-09-13
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8428  |  2024-09-16  |  SEV-3  |  E-704
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Unit HX2-0118 drive motor overcurrent, stopped in aisle 23
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Drive board fault. Unit taken out of service, replacement dispatched.
+
+TKT-8429  |  2024-09-16  |  SEV-2  |  E-330
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 6 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8430  |  2024-09-16  |  SEV-4  |  n/a
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 35 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8431  |  2024-09-17  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : WMS sync failure — no tasks arriving since 2024-09-15
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8432  |  2024-09-17  |  SEV-1  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8433  |  2024-09-17  |  SEV-3  |  E-820
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : HX-450 pallet pocket detection failures on inbound pool
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Low contrast in staging lane. Fork camera upgrade quoted to customer.
+
+TKT-8434  |  2024-09-17  |  SEV-3  |  E-502
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Battery thermal cutoff on units near loading doors
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8435  |  2024-09-18  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8436  |  2024-09-18  |  SEV-2  |  E-118
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0020 E-118 in transit from pick face 5
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8437  |  2024-09-18  |  SEV-3  |  E-502
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0088 E-502 recurring during afternoon shift
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 20 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8438  |  2024-09-18  |  SEV-3  |  E-502
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Unit HX2-0167 E-502 recurring during afternoon shift
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 2 h
+  Resolution  : Ambient exceeded 40 C near dock doors. Facility issue; zone reassignment advised.
+
+TKT-8439  |  2024-09-18  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8440  |  2024-09-18  |  SEV-2  |  E-115
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : Button mechanically stuck. Replaced by FT-2. Reported to Safety and Compliance per policy.
+
+TKT-8441  |  2024-09-18  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 48 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8442  |  2024-09-19  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Request for firmware upgrade scheduling
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 45 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8443  |  2024-09-19  |  SEV-3  |  E-822
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-822 on pallets from one supplier
+  Agent       : D. Achterberg
+  Detection   : Helix staff observation
+  Time to res.: 10 h
+  Resolution  : Load redistributed, unit returned to service.
+
+TKT-8444  |  2024-09-19  |  SEV-3  |  E-820
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX4-0002 repeated E-820 at staging lane 4
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 24 h
+  Resolution  : Low contrast in staging lane. Fork camera upgrade quoted to customer.
+
+TKT-8445  |  2024-09-19  |  SEV-3  |  E-611
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Localization confidence lost, units HX2-0164 and HX2-0083
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 27 h
+  Resolution  : Re-localized from Operator Console. Hardware revision A unit, slow cold start (FW-1171).
+
+TKT-8446  |  2024-09-20  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8447  |  2024-09-20  |  SEV-3  |  E-820
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Unit HX4-0020 repeated E-820 at staging lane 8
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 11 h
+  Resolution  : Shrink-wrap overhang beyond detection tolerance. Wrapping practice adjusted upstream.
+
+TKT-8448  |  2024-09-20  |  SEV-3  |  E-207
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : E-207 rate elevated across fleet since 2024-09-17
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 19 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8449  |  2024-09-20  |  SEV-4  |  n/a
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Request for Fleet OS 4.2.3 upgrade window
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8450  |  2024-09-20  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8451  |  2024-09-20  |  SEV-2  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-09-17
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Customer WMS credentials expired. Rotated by customer IT. Excluded from availability.
+
+TKT-8452  |  2024-09-20  |  SEV-3  |  E-820
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX4-0012 repeated E-820 at staging lane 9
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Damaged stringers in inbound pallet pool. Raised with customer; pallet quality review agreed.
+
+TKT-8453  |  2024-09-21  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 33 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8454  |  2024-09-21  |  SEV-2  |  E-330
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : R. Whitcombe
+  Detection   : Customer report
+  Time to res.: 9 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8455  |  2024-09-21  |  SEV-3  |  E-611
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0014 cannot localize after cold start
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 13 h
+  Resolution  : Repetitive rack geometry defeating scan matching. Resolved by firmware 3.9.0.
+
+TKT-8456  |  2024-09-21  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : A. Bello
+  Detection   : Helix staff observation
+  Time to res.: 10 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8457  |  2024-09-21  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8458  |  2024-09-22  |  SEV-2  |  E-330
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8459  |  2024-09-22  |  SEV-3  |  E-207
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 21-45
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 24 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8460  |  2024-09-22  |  SEV-4  |  n/a
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : How do we export task history for internal audit?
+  Agent       : C. Villanueva
+  Detection   : Helix staff observation
+  Time to res.: 47 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8461  |  2024-09-23  |  SEV-1  |  E-330
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : WMS sync failure — no tasks arriving since 2024-09-21
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 5 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8462  |  2024-09-23  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : A. Bello
+  Detection   : Helix staff observation
+  Time to res.: 11 h
+  Resolution  : Customer WMS schema change after upgrade. Sample captured, adapter mapping updated in 4.2.3.
+
+TKT-8463  |  2024-09-23  |  SEV-2  |  E-502
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0086 E-502 recurring during afternoon shift
+  Agent       : L. Brenner
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Cell voltage deviation high, 3,880 cycles. Battery replaced, cycle-count transfer performed.
+
+TKT-8464  |  2024-09-23  |  SEV-4  |  n/a
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Request for copy of customer-facing incident summary
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 27 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8465  |  2024-09-23  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Unit HX2-0019 persistent E-207 on forward safety scanner
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 23 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8466  |  2024-09-24  |  SEV-3  |  E-207
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : D. Achterberg
+  Detection   : Customer report
+  Time to res.: 23 h
+  Resolution  : Airborne dust. Advised scheduled cleaning cadence; site added to weekly PM.
+
+TKT-8467  |  2024-09-24  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Question on availability measurement for September invoice
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 27 h
+  Resolution  : Scheduled with Field Operations for the following maintenance window.
+
+TKT-8468  |  2024-09-24  |  SEV-1  |  E-330
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : J. Kowalski
+  Detection   : Customer report
+  Time to res.: 3 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8469  |  2024-09-25  |  SEV-3  |  E-207
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 10-37
+  Agent       : S. Nakamura
+  Detection   : Helix staff observation
+  Time to res.: 9 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8470  |  2024-09-25  |  SEV-3  |  E-822
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Repeated E-822 on pallets from one supplier
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 9 h
+  Resolution  : Asymmetric palletizing upstream of DC. Customer engaged supplier.
+
+TKT-8471  |  2024-09-25  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : M. Fontaine
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8472  |  2024-09-26  |  SEV-2  |  E-118
+  Site        : Brightline Apparel — Reno DC (Professional)
+  Summary     : Unit HX2-0039 E-118 in transit from pick face 22
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 2 h
+  Resolution  : Floor expansion joint at reported coordinates. Facility remediation requested.
+
+TKT-8473  |  2024-09-26  |  SEV-3  |  E-115
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 8 h
+  Resolution  : Physical reset performed after area cleared. Root cause discussed with facility supervisor.
+
+TKT-8474  |  2024-09-26  |  SEV-2  |  E-330
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Site Adapter disconnected from customer WMS
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8475  |  2024-09-26  |  SEV-4  |  n/a
+  Site        : Northgate Wholesale — Tacoma DC (Standard)
+  Summary     : Operator training refresher request
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 17 h
+  Resolution  : Referred to account team. Self-service dashboard on 2025 roadmap H1.
+
+TKT-8476  |  2024-09-26  |  SEV-2  |  E-207
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : E-207 rate elevated across fleet since 2024-09-25
+  Agent       : T. Osei
+  Detection   : Helix automated alerting
+  Time to res.: 10 h
+  Resolution  : Scanner replaced by FT-3 technician, post-replacement verification passed.
+
+TKT-8477  |  2024-09-26  |  SEV-3  |  E-207
+  Site        : Kestrel Distribution — Joliet DC (Professional)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 11 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+TKT-8478  |  2024-09-27  |  SEV-2  |  E-330
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : R. Whitcombe
+  Detection   : Helix staff observation
+  Time to res.: 9 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8479  |  2024-09-27  |  SEV-2  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Task state diverging between Fleet OS and customer WMS
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 4 h
+  Resolution  : Customer firewall rule change blocked adapter endpoint. Reverted by customer IT.
+
+TKT-8480  |  2024-09-29  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Request for site health data without going through TAM
+  Agent       : M. Fontaine
+  Detection   : Customer report
+  Time to res.: 12 h
+  Resolution  : Explained availability requires dispatch eligibility per revised policy 2024-10-01.
+
+TKT-8481  |  2024-09-29  |  SEV-3  |  E-207
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Intermittent E-207 clusters during night shift
+  Agent       : C. Villanueva
+  Detection   : Helix automated alerting
+  Time to res.: 5 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8482  |  2024-09-29  |  SEV-3  |  E-401
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Unit HX2-0021 could not reach reserved dock in time
+  Agent       : P. Deshmukh
+  Detection   : Helix automated alerting
+  Time to res.: 19 h
+  Resolution  : Dock firmware 1.2, handshake failures (FW-1142). Dock updated to 1.4.
+
+TKT-8483  |  2024-09-30  |  SEV-1  |  E-330
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : E-330 after customer WMS maintenance window
+  Agent       : P. Deshmukh
+  Detection   : Helix staff observation
+  Time to res.: 4 h
+  Resolution  : TLS certificate on WMS endpoint expired. Customer IT reissued.
+
+TKT-8484  |  2024-09-30  |  SEV-3  |  E-207
+  Site        : Meridian Grocers — Louisville DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 3-44
+  Agent       : J. Kowalski
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Sensor windows cleaned by facility staff. Cleared.
+
+TKT-8485  |  2024-09-30  |  SEV-3  |  E-115
+  Site        : Ardent Supply — Phoenix DC (Professional)
+  Summary     : Facility-wide pendant e-stop latched
+  Agent       : D. Achterberg
+  Detection   : Helix automated alerting
+  Time to res.: 16 h
+  Resolution  : Button mechanically stuck. Replaced by FT-2. Reported to Safety and Compliance per policy.
+
+TKT-8486  |  2024-09-30  |  SEV-4  |  n/a
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Clarification on dock provisioning ratio for planned expansion
+  Agent       : R. Whitcombe
+  Detection   : Helix automated alerting
+  Time to res.: 22 h
+  Resolution  : Training session booked with FT-4 trainer.
+
+TKT-8487  |  2024-09-30  |  SEV-2  |  E-207
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Multiple units reporting LiDAR occlusion in aisles 10-42
+  Agent       : S. Nakamura
+  Detection   : Helix automated alerting
+  Time to res.: 14 h
+  Resolution  : Resolved by firmware 3.9.0 self-clearing behaviour after 3 clean scans.
+
+===========================================================================
+
+QUARTER SUMMARY — Q3 2024 (July 1 — September 30)
+
+  Total tickets: 388
+
+  By severity:
+    SEV-1     25
+    SEV-2    130
+    SEV-3    173
+    SEV-4     60
+
+  By fault code (top):
+    E-330    96
+    E-207    80
+    n/a      60
+    E-115    31
+    E-502    28
+    E-611    22
+    E-118    21
+    E-704    20
+    E-820    11
+    E-401    11
+    E-822     6
+    E-831     2
+
+  By site:
+      98  Cardinal Foods — Memphis DC
+      57  Trellis Home Goods — Columbus DC
+      54  Meridian Grocers — Louisville DC
+      47  Cardinal Foods — Nashville DC
+      36  Brightline Apparel — Reno DC
+      28  Voss Pharma — Basel DC
+      27  Ardent Supply — Phoenix DC
+      26  Kestrel Distribution — Joliet DC
+      15  Northgate Wholesale — Tacoma DC
+
+  By detection method:
+     222  (57.2%)  Helix automated alerting
+     119  (30.7%)  Customer report
+      47  (12.1%)  Helix staff observation
+
+===========================================================================
+
+INCIDENT CLUSTER — INC-2024-017
+
+TKT-8841  |  2024-09-14  |  SEV-1  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Robots queuing at chargers and not working. Reported by phone by
+                Hollis Trent, shift supervisor, at 06:53 CDT. No fault codes
+                present on any unit. All robots report healthy.
+  Agent       : A. Bello
+  Detection   : Customer report
+  Time to res.: 7 h
+  Resolution  : Opened SEV-2, escalated to SEV-1 at 07:15 and paged engineering
+                on-call. 61 of 240 units found holding charging dock
+                reservations that were never released, all reporting state of
+                charge pinned between 20.0 and 20.5 percent. Reservations
+                cleared manually one at a time between 09:20 and 11:40.
+                Throughput recovered to baseline 12:59. Root cause: Fleet OS
+                4.2.1 strict SoC comparison against firmware 3.8.1 hysteresis
+                band, with no expiry lease on dock reservations. See
+                INC-2024-017. Detection gap 41 minutes — logged as a monitoring
+                defect per policy.
+
+TKT-8842  |  2024-09-14  |  SEV-2  |  E-401
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Charge reservation timeouts on healthy units unable to reach a
+                free dock. Secondary effect of TKT-8841 dock queue backup.
+  Agent       : A. Bello
+  Detection   : Helix automated alerting
+  Time to res.: 7 h
+  Resolution  : Cleared automatically once the stale reservations from TKT-8841
+                were released and the dock queue drained.
+
+TKT-8849  |  2024-09-15  |  SEV-2  |  n/a
+  Site        : Cardinal Foods — Nashville DC (Enterprise)
+  Summary     : Customer requested urgent confirmation of whether the Memphis
+                condition could occur at Nashville.
+  Agent       : P. Deshmukh
+  Detection   : Customer report
+  Time to res.: 4 h
+  Resolution  : Nashville HX-200 fleet confirmed on firmware 3.7.2, not exposed.
+                HX-450 units run the 2.x firmware line which never adopted the
+                SoC hysteresis band and are not affected. Both patches scheduled
+                regardless.
+
+TKT-8853  |  2024-09-16  |  SEV-4  |  n/a
+  Site        : Voss Pharma — Basel DC (Enterprise)
+  Summary     : Anna Kowalczyk (Validation Manager) requested formal assessment
+                of INC-2024-017 against the Basel environment.
+  Agent       : L. Brenner
+  Detection   : Customer report
+  Time to res.: 46 h
+  Resolution  : Basel runs HX-200 firmware 3.6.x LTS, which predates the
+                hysteresis band and is not vulnerable. Written assessment
+                provided. Customer change control requires known-relevant fixes
+                be applied or formally waived; threshold-crossing logic
+                subsequently backported into 3.6.4 (2024-11-19) at their request.
+
+TKT-8861  |  2024-09-18  |  SEV-2  |  n/a
+  Site        : Cardinal Foods — Memphis DC (Enterprise)
+  Summary     : Deployment of Fleet OS 4.2.2 and HX-200 firmware 3.8.2 across
+                240 units.
+  Agent       : M. Fontaine
+  Detection   : Helix staff observation
+  Time to res.: 9 h
+  Resolution  : Both patches deployed and verified. Dock reservation leases
+                confirmed active. No recurrence. Fleet availability returned to
+                baseline.
+
+TKT-8874  |  2024-09-23  |  SEV-4  |  n/a
+  Site        : Trellis Home Goods — Columbus DC (Enterprise)
+  Summary     : Customer read about the Memphis incident and asked whether their
+                site is exposed.
+  Agent       : C. Villanueva
+  Detection   : Customer report
+  Time to res.: 6 h
+  Resolution  : Columbus was running Fleet OS 4.2.1 with firmware 3.8.1 —
+                exposed. No deadlocked units found, dock ratio provided
+                sufficient headroom to mask accumulation. Upgraded to 4.2.2 and
+                3.8.2 on 2024-09-25 as a priority. This ticket is the reason we
+                now proactively audit version combinations across all sites
+                rather than waiting to be asked.

@@ -1,0 +1,228 @@
+HELIX ROBOTICS — FIELD TECHNICIAN TRAINING AND CERTIFICATION MANUAL
+Owner: Marcus Ozturk, Director of Field Operations
+Safety authority: Nikolai Petrov, Safety and Compliance Manager
+Administered by: Priya Raghunathan, VP People Ops
+Last revised: 2024-11-28
+Classification: Internal. Sections 3 and 4 are also delivered to customer
+                facility staff as part of operator training.
+
+
+1. THE ROLE
+
+Field technicians install, commission, maintain, and repair Helix robots at
+customer sites. There are 41 certified field technicians as of December 2024,
+based out of Austin, Reno, and Rotterdam, covering 38 customer sites.
+
+The job is genuinely mixed: mechanical work, electrical work, software
+diagnostics, and — more than most people expect — customer relationship
+management. A technician on site during a bad week is the face of Helix, and the
+way they conduct themselves matters as much as the repair.
+
+Field technicians are the only Helix employees routinely authorized to enter a
+live robot operating area, and the only ones permitted to replace safety-rated
+components. Both privileges carry the certification requirements below.
+
+
+2. CERTIFICATION PROGRAMME
+
+Four levels. Each requires the previous one.
+
+FT-1  FOUNDATION                                                    2 weeks
+  Safety and floor protocol, robot mechanical familiarization, basic diagnostics,
+  battery handling, tool use, documentation practice.
+  Authorizes: supervised site work only.
+
+FT-2  CERTIFIED TECHNICIAN                                          4 weeks
+  Installation and commissioning, dock installation, mechanical repair, drive
+  train service, battery replacement including the cycle-count transfer
+  procedure, fault code diagnosis across the full code set, Operator Console
+  operation.
+  Authorizes: unsupervised site work, all non-safety-rated component service.
+  Requires: 120 hours supervised field time after FT-1.
+
+FT-3  SENIOR TECHNICIAN                                             3 weeks
+  Safety-rated component replacement and verification, safety scanner chain
+  service, e-stop chain diagnosis, HX-450 hydraulic and lift systems, facility
+  map field verification, Fleet OS appliance service.
+  Authorizes: safety-rated component replacement, incident response lead on site.
+  Requires: 12 months at FT-2 and a Safety and Compliance assessment.
+
+FT-4  MASTER TECHNICIAN / TRAINER                                   2 weeks
+  Training delivery, certification assessment, complex multi-system diagnosis,
+  new site commissioning lead, customer operator training delivery.
+  Authorizes: certifying other technicians, leading new site deployments.
+  Requires: 24 months at FT-3.
+
+Current distribution: 8 FT-1, 19 FT-2, 11 FT-3, 3 FT-4.
+
+Recertification
+  Annual for all levels. One day, covering the year's firmware and Fleet OS
+  changes, any new fault codes, safety refresher, and incident lessons. The 2024
+  recertification cycle covered INC-2024-017 in detail, because the diagnostic
+  signature — robots accumulating at chargers with no fault codes and every
+  health indicator green — is precisely the kind of thing technicians are
+  trained not to look for.
+
+  Lapsed certification suspends site authorization immediately. There is no
+  grace period and no exception, including for scheduled work.
+
+
+3. FLOOR ENTRY PROTOCOL
+
+This is the most important section in this manual and it is delivered verbatim
+to customer facility staff.
+
+Nobody enters a robot operating area without completing every step. This applies
+to technicians, engineers, executives, customer staff, and visitors. There is no
+exemption for seniority, for a short visit, or for being in a hurry.
+
+  3.1  Notify the facility operator. They must know you are entering and where.
+
+  3.2  Pause the fleet, or lock out the zone. For work confined to one area,
+       zone lockout is preferred — it keeps the rest of the facility running.
+       For anything ambiguous, pause the whole fleet.
+
+  3.3  Verify the pause took effect. Confirm on the Operator Console that robots
+       in the zone are stopped. Do not rely on visual observation alone; a robot
+       that appears stationary may simply be between tasks.
+
+  3.4  Carry a wireless emergency stop pendant. Always. Test it before entry.
+
+  3.5  Wear high-visibility clothing and safety footwear.
+
+  3.6  Enter with a second person present, or with a facility operator watching
+       from the console who has confirmed they are watching. Do not enter a live
+       area alone.
+
+  3.7  On exit, confirm the area is clear of people and tools before releasing
+       the lockout or resuming the fleet. Tools left on the floor are a
+       frequent cause of E-704 drive motor overcurrent and E-118 payload shift
+       events.
+
+  3.8  Record entry and exit. Every entry is logged.
+
+If any step cannot be completed, do not enter. There is no situation on a
+customer floor urgent enough to justify skipping this protocol. A degraded fleet
+costs money; a person struck by a 340 kg Stacker does not have a cost that
+matters in the same units.
+
+
+4. SAFETY PRINCIPLES TECHNICIANS MUST KNOW
+
+  4.1  Safety lives in firmware, not in Fleet OS. Fleet OS tells a robot where to
+       go; firmware decides how and retains authority to refuse. Fleet OS cannot
+       override an emergency stop, disable obstacle detection, or command motion
+       outside the certified envelope. There is no service mode that relaxes
+       this, no debug flag, and no customer request that changes it.
+
+       The practical implication for you on site: a Fleet OS problem, however
+       severe, cannot make a robot move unsafely. During INC-2024-017 the fleet
+       controller deadlocked 61 robots for nearly seven hours with zero safety
+       consequence. Robots sat still. That is what the architecture is for.
+
+  4.2  Fail static. A confused robot stops and holds. If you find a robot
+       stationary with no obvious cause, treat it as a robot that has correctly
+       decided not to move rather than a robot that has failed.
+
+  4.3  Never bypass a safety function. Not for diagnosis, not for a demo, not
+       for five minutes. Disabling the safety scanner chain, disabling the
+       dynamic speed envelope, raising a speed limit, or removing e-stop
+       hardware voids certification and is grounds for termination.
+
+  4.4  Safety-rated components are FT-3 work only. Safety scanner replacement
+       requires FT-3 certification and post-replacement verification. Customer
+       staff must never replace them regardless of their own technical skill.
+
+  4.5  An e-stop that will not clear after physical reset indicates a fault in
+       the e-stop chain. Take the robot out of service immediately and escalate.
+       This is safety-relevant and reportable to Safety and Compliance within
+       24 hours.
+
+  4.6  Report every near-miss. Any contact between a robot and a person however
+       minor, any unexpected motion, any safety function that did not behave as
+       designed. Within 24 hours, to Safety and Compliance. Reporting is never
+       held against you, and any manager who implies otherwise is in breach of
+       the employee handbook.
+
+
+5. COMMON FIELD PROCEDURES
+
+Battery replacement
+  Follow the procedure exactly, including the cycle-count transfer utility.
+  Replacing the battery management board without running it resets cumulative
+  charge cycle count and destroys the replacement history for that unit (known
+  issue FW-1163). Rated life is 4,000 cycles to 80 percent capacity, roughly
+  five years at typical duty, and that history is what the predictive
+  replacement model on the 2025 roadmap will depend on.
+
+Safety scanner cleaning and replacement
+  Cleaning is FT-1 work and resolves most E-207 occlusion faults. Replacement is
+  FT-3 only. Sites with high airborne dust — Cardinal Foods Memphis in
+  particular — need cleaning on a scheduled basis rather than reactively.
+
+Dock service
+  Handshake failures on docks running firmware older than 1.4 are a known issue
+  (FW-1142). Update dock firmware before diagnosing further. Two docks at
+  Brightline Apparel Reno are currently affected.
+
+Facility map field verification
+  FT-3 and above. Note carefully that maps are edited in a desktop tool and
+  imported as an opaque binary blob with no diff, no review, and no rollback. A
+  bad map import is a site-down event with no undo. Verify twice. Map lifecycle
+  management is on the 2025 roadmap.
+
+Fleet OS appliance service
+  FT-3 and above. Always capture diagnostics before restarting anything —
+  helixctl diag capture --full — because a restart destroys the in-memory floor
+  state that will be needed to explain what happened. Full procedure is in the
+  Fleet Recovery Runbook section 2.
+
+Diagnostic capture handling
+  A full capture can contain customer business data. Store it in the support
+  system against the relevant ticket. Never on a personal machine, never on a
+  shared drive, never attached to email. This is covered in the Data Handling
+  and Privacy Policy and it is not a formality.
+
+
+6. WORKING WITH CUSTOMERS
+
+You are frequently on site during a bad day. Some things that matter:
+
+  - Say what you know and what you do not. Customers detect hedging immediately
+    and it costs more trust than admitting uncertainty.
+  - Never speculate about SLA credits. That conversation belongs to the account
+    team, always. A well-meaning technician suggesting a customer might be owed
+    a credit creates a commitment the company may not be able to honour.
+  - Never share internal postmortems. Customer-facing summaries are prepared
+    separately and approved by the account team.
+  - Do not blame the customer, even when the cause is on their side. E-330 WMS
+    sync failures are usually caused by customer-side credential or certificate
+    expiry, and the goal is to get their IT team engaged quickly, not to win the
+    argument about whose fault it is.
+  - Escalate rather than improvise. Every runbook procedure has a time budget.
+    When it expires, escalate. Nobody has ever been criticized here for
+    escalating too early.
+
+
+7. ON-CALL AND COMPENSATION
+
+Field Operations runs its own on-call rotation with regional coverage across
+North America and EMEA. One-week shifts, 30-minute response for SEV-1.
+
+Compensation is covered by the On-Call Compensation Policy, which was
+substantially revised in October 2024. Provisions technicians most often fail to
+claim:
+
+  - Extended incident premium: an additional 1.0x on all hours beyond the fourth
+    of a single continuous incident
+  - Automatic paid recovery day for any incident exceeding 6 hours, or requiring
+    work past 02:00 local, not deducted from PTO
+  - Mandatory 10-hour paid rest after 6 continuous hours or work past 02:00,
+    which your manager is responsible for enforcing rather than you for
+    requesting
+
+Incident travel requires no pre-approval whatsoever. Book the flight, take the
+taxi, get the hotel, go. Accommodation caps do not apply. Travel time during an
+active incident counts as activation time. This rule exists because in September
+2024 a field engineer lost hours chasing approval for a Saturday fare during a
+critical outage at our largest customer, and that will not happen again.

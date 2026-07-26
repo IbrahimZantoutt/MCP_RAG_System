@@ -1,0 +1,159 @@
+HELIX ROBOTICS — STRATEGIC ACCOUNT RECORD
+Account: Voss Pharma AG
+Account tier: Enterprise
+Account owner: Elena Vasquez, VP Sales
+Technical Account Manager: Lukas Brenner (Rotterdam)
+Last revised: 2024-12-09
+Classification: Internal — Confidential
+
+
+ACCOUNT SUMMARY
+
+Voss Pharma AG is a Swiss pharmaceutical manufacturer and distributor
+headquartered in Basel, with manufacturing and distribution operations across
+Switzerland, Germany, and Ireland. Annual revenue approximately 2.4 billion CHF.
+
+They are Helix's first regulated-industry customer and our flagship EMEA account.
+They are also, by a wide margin, our most demanding customer — not in volume, but
+in process. Every change to their environment goes through formal change control.
+Every software version is assessed, documented, and either applied or formally
+waived. They audit us.
+
+This is exactly why they matter strategically. A pharmaceutical distributor in
+Basel operating Helix robots under GxP-adjacent controls is the reference that
+opens the entire regulated segment: pharma, medical devices, and food safety.
+
+  Relationship start            June 2023
+  Sites live                    1 (Basel distribution center)
+  Units deployed                64 HX-200
+  Annual contract value         1.18 million USD
+  Support tier                  Enterprise
+  Contract renewal              2026-06-30
+  Expansion pipeline            Frankfurt and Dublin, blocked — see below
+
+
+KEY CONTACTS
+
+  Dr. Ingrid Halvorsen    Head of Distribution Operations. Decision maker.
+                          Rigorous, fair, and entirely unmoved by roadmap
+                          promises. Judges vendors on delivered behavior.
+  Mathieu Perrin          IT Security and Compliance Lead. Owner of the SSO
+                          blocker. The single most important person on this
+                          account right now.
+  Anna Kowalczyk          Validation Manager. Owns change control. Every
+                          firmware and Fleet OS version we ship gets assessed
+                          by her team.
+  Stefan Bruhn            DC Operations Manager, Basel. Day-to-day.
+
+
+WHAT MAKES THIS ACCOUNT DIFFERENT
+
+Change control
+  Voss Pharma does not take upgrades on our cadence. Every version is assessed
+  against their validation framework before deployment. A typical Fleet OS
+  minor version takes 6 to 10 weeks from our release to their production.
+
+  This is why Basel runs the HX-200 3.6.x LTS firmware line rather than current
+  stable. 3.6.x is supported until 2026-06-30 and receives security and critical
+  fixes only, which is precisely what their validation process prefers: a slow-
+  moving, well-characterized baseline.
+
+  A consequence worth noting: Basel was never exposed to INC-2024-017. The
+  charge dock deadlock required HX-200 firmware 3.8.1, and the 3.6.x LTS line
+  never adopted the SoC hysteresis band that caused it. Anna Kowalczyk
+  nonetheless required a formal assessment of the incident against their
+  environment, and we backported the threshold-crossing logic into firmware
+  3.6.4 (released 2024-11-19) at her request — not because 3.6.x was vulnerable,
+  but because their process requires that known-relevant fixes be applied or
+  formally waived, and applying it was cheaper than arguing.
+
+  That episode is a good illustration of how this account works. It also went a
+  long way with Dr. Halvorsen: we treated their process as legitimate rather than
+  as an obstacle.
+
+Audit and data controls
+  Voss Pharma audits us annually. The 2024 audit was completed in October with
+  two findings, both closed.
+
+  They also required the ability to suspend outbound telemetry export during
+  audit windows, which is why Fleet OS 4.2.3 gained pause-and-resume for the
+  Telemetry Pipeline without a full restart. That feature exists for this
+  customer.
+
+EU data residency
+  Telemetry currently exports to Helix Cloud in US regions. Voss Pharma has
+  accepted this under a data processing agreement for the Basel site, but has
+  stated clearly that EU data residency is a requirement for any expansion. This
+  is on the 2025 roadmap under EMEA deployment tooling (H2 2025).
+
+
+THE SSO BLOCKER
+
+This is the defining issue on the account and the reason expansion is stalled.
+
+The Fleet OS Operator Console does not support single sign-on. Authentication is
+local accounts managed within Fleet OS. Mathieu Perrin has stated in writing
+that this is non-compliant with Voss Pharma's identity governance standard,
+which requires that all systems with production operational control authenticate
+against their central identity provider with enforced MFA and centralized
+deprovisioning.
+
+Basel operates today under a documented compensating control: a quarterly manual
+account reconciliation performed jointly by Stefan Bruhn's team and Mathieu
+Perrin's. This is an exception with an expiry, and Mathieu has been explicit that
+it will not be renewed indefinitely.
+
+Consequences
+  - Frankfurt (approximately 90 units, 1.6 million USD) is blocked pending SSO.
+    Site assessment is complete and the business case is approved on their side.
+  - Dublin (approximately 55 units, 1.0 million USD) is behind Frankfurt.
+  - Renewal risk at 2026-06-30 is real if SSO has not shipped. Dr. Halvorsen has
+    not threatened this and would not; Mathieu Perrin's compensating control
+    expiry does it implicitly.
+
+SAML and OIDC SSO, RBAC refinement, and a tamper-evident audit log are on the
+2025 roadmap as item 3.1, scheduled H1 2025. It is identified in the roadmap as
+the highest-confidence revenue unlock available and is explicitly protected from
+reallocation. Elena Vasquez has committed to Dr. Halvorsen that we will deliver
+in H1 2025. That commitment is real and should not be undermined by quietly
+letting the item slip.
+
+  Total revenue gated on this single feature across all accounts: approximately
+  4.4 million USD, of which 2.6 million USD is Voss Pharma.
+
+
+OPERATIONAL HISTORY
+
+Basel has been operationally quiet. No SEV-1 since go-live. Two SEV-2 events:
+
+  2024-02   E-330 WMS sync failure following an SAP EWM patch on the customer
+            side. 5 hours. Resolved with Amara-equivalent customer IT
+            engagement. Excluded from availability measurement as
+            customer-caused.
+  2024-07   E-611 localization confidence loss cluster after a racking
+            reconfiguration in two aisles that was not communicated to us in
+            advance. 3 hours. Map updated. Stefan Bruhn instituted a
+            notification process on their side afterward.
+
+Availability has met the 99.9 percent Enterprise commitment every month since
+go-live.
+
+Facility characteristics: excellent. Clean, well-lit, flat floors, modern Wi-Fi,
+uniform pallet pool. Basel is the site we take reference visitors to.
+
+
+ACCOUNT STRATEGY
+
+  1. Ship SSO in H1 2025. Everything else on this account is secondary. If it
+     slips, we lose 2.6 million USD of expansion and put a 1.18 million USD
+     renewal at risk, and we damage the credibility that opens the entire
+     regulated segment.
+  2. Keep treating their change control as legitimate. The 3.6.4 backport cost
+     us very little and bought real trust.
+  3. Keep Basel on LTS. Do not push them toward current stable; their process
+     preference for a slow, well-characterized baseline is sound and arguing
+     with it wastes credibility we need for SSO.
+  4. Get EU data residency scoped properly in H2 2025. It is the next blocker
+     behind SSO and we should not discover it late.
+  5. Use Basel as the regulated-segment reference once SSO ships and Dr.
+     Halvorsen is willing. She has indicated she would be.

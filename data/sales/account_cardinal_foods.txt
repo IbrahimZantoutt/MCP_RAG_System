@@ -1,0 +1,194 @@
+HELIX ROBOTICS — STRATEGIC ACCOUNT RECORD
+Account: Cardinal Foods, Inc.
+Account tier: Enterprise
+Account owner: Elena Vasquez, VP Sales
+Technical Account Manager: Priyanka Deshmukh
+Executive sponsor: Rowan Achebe, CEO
+Last revised: 2024-12-15
+Classification: Internal — Confidential
+
+
+ACCOUNT SUMMARY
+
+Cardinal Foods is a regional grocery distributor operating six distribution
+centers across the southeastern United States, supplying approximately 480
+supermarkets. Annual revenue in the region of 3.1 billion USD. Headquarters in
+Memphis, Tennessee.
+
+They are Helix's largest customer by every measure: units deployed, annual
+contract value, and strategic significance. They are also our first true
+reference account, and the single deployment that proves Helix can operate at
+scale.
+
+  Relationship start            March 2022 (pilot), September 2022 (production)
+  Sites live                    2 of 6 (Memphis, Nashville)
+  Units deployed                240 HX-200 at Memphis
+                                88 HX-200 + 22 HX-450 at Nashville
+  Total units                   350
+  Annual contract value         4.42 million USD
+  Support tier                  Enterprise (99.9 percent availability, 1-hour
+                                critical response, named TAM)
+  Contract renewal              2025-09-30
+  Expansion pipeline            Atlanta and Birmingham DCs, approximately
+                                2.8 million USD combined
+
+
+KEY CONTACTS
+
+  Denise Okafor        VP Supply Chain Operations. Executive sponsor on the
+                       customer side. Bought the original pilot. Our strongest
+                       advocate, and the person whose confidence we nearly lost
+                       in September 2024.
+  Ray Sandoval         Director of DC Operations, Memphis. Day-to-day owner.
+                       Practical, blunt, extremely good at his job. Not
+                       interested in roadmap conversations; interested in
+                       whether the fleet worked today.
+  Hollis Trent         Shift Supervisor, Memphis. The person who telephoned our
+                       support line at 06:53 on 2024-09-14 to tell us our robots
+                       were stuck. Worth remembering by name.
+  Amara Diallo         IT Director. Owns the Blue Yonder WMS integration. Has
+                       been consistently responsive on E-330 credential and
+                       certificate issues.
+  Curtis Lam           CFO. Involved in renewal and in the September 2024 credit
+                       negotiation.
+
+
+DEPLOYMENT HISTORY
+
+  2022-03    Pilot, 12 units, Memphis. Single zone, limited hours.
+  2022-09    Production go-live, 60 units, Memphis.
+  2023-02    Memphis expansion to 145 units.
+  2023-08    Nashville go-live, 88 HX-200.
+  2024-01    Memphis expansion to 240 units. Largest single Fleet OS instance
+             in production, and still is.
+  2024-04    Nashville adds 22 HX-450 Stackers. First mixed-fleet production
+             deployment.
+  2024-09    INC-2024-017. See below.
+  2024-09    Remediated: Fleet OS 4.2.2 and firmware 3.8.2 deployed 2024-09-18.
+  2024-10    Fleet OS 4.2.3 deployed. Bulk dock reservation clearing available.
+  2024-12    Firmware 3.9.0 deployed at Memphis. E-207 self-clearing has
+             substantially reduced their dust-related ticket volume.
+
+
+INC-2024-017 — COMMERCIAL RECORD
+
+On Saturday 2024-09-14, 61 of 240 HX-200 units at Memphis entered a charge dock
+reservation deadlock. Fleet throughput degraded for 6 hours 47 minutes, peaking
+at 71 percent loss, during their Saturday inbound shift. Cardinal Foods missed
+two outbound trailer departures and delayed approximately 4,100 units of
+fulfillment.
+
+The technical account is in the INC-2024-017 postmortem. This section records the
+commercial consequences, which were more severe than the technical ones.
+
+What made this bad commercially was not the outage itself. Ray Sandoval has lived
+through worse from other vendors and said so. Three things did the damage:
+
+  1. We did not detect it. Hollis Trent telephoned us. For 41 minutes our
+     monitoring showed a perfectly healthy fleet while 61 robots sat useless.
+     Denise Okafor's first question in the executive review was not "why did it
+     break" but "why did my shift supervisor have to tell you."
+
+  2. Under the availability definition in force at the time, the worst outage in
+     our company history measured as near-perfect availability, because the
+     deadlocked robots were powered, connected, and unfaulted. Curtis Lam did
+     the arithmetic himself and asked, reasonably, what exactly we were
+     committing to. We did not have a good answer.
+
+  3. Recovery was manual and slow. Clearing 61 reservations one at a time took
+     2 hours 20 minutes of Ray Sandoval's operators' time, during a shift they
+     were already losing.
+
+Response and remediation
+
+  2024-09-14   Rowan Achebe telephoned Denise Okafor personally the same
+               evening. This mattered.
+  2024-09-16   Fleet OS 4.2.2 released.
+  2024-09-17   Firmware 3.8.2 released.
+  2024-09-18   Both deployed at Memphis. Confirmed resolved.
+  2024-09-23   Redacted customer-facing postmortem delivered, three days inside
+               the 5-business-day Enterprise commitment.
+  2024-09-26   On-site executive review. Rowan Achebe, Dana Whitfield, Elena
+               Vasquez attended in person. Dana walked Ray Sandoval and Amara
+               Diallo through the actual root cause in technical detail — the
+               hysteresis band, the strict comparison, the missing lease — rather
+               than a sanitized version. Ray later told Priyanka Deshmukh this
+               was the thing that rebuilt his confidence.
+  2024-10-01   Revised SLA policy issued, changing availability measurement to
+               require dispatch eligibility. Cardinal Foods was shown this
+               before it was published.
+
+Service credit
+
+  Contractual formula figure: 31,800 USD
+  Assessed and paid: 148,000 USD
+
+  The difference is a negotiated goodwill credit approved by Rowan Achebe and
+  Sam Delacroix, covering the full quarter's licence fees for Memphis plus a
+  contribution toward Cardinal Foods' expedited freight costs on the two missed
+  trailers. This was a commercial decision to protect a 4.42 million USD
+  relationship and a 2.8 million USD expansion pipeline, not a contractual
+  entitlement.
+
+  It is explicitly not precedent. It is recorded in the SLA policy as a worked
+  example with that caveat attached, and any future request to match it should
+  route through the CFO.
+
+Outcome
+
+  The relationship survived and is arguably stronger. Denise Okafor's assessment,
+  relayed through Elena Vasquez in November: "You broke it, you told us exactly
+  how, you fixed it in four days, and you changed your own contract terms because
+  of it. That is more than I get from most vendors."
+
+  The Atlanta expansion conversation resumed in November 2024, roughly two months
+  later than originally planned. That two-month delay is the real cost of the
+  incident, and it is larger than the credit.
+
+
+CURRENT STATE AND HEALTH
+
+  Health: Green, with attention
+  Renewal risk: Low
+  Expansion probability: High for Atlanta, medium for Birmingham
+
+Memphis is running Fleet OS 4.2.3 with firmware 3.9.0 and has been stable since
+September. Availability for October, November, and December 2024 measured 99.94,
+99.97, and 99.96 percent respectively under the revised definition.
+
+Open items
+
+  - Atlanta DC proposal. 180 to 210 HX-200 units, approximately 1.9 million USD.
+    Site assessment complete. Proposal with Denise Okafor since 2024-11-20.
+    Decision expected Q1 2025.
+  - Birmingham DC. Earlier stage. Approximately 900,000 USD. Facility has
+    high-bay racking in two zones that neither the HX-200 nor the HX-450 can
+    service, which limits the addressable scope. Do not represent the HX-700
+    high-bay concept to this customer — it is a feasibility study with a July
+    2025 decision gate, not a product.
+  - Memphis dust and E-207. Chronic, improved substantially by firmware 3.9.0's
+    self-clearing behavior. Ray Sandoval has accepted this as a facility
+    characteristic rather than a robot defect.
+  - Self-service site health dashboard. Ray Sandoval has asked repeatedly to see
+    availability and throughput data without going through Priyanka Deshmukh.
+    On the 2025 roadmap for H1. This is a small ask that generates
+    disproportionate goodwill; it should not slip.
+  - Blue Yonder WMS upgrade planned Q2 2025 on the customer side. This is an
+    E-330 risk. Amara Diallo has committed to giving us schema details in
+    advance. Priyanka Deshmukh to track from Q1.
+
+
+ACCOUNT STRATEGY
+
+  1. Never be the reason they hear about a problem second. The detection failure
+     did more damage than the outage. The fleet-level alerting shipped in 4.2.2
+     addresses the specific case; the principle is broader.
+  2. Protect the H1 2025 self-service dashboard commitment. It is cheap and Ray
+     Sandoval has asked more than once.
+  3. Close Atlanta in Q1. The proposal is in and the technical objections are
+     resolved.
+  4. Be honest about high-bay at Birmingham. Scoping the deal to what we can
+     actually service is better than winning a deal we deliver badly, especially
+     with this account.
+  5. Keep Rowan Achebe engaged with Denise Okafor at least quarterly. The
+     executive relationship is what carried us through September.

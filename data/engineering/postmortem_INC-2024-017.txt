@@ -1,0 +1,282 @@
+HELIX ROBOTICS — INCIDENT POSTMORTEM
+Incident: INC-2024-017
+Title: Charge dock reservation deadlock, Cardinal Foods Memphis DC
+Severity: SEV-1
+Date of incident: 2024-09-14
+Postmortem date: 2024-09-19
+Author: Jae-won Park (Staff Engineer, Scheduling)
+Reviewers: Dana Whitfield (CTO), Rosa Iglesias (SRE Lead), Marcus Ozturk
+          (Director of Field Operations), Deepa Nair (QA Manager)
+Status: Closed — all action items completed 2024-11-08
+Classification: Internal. A redacted customer-facing summary was delivered to
+                Cardinal Foods on 2024-09-23.
+
+
+SUMMARY
+
+On Saturday 2024-09-14, 61 of the 240 HX-200 units at the Cardinal Foods
+Memphis distribution center became permanently stuck holding charging dock
+reservations they would never release. Because dock reservations in Fleet OS
+4.2.1 had no expiry, the affected robots occupied the dock queue indefinitely,
+starving healthy robots of the ability to charge. Fleet throughput degraded
+progressively over roughly seven hours as more units drained and joined the
+queue behind the stuck ones.
+
+Cardinal Foods experienced a 6 hour 47 minute period of degraded fulfillment
+during their Saturday inbound shift, with peak throughput loss of 71 percent.
+They missed two outbound trailer departures. Under the Enterprise SLA this was
+assessed as a qualifying availability breach and resulted in a service credit of
+148,000 USD, recognized in Q3 2024.
+
+The root cause was an interaction between two changes that were each correct in
+isolation: a firmware change to how battery state of charge is reported, and a
+Fleet OS scheduler that compared that value with a strict inequality. Neither
+version had been tested against the other.
+
+
+IMPACT
+
+  - Customer: Cardinal Foods, Memphis DC (Enterprise tier, largest deployment)
+  - Duration: 2024-09-14 06:12 CDT to 12:59 CDT (6h 47m)
+  - Robots affected: 61 of 240 directly deadlocked; effectively the full fleet
+    degraded as the dock queue backed up
+  - Throughput: peak loss 71 percent against baseline for the shift
+  - Business impact to customer: 2 missed outbound trailers, approximately
+    4,100 units of delayed fulfillment
+  - Financial impact to Helix: 148,000 USD SLA credit; approximately 90
+    engineering-hours of unplanned remediation work
+  - Safety impact: none. No robot moved unsafely at any point. No injuries, no
+    property damage, no near-miss reports filed.
+  - Data impact: none.
+
+
+TIMELINE (all times CDT)
+
+2024-08-19  Firmware 3.8.1 released to general availability. Among other
+            changes, it altered battery state-of-charge reporting from an
+            integer percentage to a float, and introduced a 0.5 percent
+            hysteresis band on the reported value to suppress oscillation near
+            reporting boundaries. The change was made to fix a cosmetic issue
+            where SoC readings visibly flickered between adjacent integers on
+            the Operator Console. It was reviewed, tested against Fleet OS
+            4.1.x, and shipped without incident.
+
+2024-09-03  Cardinal Foods Memphis completed a staged firmware rollout to
+            3.8.1 across all 240 units. The site was already running Fleet OS
+            4.2.1. This combination — Fleet OS 4.2.1 with firmware 3.8.1 — had
+            never been exercised in our test environment.
+
+2024-09-03
+to 09-13    Robots began accumulating in the deadlocked state at a low rate,
+            roughly two to five units per day. The fleet had sufficient excess
+            dock capacity to absorb this, so throughput remained nominal and no
+            alert fired. In hindsight the telemetry clearly shows the
+            accumulation over this eleven-day window.
+
+2024-09-14
+05:40       Saturday inbound shift begins. Higher-than-typical task volume
+            drives the whole fleet through charge cycles faster than on a
+            weekday.
+
+06:12       Dock queue depth exceeds available capacity for the first time.
+            This is the incident start. Healthy robots begin waiting for docks
+            held by deadlocked units.
+
+06:12
+to 06:53    Progressive degradation. No alert fires. Every individual robot
+            reports healthy — the deadlocked units are not faulted, they are
+            sitting at a dock in a state the system considers legitimate. Fleet
+            OS 4.2.1 had no alerting rule for declining fleet availability, only
+            for individual robot faults.
+
+06:53       Cardinal Foods shift supervisor telephones the Helix support line
+            to report that "robots are queuing at the chargers and not
+            working." Ticket TKT-8841 opened at SEV-2.
+
+07:15       Support escalates to SEV-1 and pages the on-call engineer. Marcus
+            Ozturk (Field Operations) notified. Under the Enterprise SLA the
+            4-hour critical response commitment is met comfortably; the failure
+            was in detection, not in response.
+
+07:15
+to 08:30    On-call engineer investigates. Initial hypotheses — Wi-Fi coverage
+            degradation, dock hardware failure, WMS task flood — are
+            investigated and eliminated. Time is lost here because every
+            robot-level health signal is green.
+
+08:30       Jae-won Park joins the call. Identifies that the 61 affected units
+            all report SoC values in the narrow band between 20.0 and 20.5
+            percent, and that all of them hold dock reservations with no
+            progress.
+
+09:05       Root cause understood. See analysis below.
+
+09:20       Mitigation begins: operators manually cancel dock reservations for
+            affected units through the Operator Console, one at a time. Each
+            cancellation frees a dock. This is slow and entirely manual.
+
+11:40       All 61 reservations manually cleared. Dock queue drains.
+
+12:59       Fleet throughput returns to baseline. Incident end.
+
+2024-09-16  Fleet OS 4.2.2 hotfix released. Changes the SoC threshold
+            comparison to use a tolerance band, and adds expiry leases to dock
+            reservations.
+
+2024-09-17  Firmware 3.8.2 released, ensuring reported SoC crosses threshold
+            boundaries cleanly rather than settling inside the hysteresis band.
+
+2024-09-18  Both patches deployed to Cardinal Foods Memphis. Confirmed
+            resolved.
+
+2024-11-08  Final action item (cross-version CI matrix) completed and verified.
+
+
+ROOT CAUSE ANALYSIS
+
+The Charge Scheduler in Fleet OS 4.2.0 and 4.2.1 released a robot's dock
+reservation when the robot's reported state of charge reached or exceeded the
+configured target — a strict comparison against the raw reported value, with no
+tolerance:
+
+    if reported_soc >= target_soc:
+        release_dock_reservation(robot_id)
+
+Firmware 3.8.1 introduced a 0.5 percent hysteresis band on reported SoC. The
+intent was cosmetic: stop the console display from flickering between adjacent
+values. The effect was that once a robot's true charge settled near a boundary,
+the reported value would stabilize inside the band rather than crossing it
+cleanly.
+
+The specific pathology: a robot would arrive at a dock reporting just under the
+20 percent charge threshold, begin charging, and — for reasons related to how
+the hysteresis band interacts with the charge curve's initial fast-rise region —
+latch a reported value in the 20.0 to 20.5 percent range. The robot was in fact
+charging normally and its true SoC continued climbing to full. But the reported
+value the scheduler consumed remained pinned inside the band, so the release
+condition against the 90 percent target was evaluated against a stale-seeming
+figure and never satisfied.
+
+Because dock reservations had no expiry lease — unlike floor segment
+reservations, which the Traffic Manager reclaims automatically when a robot
+stops reporting progress — nothing in the system ever reclaimed the dock. The
+robot sat there, fully charged, holding a reservation forever, reporting itself
+perfectly healthy.
+
+Two independent defects had to be present for this to occur:
+
+  1. The strict comparison in the Charge Scheduler, which assumed reported SoC
+     was a precise monotonic value. This assumption was undocumented and was
+     silently invalidated by the firmware change.
+
+  2. The absence of expiry on dock reservations. This is the more serious of the
+     two. Defect 1 caused robots to get stuck; defect 2 is why getting stuck was
+     unrecoverable without a human. The Traffic Manager had solved this exact
+     class of problem years earlier with leases, and that lesson was simply not
+     carried across to the Charge Scheduler.
+
+The contributing cause is a process failure. Fleet OS 4.2.1 and firmware 3.8.1
+were each tested thoroughly against the versions current at the time of their
+own release. They were never tested against each other, because no automated
+cross-version matrix existed. The compatibility matrix was a document, not a
+test suite.
+
+
+DETECTION GAP
+
+41 minutes elapsed between incident start (06:12) and customer notification
+(06:53), and the notification came from the customer by telephone rather than
+from our monitoring. This is the part of this incident that we consider least
+acceptable.
+
+Fleet OS 4.2.1 alerting was built entirely around individual robot health. A
+faulted robot alerts. A disconnected robot alerts. A robot that is sitting at a
+charger reporting itself healthy does not alert, no matter how many of them
+there are and no matter what is happening to fleet throughput.
+
+The condition was trivially visible in aggregate. Robots available for dispatch
+declined steadily for eleven days. Dock queue depth had been climbing for eleven
+days. No rule looked at either number.
+
+
+WHAT WENT WELL
+
+  - The safety architecture held completely. Firmware retained authority over
+    motion throughout; no robot moved unsafely, and the system degraded into a
+    static, safe state rather than an unpredictable one.
+  - Once escalated, response was fast and the SLA response commitment was met
+    with substantial margin.
+  - Telemetry retention was sufficient to reconstruct the full eleven-day
+    accumulation, which made root cause analysis conclusive rather than
+    speculative.
+  - The manual reservation-cancel path in the Operator Console existed and
+    worked, giving operators a way out.
+
+
+WHAT WENT POORLY
+
+  - Detection depended on the customer noticing.
+  - Two subsystems solving the same problem (resource reservation) with
+    different and inconsistent semantics, where one had learned the lesson and
+    the other had not.
+  - No cross-version integration testing despite shipping two independently
+    versioned software artifacts that must interoperate in the field.
+  - Mitigation was manual and per-robot. Clearing 61 reservations took 2 hours
+    20 minutes of operator time.
+  - The eleven-day accumulation window was a free warning that we did not
+    collect.
+
+
+ACTION ITEMS
+
+AI-1  Add expiry leases to charging dock reservations, matching Traffic Manager
+      semantics. Owner: Jae-won Park. Shipped in 4.2.2 on 2024-09-16. DONE.
+
+AI-2  Replace strict SoC comparisons with tolerance-band comparisons throughout
+      the Charge Scheduler. Owner: Jae-won Park. Shipped in 4.2.2. DONE.
+
+AI-3  Firmware 3.8.2: ensure reported SoC crosses configured thresholds cleanly
+      rather than latching inside the hysteresis band. Owner: Tobias Lindqvist.
+      Shipped 2024-09-17. DONE.
+
+AI-4  Add fleet-level alerting: robots-available-for-dispatch, dock queue depth,
+      and sustained throughput deviation, each with a defined threshold and
+      page. Owner: Rosa Iglesias. Shipped in 4.2.2. DONE.
+
+AI-5  Establish an automated cross-version CI matrix testing every supported
+      Fleet OS release against every firmware release inside the twelve-month
+      compatibility window. Owner: Deepa Nair. Completed 2024-11-08. This is the
+      most important item on this list. DONE.
+
+AI-6  Add a bulk "clear all stale dock reservations" action to the Operator
+      Console so this class of mitigation is one action rather than sixty-one.
+      Owner: Grace Chen. Shipped in 4.2.3. DONE.
+
+AI-7  Audit every remaining resource reservation in Fleet OS for missing expiry
+      semantics. Owner: Jae-won Park. Completed 2024-10-22; two further
+      unleased reservations found in the pick-face allocator and corrected in
+      4.2.3. DONE.
+
+AI-8  Add the deadlock recovery procedure to the Fleet Recovery Runbook with
+      explicit diagnostic steps. Owner: Marcus Ozturk. DONE — see runbook
+      section 4.
+
+AI-9  Full unification of the Traffic Manager and Charge Scheduler reservation
+      systems onto a single implementation. Owner: Jae-won Park. Deferred to
+      Fleet OS 5.0 as tracked architectural debt. NOT a hotfix item; the 4.2.2
+      leases close the operational risk.
+
+
+LESSONS
+
+The lesson we are recording formally is this: when two components solve the same
+class of problem, they must share an implementation or the difference between
+them must be documented as deliberate. Fleet OS had a correct, battle-tested
+solution to resource deadlock in the Traffic Manager. The Charge Scheduler was
+written later, by different people, and reinvented the same problem badly. The
+gap between "we know how to do this" and "we do this everywhere" is where this
+incident lived.
+
+The second lesson is that independently versioned artifacts that must
+interoperate require combinatorial testing, not documentation. A compatibility
+matrix that is not executed is a statement of intent.

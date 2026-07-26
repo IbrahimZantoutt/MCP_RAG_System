@@ -1,0 +1,219 @@
+HELIX ROBOTICS — RELEASE NOTES
+Product: Helix Fleet OS
+Release line: 4.2.x
+Owner: Grace Chen, Director of Product
+Engineering owner: Dana Whitfield, Chief Technology Officer
+Last revised: 2024-11-27
+Classification: Internal — Engineering and Customer Success. A customer-facing
+                version omits internal defect identifiers and the postmortem
+                references.
+
+
+RELEASE LINE SUMMARY
+
+  4.2.0   2024-08-12   General availability
+  4.2.1   2024-08-27   Maintenance
+  4.2.2   2024-09-16   CRITICAL hotfix — INC-2024-017 remediation
+  4.2.3   2024-10-21   Maintenance and operator tooling
+
+Current recommended version: 4.2.3.
+Minimum supported version: 4.2.2. Versions 4.2.0 and 4.2.1 are withdrawn and
+must not be deployed. See the 4.2.2 section for why.
+
+
+=============================================================================
+4.2.3  —  2024-10-21  —  MAINTENANCE
+=============================================================================
+
+Features
+
+  - Bulk stale dock reservation clearing. The Operator Console gains a single
+    action (Fleet > Charging > Clear Stale Reservations) and the CLI gains
+    "helixctl dock reservations clear --stale". This exists because clearing 61
+    reservations individually during INC-2024-017 consumed 2 hours 20 minutes of
+    operator time. Postmortem action item AI-6.
+
+  - Pick-face allocator reservations now carry expiry leases. Found during the
+    audit of all resource reservations in Fleet OS for missing expiry semantics
+    (postmortem action item AI-7). Two unleased reservation types were found
+    beyond the charging docks; both are corrected here.
+
+  - Telemetry export can now be paused and resumed without restarting the
+    Telemetry Pipeline. Requested by Voss Pharma, whose change control process
+    requires the ability to suspend outbound data flow during audits.
+
+  - Fleet-level alerting rules gained configurable thresholds per site. The rules
+    themselves shipped in 4.2.2; this release makes them tunable, since baseline
+    throughput and acceptable dock queue depth vary substantially between a
+    240-unit grocery DC and a 30-unit apparel facility.
+
+Fixes
+
+  - Fixed Dispatcher assigning tasks to robots that were eligible at evaluation
+    time but had entered a charge cycle before assignment landed. Produced
+    harmless but confusing task churn.
+  - Fixed Operator Console fleet-status page timing out on deployments above 200
+    robots. Affected Cardinal Foods Memphis only, being the only site of that
+    size.
+  - Corrected Site Adapter retry backoff, which was retrying too aggressively
+    against WMS endpoints and occasionally contributing to the very timeouts it
+    was retrying against.
+
+
+=============================================================================
+4.2.2  —  2024-09-16  —  CRITICAL HOTFIX
+=============================================================================
+
+This release remediates incident INC-2024-017. It must be deployed together
+with HX-200 firmware 3.8.2 or later. Neither patch alone is sufficient; they fix
+different halves of the same interaction.
+
+Any site running Fleet OS 4.2.0 or 4.2.1 with HX-200 firmware 3.8.1 is exposed
+to the charge dock reservation deadlock and must upgrade both.
+
+Fixes
+
+  - Charging dock reservations now carry expiry leases, matching the semantics
+    the Traffic Manager has always used for floor segment reservations. A dock
+    reservation that shows no progress within its lease window is reclaimed
+    automatically. This is the more important of the two fixes in this release:
+    it converts an unrecoverable deadlock into a self-healing condition.
+    Postmortem action item AI-1.
+
+  - Charge Scheduler state-of-charge comparisons now use a tolerance band rather
+    than strict inequality against the robot's reported value. The previous
+    implementation assumed reported SoC was a precise monotonic quantity, an
+    assumption that was undocumented and was silently invalidated when firmware
+    3.8.1 introduced a 0.5 percent hysteresis band. Postmortem action item AI-2.
+
+  - Fleet-level alerting added. Three new rule categories, each with a defined
+    threshold and page:
+      * robots available for dispatch, sustained decline
+      * charging dock queue depth
+      * fleet throughput deviation from site baseline
+    Prior to this release, alerting covered only individual robot health. During
+    INC-2024-017 every affected robot reported itself perfectly healthy while
+    the fleet lost 71 percent of throughput, and no alert fired for 41 minutes —
+    at which point a customer shift supervisor telephoned support. Postmortem
+    action item AI-4.
+
+Background
+
+On 2024-09-14 at Cardinal Foods' Memphis distribution center, 61 of 240 HX-200
+units entered a state where they held charging dock reservations that would
+never be released. Fleet throughput degraded progressively over 6 hours 47
+minutes, peaking at 71 percent loss. The customer missed two outbound trailer
+departures. The event resulted in a 148,000 USD SLA credit under their
+Enterprise agreement.
+
+The mechanism: firmware 3.8.1 introduced a hysteresis band on reported state of
+charge for display smoothing. A robot arriving at a dock near the 20 percent
+charge threshold could latch a reported value in the 20.0 to 20.5 percent range
+while physically charging normally to full. Fleet OS 4.2.1 compared that reported
+value against the release target using a strict inequality, so the release
+condition was never satisfied. Dock reservations had no expiry, so nothing
+reclaimed the dock. The robot sat fully charged, holding a dock, reporting
+healthy, forever.
+
+Both firmware 3.8.1 and Fleet OS 4.2.1 were individually correct and individually
+well tested. They had never been tested against each other, because no automated
+cross-version test matrix existed. That matrix now exists and runs nightly
+(postmortem action item AI-5, completed 2024-11-08).
+
+Full detail is in the INC-2024-017 postmortem. The diagnostic and recovery
+procedure is section 4 of the Fleet Recovery Runbook.
+
+
+=============================================================================
+4.2.1  —  2024-08-27  —  MAINTENANCE  —  WITHDRAWN
+=============================================================================
+
+WITHDRAWN. Vulnerable to the INC-2024-017 charge dock reservation deadlock when
+paired with HX-200 firmware 3.8.1. Upgrade to 4.2.2 or later.
+
+Changes as originally released
+
+  - Fixed Site Adapter connection pooling leak against SAP EWM endpoints.
+  - Reduced Operator Console initial load time by approximately 40 percent.
+  - Fixed a Traffic Manager path replanning inefficiency that caused unnecessary
+    detours around recently vacated segments.
+  - Corrected time zone handling in the task history export, which had been
+    emitting UTC timestamps labelled as site-local.
+
+
+=============================================================================
+4.2.0  —  2024-08-12  —  GENERAL AVAILABILITY  —  WITHDRAWN
+=============================================================================
+
+WITHDRAWN. See 4.2.1 note above; the same exposure applies.
+
+This was the major release of 2024 and introduced the following.
+
+Features
+
+  - New Charge Scheduler. Replaced the 4.1 round-robin dock assignment with a
+    constrained optimization over projected task demand, robot state of charge,
+    dock availability, and throughput commitments. In field trials this improved
+    effective fleet availability by 6 to 9 percent at sites with tight dock
+    ratios.
+
+    It is worth recording plainly that the new Charge Scheduler was written by a
+    different team, at a different time, from the Traffic Manager, and did not
+    adopt the Traffic Manager's lease-based reservation model. That divergence
+    is what made INC-2024-017 unrecoverable rather than merely annoying. Full
+    unification of the two reservation systems is tracked for Fleet OS 5.0.
+
+  - Mixed-fleet support. A single Fleet OS instance can now manage HX-200 and
+    HX-450 units sharing floor space, with capability-aware task assignment.
+    Planning efficiency for mixed fleets remains below that of homogeneous
+    fleets; improvement is on the 2025 roadmap.
+
+  - Facility map versioning. Maps now carry a version identifier and change
+    history. Note that this is metadata only — maps are still edited in a
+    desktop tool and imported as a binary blob, with no diff, no review, and no
+    rollback. Proper map lifecycle management remains tracked architectural debt.
+
+  - Traffic Manager rewrite for large fleets. Scales cleanly to 400 robots per
+    instance, up from a practical ceiling of roughly 250 in 4.1.
+
+  - Operator Console redesign, including live floor visualization at fleet scale
+    and per-robot drill-down.
+
+  - Warm standby support for Enterprise-tier customers. Failover is manual by
+    design; see Fleet Recovery Runbook section 5.
+
+Breaking changes
+
+  - The 4.1 task assignment webhook payload changed shape. Custom integrations
+    require updating; the generic REST/CSV adapter handles the change
+    transparently.
+  - Minimum HX-200 firmware raised to 3.7.0.
+  - The legacy dock assignment configuration keys were removed. Sites upgrading
+    from 4.1 must reconfigure charge thresholds using the new schema. Default
+    charge threshold remains 20 percent and default charge target remains 90
+    percent.
+
+
+=============================================================================
+UPGRADE GUIDANCE
+=============================================================================
+
+From 4.1.x
+  Read the breaking changes in the 4.2.0 section. Reconfigure charge thresholds.
+  Verify custom webhook integrations. Upgrade HX-200 firmware to 3.8.2 or later
+  before or during the Fleet OS upgrade — do not leave the fleet on 3.8.1.
+
+From 4.2.0 or 4.2.1
+  Upgrade to 4.2.3 immediately. Confirm HX-200 firmware is 3.8.2 or later across
+  the entire fleet, not just a subset. During INC-2024-017 the failure emerged
+  eleven days after the firmware rollout completed, accumulating at two to five
+  units per day while excess dock capacity absorbed it. Partial exposure is
+  still exposure; it simply takes longer to surface.
+
+From 4.2.2
+  Upgrade to 4.2.3 at normal cadence. No urgency.
+
+All upgrades
+  Fleet OS restart causes a planning pause of 20 to 40 seconds. Robots hold
+  position. Durable state is preserved and robots do not need re-homing.
+  Schedule during a shift boundary where possible.

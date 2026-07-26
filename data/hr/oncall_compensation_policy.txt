@@ -1,0 +1,214 @@
+HELIX ROBOTICS — ON-CALL COMPENSATION POLICY
+Owner: Priya Raghunathan, VP People Ops
+Contributors: Dana Whitfield (CTO), Marcus Ozturk (Director of Field
+              Operations), Sam Delacroix (CFO)
+Effective: 2024-10-01
+Supersedes: policy dated 2023-04-01
+Last revised: 2024-10-01
+Classification: Internal
+
+
+1. WHY THIS POLICY EXISTS
+
+Helix commits to a 1-hour critical response, 24x7, for Enterprise customers, and
+4 hours for Professional. Meeting those commitments requires people to be
+available outside normal hours. Being available outside normal hours is work,
+and it is compensated as work.
+
+This policy was substantially revised in October 2024. The revisions are a direct
+result of what the September 2024 incident revealed about the previous version,
+which under-compensated exactly the situation it most needed to cover. Section 8
+sets out what changed and why.
+
+
+2. WHO IS ON CALL
+
+Three rotations operate independently:
+
+  Engineering       Fleet Software, Firmware, and Platform. Primary and
+                    secondary. One-week shifts, Monday 09:00 to Monday 09:00
+                    Austin time.
+  Field Operations  Regional coverage across North America and EMEA. One-week
+                    shifts.
+  Support           Follow-the-sun coverage between Austin and Rotterdam, plus a
+                    weekend on-call rotation.
+
+Engineers join the engineering rotation after approximately three months, once
+they have shipped meaningfully and completed the Fleet Recovery Runbook
+walkthrough with their buddy. Nobody goes on call without having walked through
+section 4 of that runbook — the charge dock reservation deadlock procedure — in
+the simulator.
+
+
+3. RESPONSE COMMITMENTS
+
+  Engineering primary       15 minutes for SEV-1, 1 hour for SEV-2
+  Engineering secondary     30 minutes when the primary has not acknowledged
+  Field Operations          30 minutes for SEV-1
+  Support                   Per the tier commitment: 1 hour Enterprise, 4 hours
+                            Professional
+
+Being on call means being reachable and able to begin work within your response
+window. It does not mean being at a desk. It does mean not being unreachable,
+not being impaired, and not being more than a reasonable distance from a working
+internet connection.
+
+Alcohol during an on-call shift is prohibited under the employee handbook. This
+is a safety policy and it is not negotiable.
+
+
+4. STANDBY COMPENSATION
+
+Paid for being available, regardless of whether anything happens.
+
+  Engineering primary, weekday night      120 USD per night
+  Engineering primary, weekend day        260 USD per day
+  Engineering secondary                   50 percent of primary rate
+  Field Operations                        140 USD per night, 280 USD per
+                                          weekend day
+  Support weekend rotation                240 USD per day
+
+  Public holiday standby                  200 percent of the equivalent rate
+
+A full one-week engineering primary rotation with no incidents pays 1,120 USD
+standby (5 weeknights at 120 USD plus 2 weekend days at 260 USD).
+
+Standby is paid regardless of activity. It compensates the constraint on your
+life, not the work performed.
+
+
+5. ACTIVATION COMPENSATION
+
+Paid when you are actually working an incident, in addition to standby.
+
+  Hourly activation rate            1.5x your notional hourly base rate
+  Minimum activation                1 hour, even for a 10-minute page
+  Overnight activation              2.0x for work between 22:00 and 06:00 local
+  Public holiday activation         2.0x
+
+Activation time starts when you are paged and ends when you stop working the
+incident. It includes investigation, coordination, customer calls, and immediate
+write-up. It does not include the full postmortem, which is normal working time.
+
+Non-exempt employees are paid per applicable overtime law where that produces a
+higher figure. This policy never reduces a statutory entitlement.
+
+
+6. EXTENDED INCIDENT PROVISIONS
+
+These are the provisions people most often fail to claim. Read this section.
+
+6.1  Extended incident premium
+     Any single incident where you work more than 4 continuous hours pays an
+     additional 1.0x on all hours beyond the fourth. A 7-hour incident therefore
+     pays 1.5x on the first 4 hours and 2.5x on the remaining 3.
+
+6.2  Mandatory rest
+     Anyone working an incident for more than 6 continuous hours, or past
+     02:00 local, takes a minimum 10-hour rest period before returning to any
+     work. This is mandatory and it is the manager's responsibility to enforce,
+     not the employee's to request.
+
+     Rest is paid at normal rate. It is not PTO, it is not unpaid, and it does
+     not come out of anyone's leave balance.
+
+6.3  Recovery day
+     Any incident exceeding 6 hours, or any incident requiring work past
+     02:00 local, entitles the responder to a paid recovery day taken within
+     the following 14 days. Not deducted from PTO. Automatically granted; no
+     approval needed. Your manager is responsible for making sure you take it.
+
+6.4  Handoff obligation
+     Incidents exceeding 8 hours must be handed off to another responder.
+     Nobody works an incident for more than 8 hours in a single stretch. If no
+     handoff is available, that is an escalation to the group lead, not a
+     reason to continue.
+
+6.5  Travel during incidents
+     Incident response travel requires no pre-approval of any kind. Book the
+     flight, take the taxi, get the hotel, go. Accommodation caps do not apply.
+     See the Travel and Expense Policy section 7. Travel time during an active
+     incident counts as activation time.
+
+
+7. WORKED EXAMPLE
+
+An engineer is primary on-call over a weekend. On Saturday they are paged at
+07:15 and work the incident until 12:59, then spend 40 minutes on the immediate
+write-up.
+
+  Standby, Saturday                                          260.00 USD
+  Activation, 07:15 to 13:39 = 6.4 hours
+    First 4.0 hours at 1.5x
+    Remaining 2.4 hours at 2.5x (extended incident premium)
+  Recovery day                                               1 paid day, taken
+                                                             within 14 days
+  Mandatory rest                                             Not triggered
+                                                             (incident ended
+                                                             before 6 continuous
+                                                             hours past 02:00)
+
+The engineer is also entitled to a recovery day under 6.3, since the incident
+exceeded 6 hours from page to resolution.
+
+This example is deliberately modelled on INC-2024-017, the Cardinal Foods charge
+dock deadlock of 2024-09-14, which ran from 06:12 to 12:59 with the on-call
+engineer paged at 07:15.
+
+Under the 2023 policy, that engineer would have received standby of 180 USD plus
+6.4 hours at a flat 1.25x, with no extended incident premium, no recovery day,
+and no mandatory rest provision. Several people worked well past 12 hours that
+day between the incident itself and the emergency hotfix that followed, and the
+old policy had nothing whatever to say about it.
+
+
+8. WHAT CHANGED IN THE 2024 REVISION
+
+  - Extended incident premium added (6.1). The old policy paid a flat rate
+    regardless of duration, which meant a 7-hour incident and a 30-minute page
+    were compensated on the same curve.
+  - Mandatory rest added (6.2). Previously there was nothing. During
+    INC-2024-017 and the four days of hotfix work that followed, several
+    engineers worked hours that in hindsight nobody should have approved.
+  - Recovery day added (6.3), automatic rather than requested. The old policy
+    had a comp-time provision that required manager approval, and almost nobody
+    used it, because asking for time off after a bad weekend feels like
+    admitting weakness. Making it automatic removed that.
+  - Handoff obligation added (6.4).
+  - Standby rates increased by approximately 30 percent across all rotations.
+  - Explicit statement that incident travel needs no pre-approval (6.5),
+    mirroring the Travel and Expense Policy change made for the same reason.
+
+The underlying observation from September 2024 was simple. We asked people to
+work an extremely hard Saturday and then four intense days of remediation, and
+our compensation policy treated it as a slightly long page. The response was
+excellent and the people involved did not complain. That is exactly why the
+policy needed fixing — good people absorbing a badly designed policy is not a
+sustainable operating model.
+
+
+9. MANAGER OBLIGATIONS
+
+  - Ensure rotations are staffed at least 4 weeks in advance.
+  - Never assign a rotation to someone who has not completed the runbook
+    walkthrough.
+  - Enforce mandatory rest actively. Do not wait to be asked.
+  - Confirm recovery days are actually taken within 14 days.
+  - Review rotation load quarterly. Anyone consistently activated more than
+    twice per rotation indicates a reliability problem to be fixed in the
+    product, not an on-call staffing problem to be absorbed by people.
+  - Ensure claims are submitted. The most common failure mode of this policy is
+    people not claiming what they are owed, and that is a manager's problem to
+    solve.
+
+
+10. CLAIMS
+
+Submit through the People Ops portal within 30 days, referencing the incident
+identifier. Standby is paid automatically with the rotation; activation and
+extended incident premiums must be claimed.
+
+Payment is made with the following month's payroll.
+
+Questions on interpretation go to People Ops. Disputes over whether time counts
+as activation are resolved in favour of the employee.

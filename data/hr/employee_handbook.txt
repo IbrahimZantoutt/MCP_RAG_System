@@ -1,0 +1,246 @@
+HELIX ROBOTICS — EMPLOYEE HANDBOOK
+Owner: Priya Raghunathan, VP People Ops
+Effective: 2024-01-01
+Last revised: 2024-11-15
+Applies to: All employees. Contractors are covered by their engagement terms
+            except where this handbook is explicitly referenced.
+Classification: Internal
+
+
+ABOUT THIS HANDBOOK
+
+Helix Robotics is 412 people across Austin (headquarters), Reno (field
+operations hub), and Rotterdam (EMEA). We build autonomous mobile robots for
+warehouses. This handbook covers employment terms, benefits, leave, and conduct.
+
+It is not a contract and does not create one. Where this handbook conflicts with
+your offer letter or with local law, those prevail. Where it conflicts with the
+Safety Standards and Certification policy on any safety matter, that policy
+prevails without exception.
+
+
+EMPLOYMENT BASICS
+
+Working hours
+  Standard is 40 hours per week. Most roles have flexible start and finish times.
+  Manufacturing, field operations, and support operate on defined shifts, since
+  customer facilities and production lines do not flex.
+
+Remote and hybrid work
+  Role-dependent, and we are honest that this is not equal across the company.
+
+    Fully remote eligible      Software engineering (Fleet Software, Platform),
+                               Sales, Marketing, Finance, People Ops
+    Hybrid, 3 days on site     Firmware, Perception, Quality — these roles need
+                               regular access to the hardware-in-the-loop rigs
+                               and the test bay
+    On site                    Manufacturing, Supply Chain
+    Field-based                Field Operations, Field Technicians
+
+  Managers set team expectations within these bands. Fully remote employees are
+  expected on site for two company gatherings per year, with travel covered.
+
+Location changes
+  Moving to a different country, or to a US state where Helix has no employment
+  presence, requires People Ops approval and is not always possible. Discuss
+  before committing to a move.
+
+
+COMPENSATION
+
+Review cycle
+  Annual, effective 1 April, with market adjustments made off-cycle where
+  benchmarking shows a genuine gap. Engineering compensation bands are published
+  internally and are described in the Hiring and Leveling Guide.
+
+Equity
+  All employees receive equity at hire. Four-year vesting, one-year cliff,
+  monthly thereafter. Refresh grants at the annual review for employees beyond
+  their second year.
+
+Bonus
+  Company performance bonus, target 8 percent of base for individual
+  contributors and 12 to 20 percent for directors and above. Paid annually in
+  March based on the prior fiscal year. The 2024 bonus pool was funded at 82
+  percent of target, reflecting revenue ahead of plan and gross margin below it.
+
+On-call compensation
+  On-call is compensated separately and is not part of base expectations. Rates,
+  eligibility, and the provisions for extended incident work are in the On-Call
+  Compensation Policy. Read it before your first rotation — people routinely
+  fail to claim what they are owed for long incidents.
+
+
+TIME OFF
+
+Paid time off
+  Salaried employees receive 25 days per year, accrued monthly. Shift-based
+  employees receive 22 days plus shift differential arrangements.
+
+  Carryover is capped at 5 days into the following year. We do not pay out
+  accrued PTO except where local law requires it.
+
+  We would rather you take it. Average utilization in 2024 was 17.4 days, which
+  is too low, and managers are asked to actively encourage time off rather than
+  merely approve it.
+
+Public holidays
+  Per work location. US: 11 days. Netherlands: per Dutch statutory calendar.
+  Employees may substitute a public holiday for a day of personal or religious
+  significance by notifying their manager.
+
+Sick leave
+  15 days per year, not accrued, no medical certificate required for absences
+  under 3 consecutive days. Longer absences follow local statutory processes.
+
+  Do not come to work sick. This is stated with particular force for anyone
+  working in manufacturing, the test bay, or on a customer floor — an impaired
+  person in a robot operating area is a safety matter, not just a health one.
+
+Parental leave
+  Primary caregiver: 18 weeks fully paid. Secondary caregiver: 8 weeks fully
+  paid. Available from day one of employment, with no qualifying period.
+  Adoption and surrogacy are covered identically. Phased return over 4 weeks at
+  full pay is available on request.
+
+Bereavement leave
+  10 days for an immediate family member, 3 days otherwise. Extensions are
+  granted routinely; ask your manager, who is instructed to say yes.
+
+Unpaid leave and sabbatical
+  Unpaid leave up to 3 months is available with manager and People Ops approval.
+  Employees reaching 5 years of service are eligible for a 4-week paid
+  sabbatical, in addition to PTO.
+
+
+BENEFITS
+
+Health
+  US: medical, dental, and vision from day one. Helix pays 100 percent of the
+  employee premium and 80 percent of dependent premiums. Netherlands: statutory
+  coverage plus a supplementary allowance.
+
+Mental health
+  Six funded therapy or counselling sessions per year through the employee
+  assistance programme, plus unlimited access to the associated digital
+  services. Usage is confidential and Helix receives only aggregate numbers.
+
+Retirement
+  US 401(k) with 5 percent company match, immediately vested. Netherlands:
+  pension per the applicable arrangement.
+
+Home office
+  1,200 USD equipment allowance at hire, refreshed at 600 USD every two years.
+  Covers desk, chair, monitor, and peripherals. Equipment remains Helix property
+  above 500 USD in value and is returned on departure. Home office equipment is
+  handled by People Ops, not through the expense policy.
+
+Learning
+  2,500 USD per person per year for courses, conferences, books, and
+  certifications. Manager approval only. Conference travel comes out of the
+  travel budget rather than this allowance.
+
+Parking and commuting
+  Austin and Reno: free on-site parking. Rotterdam: public transport pass or
+  cycling allowance.
+
+
+CONDUCT AND SAFETY
+
+Safety obligations
+  Every employee, regardless of role, is subject to the following without
+  exception:
+
+    - Anyone entering a robot operating area at any Helix or customer facility
+      must have completed the floor entry protocol briefing. This includes
+      executives and visitors. There is no exemption for seniority or for being
+      in a hurry.
+    - All engineering staff complete a two-hour safety orientation in week one,
+      including those who will never touch firmware. It is required for Austin
+      test bay access.
+    - Alcohol is not permitted at any Helix facility with a robot test bay, on
+      any customer site, or during an on-call shift. This is a safety policy.
+    - Any near-miss, any contact between a robot and a person however minor, and
+      any unexpected robot motion must be reported to Safety and Compliance
+      within 24 hours. Reporting a near-miss is never held against the reporter,
+      and any manager who suggests otherwise is in breach of this handbook.
+
+Anti-harassment and discrimination
+  Helix does not tolerate harassment or discrimination on any basis. Reports go
+  to your manager, People Ops, or the anonymous reporting line. All reports are
+  investigated. Retaliation against a reporter is itself grounds for termination.
+
+Confidentiality
+  Much of what we do is confidential: customer deployments, pricing, roadmap,
+  bill-of-materials data, and incident detail. Customer names may be used
+  externally only where a public reference agreement exists.
+
+  Specific and frequently misunderstood: internal postmortems are internal.
+  Customer-facing incident summaries are prepared separately and are approved by
+  the account team. Do not forward an internal postmortem to a customer, however
+  well intentioned.
+
+Use of customer data
+  Covered fully in the Data Handling and Privacy Policy. In brief: access
+  customer data only with a recorded reason, never store diagnostic captures on
+  personal machines, and never attach them to email.
+
+Outside work
+  Permitted where it does not compete with Helix, does not use Helix resources,
+  and does not impair your work. Disclose to your manager. Anything involving
+  autonomous mobile robots, warehouse automation, or a Helix customer requires
+  People Ops approval.
+
+
+TRAVEL AND EXPENSES
+
+Covered by the Travel and Expense Policy. The single most important provision:
+during an active SEV-1 or SEV-2 incident, no pre-approval is required for any
+travel expense. Book the flight and go; explain afterward. That rule exists
+because in September 2024 a field engineer spent hours chasing approval for a
+1,400 USD Saturday fare during a critical outage at our largest customer.
+
+
+PERFORMANCE AND GROWTH
+
+Reviews
+  Twice yearly: a full review in March and a lighter check-in in September.
+  Ratings feed compensation and promotion decisions.
+
+Promotion
+  Engineering levels and expectations are in the Hiring and Leveling Guide.
+  Promotion is a recognition that someone is already operating at the next
+  level, not a bet that they will grow into it.
+
+Feedback
+  We ask for direct feedback given early. The engineering norm of stating what
+  you actually checked in a code review rather than a bare approval is a
+  specific instance of a general expectation.
+
+Internal mobility
+  Employees may apply for any internal role after 12 months in their current
+  one, or sooner with manager agreement. Managers are expected not to block
+  internal moves.
+
+
+LEAVING
+
+Notice
+  4 weeks for individual contributors, 8 weeks for directors and above, or as
+  specified in your contract, or as local law requires — whichever is longer.
+
+Offboarding
+  Return of equipment, access revocation, and a knowledge handover. Note that
+  Operator Console accounts at customer sites are not covered by centralized
+  deprovisioning, since Fleet OS does not yet support single sign-on. Anyone
+  with customer-site console accounts must have them removed manually as part of
+  offboarding. People Ops maintains the checklist; SSO is on the 2025 roadmap
+  and will close this gap.
+
+Exit interviews
+  Offered to everyone, conducted by People Ops, and confidential. Aggregate
+  themes are reported to the executive team quarterly.
+
+Alumni
+  We rehire. Six people have returned since 2021, and the eligibility criteria
+  are simply that you left on reasonable terms.

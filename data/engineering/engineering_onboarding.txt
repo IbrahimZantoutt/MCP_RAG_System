@@ -1,0 +1,206 @@
+HELIX ROBOTICS — ENGINEERING ONBOARDING GUIDE
+Audience: New engineering hires
+Owner: Dana Whitfield, Chief Technology Officer
+Last revised: 2024-11-25
+Classification: Internal — Engineering
+
+
+WELCOME
+
+You are joining an engineering organization of 143 people inside a company of
+412. We build robots that move heavy objects around buildings where humans also
+work. That single fact shapes almost every engineering norm described in this
+document. When a web service has a bad day, a page loads slowly. When we have a
+bad day, a 118 kg machine is doing something unexpected in a room with people in
+it.
+
+This document covers how we work. It does not cover what we build; for that,
+read the Fleet OS Architecture Overview first, then the HX-200 Courier product
+specification, then the postmortem for INC-2024-017. Those three documents in
+that order will give you a working model of the system, its shape, and its
+failure modes.
+
+
+ORGANIZATION
+
+Engineering is organized into five groups reporting to the CTO:
+
+  Fleet Software      — Fleet OS: Dispatcher, Traffic Manager, Charge Scheduler,
+                        Telemetry Pipeline, Operator Console. Largest group at
+                        51 engineers.
+  Firmware            — Robot-side software across the HX-200 3.x and HX-450 2.x
+                        lines. Led by Tobias Lindqvist as principal engineer.
+                        28 engineers.
+  Perception          — Helix Vision, localization, obstacle classification.
+                        24 engineers.
+  Platform & SRE      — Build, CI, appliance images, deployment tooling,
+                        observability. Led by Rosa Iglesias. 19 engineers.
+  Quality             — Test infrastructure, hardware-in-the-loop rigs,
+                        release qualification. Led by Deepa Nair. 21 engineers.
+
+Grace Chen (Director of Product) does not report into engineering but sits with
+Fleet Software and is in effectively every planning conversation. Nikolai Petrov
+(Safety and Compliance Manager) reports to Operations but holds absolute veto
+over any change touching motion safety.
+
+
+WEEK ONE
+
+Day 1    Accounts, laptop, badge. Your manager will have a buddy assigned.
+Day 2    Development environment. See below. Budget the full day; the
+         hardware-in-the-loop setup is not fast.
+Day 3    Safety orientation with Nikolai Petrov. Mandatory for all engineering
+         staff without exception, including people who will never touch
+         firmware. Two hours. You cannot get floor access to the Austin test
+         bay without it.
+Day 4    Read the three documents listed above. Talk to your buddy about them.
+Day 5    Ship something small. Every new engineer merges a real change in week
+         one. It does not need to be significant; it needs to take you through
+         the whole pipeline once while someone is sitting next to you.
+
+
+DEVELOPMENT ENVIRONMENT
+
+Fleet OS is Python and Go on Linux. Firmware is C++ on a real-time Linux variant.
+Perception is C++ and Python with CUDA for the training pipeline.
+
+Everyone gets:
+  - A Linux workstation. macOS is supported for Fleet OS work only; firmware and
+    perception require Linux.
+  - Access to the simulator. This is where most development happens. It models
+    robot kinematics, battery behavior, Wi-Fi characteristics, and facility
+    layouts, and can replay recorded telemetry from real sites. You can run a
+    240-robot Cardinal Foods scenario on a workstation.
+  - A slot on the hardware-in-the-loop rigs. There are 14 rigs in Austin. They
+    are booked through the internal scheduler and they are genuinely scarce;
+    plan ahead.
+  - Read access to production telemetry from all customer sites, via the support
+    tooling. Write access to anything customer-facing requires a separate
+    approval and is audited.
+
+The simulator is good but it is not reality. It did not catch INC-2024-017 and it
+would not have; the failure required a specific firmware build talking to a
+specific Fleet OS build, and at the time we did not simulate that combination.
+Treat green simulator results as necessary, not sufficient.
+
+
+CODE REVIEW
+
+Every change requires at least one approving review. Changes to the following
+require two, one of which must be from a designated owner:
+
+  - Anything in the Charge Scheduler or Traffic Manager. Both are resource
+    reservation systems where subtle errors produce fleet-wide emergent
+    behavior rather than local failures.
+  - Anything in firmware touching motion, e-stop, obstacle detection, or battery
+    management.
+  - Anything changing an interface between Fleet OS and firmware, in either
+    direction.
+  - Facility map handling.
+
+Review norms:
+  - Reviewers are expected to state what they actually checked, not just approve.
+    "Logic looks right, did not verify the threshold math" is a useful review.
+    A bare LGTM on a scheduler change is not.
+  - If a change alters an assumption another component depends on, say so
+    explicitly in the description. The firmware 3.8.1 SoC hysteresis change was
+    reviewed correctly and approved correctly, and the reviewers had no reason to
+    know that Fleet OS 4.2 compared that value with a strict inequality. Write
+    the description so a reader in the other subsystem would notice.
+  - Disagreement escalates to the group lead quickly. We would rather have a
+    fifteen-minute argument than a slow review.
+
+
+TESTING AND THE CROSS-VERSION MATRIX
+
+Four tiers, all required to pass before release:
+
+  1. Unit tests. Fast, run on every commit.
+  2. Simulator integration tests. Full facility scenarios against the simulator.
+     Run on every merge to main.
+  3. Hardware-in-the-loop. Real firmware on real compute against simulated
+     mechanics. Run nightly and on every release candidate.
+  4. Cross-version matrix. Every supported Fleet OS release tested against every
+     firmware release inside the twelve-month compatibility window. Runs nightly.
+
+Tier 4 is new. It was established on 2024-11-08 as action item AI-5 from the
+INC-2024-017 postmortem, and it is the most important process change this
+organization made in 2024. Before it existed, the compatibility matrix was a
+document that described which versions were supposed to work together. Nobody
+ran it. Fleet OS 4.2.1 and firmware 3.8.1 were both correct, both thoroughly
+tested, and had never been executed against one another. They deadlocked 61
+robots at our largest customer for most of a Saturday.
+
+The rule that came out of this: a compatibility matrix that is not executed is a
+statement of intent, not a test. If you find yourself writing a document that
+describes which combinations of things should work, ask why it is not a test.
+
+
+ON-CALL
+
+Engineers join the on-call rotation after roughly three months, once they have
+shipped meaningfully and completed the runbook walkthrough. The rotation is
+one week, primary and secondary, across Fleet Software, Firmware, and Platform.
+
+  - Primary responds within 15 minutes for SEV-1, 1 hour for SEV-2.
+  - Secondary is backup and handles anything the primary cannot get to.
+  - Field Operations (Marcus Ozturk's group) is the first line for customer
+    sites and escalates to engineering. You are not the first person on the
+    phone with an angry customer, and you should not try to be.
+  - On-call is compensated. Rates and comp-time rules are in the On-Call
+    Compensation Policy maintained by People Ops. Read it before your first
+    rotation; there are provisions for extended incident work that people
+    routinely forget to claim.
+
+Before your first shift, read the Fleet Recovery Runbook end to end and walk
+through section 4 (charge dock reservation deadlock) with your buddy in the
+simulator. That section exists because of INC-2024-017 and describes the exact
+diagnostic path that took us two hours and fifteen minutes to find live.
+
+
+INCIDENT AND POSTMORTEM CULTURE
+
+Postmortems are blameless and they are mandatory for any SEV-1 or any event with
+customer-visible impact exceeding 30 minutes. Written within five business days.
+
+Blameless does not mean vague. Read the INC-2024-017 postmortem: it names the
+exact code, the exact comparison, the exact firmware behavior, and the exact
+process gap, and it names the engineers who owned each remediation. What it does
+not do is suggest that any individual should have caught it. Both changes were
+correct. The system that was supposed to catch their interaction did not exist.
+
+Two habits we ask for specifically:
+
+  - Record detection method honestly. If the customer told us before our
+    monitoring did, write that down in those words. In INC-2024-017 the
+    detection gap was 41 minutes and the notification arrived by telephone from
+    a shift supervisor. That sentence did more to drive change than any other
+    part of the document.
+  - When you find a defect, ask where else the same shape of defect lives.
+    Action item AI-7 audited every resource reservation in Fleet OS for missing
+    expiry semantics and found two more.
+
+
+ENGINEERING VALUES IN PRACTICE
+
+Fail static. When we do not know what is safe, we stop. Every architectural
+choice biases toward the system halting predictably rather than continuing
+uncertainly. Fleet OS going down stops task assignment; it does not cause a
+single robot to move unsafely.
+
+Firmware has final say. Fleet OS is an optimizer. Firmware is the authority.
+Nothing in Fleet OS can override an e-stop, disable obstacle detection, or
+command motion outside the certified envelope. This is a certification
+requirement and it is not configurable, negotiable, or bypassable for testing.
+
+Leases, not locks. Any resource one robot holds and another might need must have
+an expiry. The Traffic Manager learned this early. The Charge Scheduler did not,
+and that gap is the entire second half of INC-2024-017. Full unification of the
+two reservation systems is tracked for Fleet OS 5.0.
+
+Shared problems get shared implementations. When two components solve the same
+class of problem, they share code or the difference is documented as deliberate.
+
+The customer is not our monitoring. If a human at a customer site notices a
+problem before an alert fires, that is a monitoring defect and gets tracked as
+one.

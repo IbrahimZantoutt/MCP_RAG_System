@@ -1,0 +1,200 @@
+HELIX ROBOTICS — DATA HANDLING AND PRIVACY POLICY
+Owner: Nikolai Petrov, Safety and Compliance Manager
+Legal review: External counsel (Brenner & Associates, Basel) for EMEA provisions
+Contributors: Rosa Iglesias (SRE Lead), Dana Whitfield (CTO)
+Effective: 2024-08-01
+Last revised: 2024-11-21
+Classification: Internal. Sections 2, 3, and 6 form the basis of the
+                customer-facing data processing addendum.
+
+
+1. WHAT DATA HELIX HANDLES
+
+Helix operates robots inside customer facilities. The data we handle divides into
+three categories with materially different sensitivity.
+
+OPERATIONAL TELEMETRY
+  Robot pose, velocity, battery state, motor currents, fault flags, task
+  identifiers, and dock state. Emitted at 4 Hz per robot, retained locally for
+  90 days, and exported to Helix Cloud at a downsampled 0.2 Hz for support and
+  analytics.
+
+  This is machine data. It contains no personal information by design, and the
+  telemetry schema is reviewed at each release to keep it that way.
+
+CUSTOMER BUSINESS DATA
+  Task instructions from the customer WMS, which necessarily reveal what is
+  moving where and in what volume. This is commercially sensitive to the
+  customer even though it is not personal data.
+
+  Task content is processed in the Site Adapter and Dispatcher. It is retained in
+  the local task history. It is NOT exported to Helix Cloud. Only aggregate
+  counts leave the facility.
+
+PERSONAL DATA
+  Limited and deliberately so:
+    - Operator Console user accounts: name, work email, role, authentication
+      credentials, and access log entries
+    - Support ticket contents, which frequently include customer staff names and
+      contact details
+    - Helix employee data, handled under separate People Ops policy
+
+  Helix Vision detects and classifies the presence of a person as an obstacle
+  class. It does not perform identification, does not retain images, and does not
+  transmit images. Classification output is a category label, not a picture.
+  This is an architectural constraint, not a configuration setting, and it exists
+  specifically so that deploying our robots does not create a workplace
+  surveillance capability. Customer works councils in Germany and the
+  Netherlands have asked about this directly; the answer above is complete and
+  accurate and may be given in full.
+
+
+2. DATA LOCATION AND RESIDENCY
+
+Fleet OS runs on-premise in the customer facility. All operational processing,
+all task data, and all live floor state remain on customer premises.
+
+Telemetry export to Helix Cloud currently lands in US regions. This is the
+principal open issue in this policy.
+
+  - North American customers: no residency concern raised to date.
+  - EMEA customers: telemetry export operates under a data processing agreement
+    with standard contractual clauses. Voss Pharma has accepted this for their
+    Basel site and has stated clearly that EU data residency is a requirement for
+    any expansion into Frankfurt or Dublin.
+  - EU data residency for telemetry export is on the 2025 roadmap under EMEA
+    deployment tooling, scheduled H2 2025.
+
+Customers may disable telemetry export entirely. Doing so degrades our support
+capability substantially — telemetry retention was what made root cause analysis
+of INC-2024-017 conclusive rather than speculative, since it let us reconstruct
+the full eleven-day accumulation of stuck robots. Customers should understand
+that tradeoff, and it should be presented honestly rather than as a reason not to
+offer the option.
+
+Fleet OS 4.2.3 added the ability to pause and resume telemetry export without
+restarting the Telemetry Pipeline. This exists because Voss Pharma's change
+control process requires the ability to suspend outbound data flow during audit
+windows.
+
+
+3. RETENTION
+
+  Local telemetry (customer premises)          90 days, rolling
+  Exported telemetry (Helix Cloud)             13 months
+  Task history (customer premises)             24 months, customer-configurable
+  Operator Console audit log                   24 months minimum
+  Support tickets and attachments              5 years
+  Diagnostic captures                          90 days unless attached to an
+                                               open incident
+  Incident records and postmortems             Indefinite
+
+Diagnostic captures deserve particular attention. A full capture
+(helixctl diag capture --full) includes recent task history and can therefore
+contain customer business data. Captures must be stored in the support system
+against the relevant ticket, never on personal machines, never in shared drives,
+and never attached to email. Field technicians and support engineers are trained
+on this specifically.
+
+
+4. ACCESS CONTROL — INTERNAL
+
+  - Read access to production telemetry across all customer sites is available to
+    engineering staff through the support tooling. This is broad by design; the
+    ability to investigate a problem at any site is operationally necessary.
+  - Write access to anything customer-facing requires separate approval and is
+    audited.
+  - Access to customer task history requires a justification recorded against a
+    ticket or incident.
+  - Access to Operator Console user account data is restricted to Support and
+    SRE.
+
+All access to customer environments is logged. Logs are reviewed quarterly by
+Safety and Compliance. Two reviews have been conducted since this policy took
+effect, both with no findings.
+
+
+5. THE OPERATOR CONSOLE AUTHENTICATION GAP
+
+Stated plainly because it is the largest known control weakness in the product.
+
+The Operator Console does not support single sign-on. Authentication uses local
+accounts managed within Fleet OS. This means:
+
+  - No enforcement of the customer's password policy
+  - No enforcement of the customer's MFA requirement
+  - No centralized deprovisioning. When a customer employee leaves, their Fleet
+    OS account must be disabled manually and separately from their normal
+    offboarding.
+  - Audit log exists but is not tamper-evident
+
+For customers with formal identity governance requirements this is a genuine
+compliance gap, not a feature preference. Voss Pharma's IT Security and
+Compliance Lead has stated in writing that it is non-compliant with their
+identity governance standard, and Basel operates today under a documented
+compensating control — quarterly manual account reconciliation performed jointly
+by customer operations and customer security — that is an exception with an
+expiry date.
+
+SAML and OIDC single sign-on, role-based access control refinement, and a
+tamper-evident audit log are roadmap item 3.1, scheduled H1 2025. Approximately
+4.4 million USD of pipeline is gated on it.
+
+Until it ships, the guidance for customers with identity governance requirements
+is: document a compensating control, define its review cadence, and give it an
+expiry. Do not represent the current state as adequate.
+
+
+6. CUSTOMER DATA RIGHTS
+
+Customers may at any time:
+
+  - Request an export of all data Helix holds relating to their deployment
+  - Request deletion of exported telemetry, subject to the retention required for
+    open incidents
+  - Disable telemetry export entirely
+  - Pause telemetry export for a defined window
+  - Audit Helix's handling of their data. Voss Pharma exercises this annually;
+    the 2024 audit completed in October with two findings, both closed.
+
+Requests route through the Technical Account Manager for Enterprise customers and
+through Support otherwise. Response commitment is 30 days, and we have met it on
+every request to date.
+
+
+7. SUB-PROCESSORS
+
+Helix Cloud runs on a single major infrastructure provider. Sub-processors used
+in the handling of customer telemetry or support data are listed in the data
+processing addendum and customers are notified 30 days before any change.
+
+No customer telemetry or business data is used to train machine learning models
+without explicit written customer agreement. Two customers have agreed to
+participate in the perception training programme, under agreements that cover
+Helix Vision obstacle classification data only. No task content, no personal
+data, and no facility layout data is included.
+
+
+8. BREACH RESPONSE
+
+  - Suspected breach reported to Safety and Compliance immediately, at any hour.
+  - Initial assessment within 4 hours.
+  - Affected customers notified within 72 hours of confirmation, or sooner where
+    contractually or legally required.
+  - Written incident report within 5 business days, following the same structure
+    as our safety and availability postmortems: the actual mechanism, the actual
+    process gap, named owners with dates on remediation.
+
+No customer data breach has occurred to date. One security defect has been
+remediated: a TLS certificate validation weakness in the telemetry upload path,
+reported through the Helix responsible disclosure process and patched in HX-200
+firmware 3.6.4 on 2024-11-19. There was no evidence of exploitation, and affected
+customers were notified.
+
+
+9. RESPONSIBLE DISCLOSURE
+
+Helix operates a responsible disclosure programme. Reports are acknowledged
+within 2 business days and triaged within 5. We do not pursue legal action
+against good-faith researchers. Contact details are published on the Helix
+website and in customer documentation.

@@ -1,0 +1,182 @@
+HELIX ROBOTICS — PRICING AND PACKAGING
+Owner: Elena Vasquez, VP Sales
+Approved by: Sam Delacroix (CFO), Rowan Achebe (CEO)
+Effective: 2024-10-01
+Last revised: 2024-11-30
+Classification: Internal — Confidential. List prices may be quoted to
+                prospects. Discount bands, floor prices, and margin data in
+                sections 5 through 7 must not leave the company.
+
+
+1. HOW WE SELL
+
+Helix sells hardware and software separately. Robots are purchased or leased;
+Fleet OS is licensed per robot per month. Support tier is chosen independently of
+licence and sets availability commitments and response times.
+
+A typical deal therefore has three components:
+
+    hardware (capex or lease) + Fleet OS licence + support tier
+
+Deployment services (site assessment, installation, map creation, integration,
+training) are quoted separately as a one-time professional services engagement.
+
+
+2. HARDWARE LIST PRICES
+
+HX-200 Courier
+  Base unit                                      47,500 USD
+  Roller-top deck (powered conveyor)             +6,200 USD
+  Helix Vision perception module                 +8,900 USD
+  Extended battery (8.9 kWh, 11 h runtime)       +4,400 USD
+  Cold-chain package (0 C rated, sealed)         +7,100 USD
+  36-month lease, base unit                      1,450 USD per month
+
+HX-450 Stacker
+  Base unit                                      89,000 USD
+  Extended mast (2,400 mm lift)                  +12,500 USD
+  Helix Vision perception module                 +8,900 USD
+  Cold-chain package (-25 C rated)               +14,800 USD
+  Fork camera upgrade (low light)                +3,900 USD
+  36-month lease, base unit                      2,720 USD per month
+
+Charging docks
+  Standard dock                                  6,800 USD
+  High-current dock (HX-450)                     9,400 USD
+
+Dock provisioning is not optional and must be quoted correctly. Recommended
+ratios are one dock per four HX-200 units and one dock per three HX-450 units.
+The Stacker's higher ratio reflects its longer charge time and shorter runtime.
+Under-provisioning docks is the single most common site design error on Stacker
+deployments; it produces chronic throughput shortfall that customers reasonably
+blame on the robots. Do not discount docks out of a deal to hit a number.
+
+
+3. SOFTWARE LICENCE
+
+  Fleet OS, Professional                         180 USD per robot per month
+  Fleet OS, Enterprise                           265 USD per robot per month
+
+Licensing is per robot regardless of model, so mixed HX-200 and HX-450 fleets are
+billed uniformly. Licence is required; there is no perpetual option and no
+unlicensed operation.
+
+
+4. SUPPORT TIERS
+
+Full definitions are in the Support SLA and Escalation Policy. Commercially:
+
+  STANDARD       99.0 percent availability, next-business-day critical response,
+                 business hours, no named contact. Included at no additional
+                 charge with the Professional licence.
+
+  PROFESSIONAL   99.5 percent availability, 4-hour critical response 24x7,
+                 named support engineer. Included with the Professional licence.
+
+  ENTERPRISE     99.9 percent availability, 1-hour critical response 24x7,
+                 named Technical Account Manager, quarterly business review,
+                 24-hour on-site response for SEV-1 where remote resolution has
+                 failed. Requires the Enterprise licence at 265 USD per robot
+                 per month.
+
+The Enterprise tier is where the availability commitment becomes commercially
+serious. Note that as of the 2024-10-01 policy revision, availability requires
+robots to be eligible for dispatch, not merely powered and unfaulted. This
+change followed INC-2024-017, where 61 deadlocked robots at Cardinal Foods
+measured as available under the old definition while doing no work at all.
+
+Sales staff must understand this change, because it makes the Enterprise
+commitment meaningfully harder to meet and it is a strong differentiator against
+competitors whose availability definitions remain loose. Lead with it.
+
+
+5. VOLUME DISCOUNT BANDS — INTERNAL
+
+Applied to hardware list price. Software licence discounts require CFO approval
+and are rare.
+
+     1 to 24 units          list
+    25 to 74 units          5 percent
+    75 to 149 units         9 percent
+   150 to 299 units         13 percent
+   300 units and above      17 percent
+
+Multi-site agreements aggregate unit counts across sites for band purposes.
+Cardinal Foods at 350 units across two sites qualifies at the top band.
+
+
+6. DISCOUNT AUTHORITY — INTERNAL
+
+  Account Executive              up to 5 percent beyond volume band
+  VP Sales (Elena Vasquez)       up to 12 percent beyond volume band
+  CFO (Sam Delacroix)            up to 20 percent beyond volume band
+  CEO                            beyond 20 percent
+
+Floor: no deal below 38 percent gross margin without CFO approval. Company gross
+margin was 51 percent in Q3 2024, which is below where a hardware-plus-software
+business needs to be, and hardware bill of materials is the principal reason.
+HX-200 hardware revision D targets a 14 percent BOM reduction in H2 2025. Until
+that lands, hardware discounting directly erodes a margin we cannot afford to
+erode.
+
+Do not discount the software licence to protect hardware price. Recurring
+software revenue at high margin is the entire long-term thesis of the business.
+Trading it for a one-time hardware win is the worst trade available.
+
+
+7. PROFESSIONAL SERVICES
+
+  Site assessment                            12,000 USD (credited against order)
+  Installation and commissioning             per unit, 850 USD
+  Facility map creation                      18,000 to 45,000 USD by site size
+  WMS integration, standard adapter          22,000 USD
+  WMS integration, custom                    quoted
+  Operator training                          4,500 USD per session
+  Field technician certification             7,500 USD per cohort
+
+Site assessment is not optional and should never be waived to accelerate a deal.
+The assessment is where pallet quality, floor flatness, aisle widths, lighting
+levels, Wi-Fi coverage, and dock siting get validated. Most deployment problems
+we have had trace to something an assessment would have caught:
+
+  - Brightline Apparel Reno: unusually uniform rack geometry defeating scan
+    matching, requiring a firmware fix in 3.9.0
+  - Trellis Home Goods Columbus: two aisles below 200 lux, degrading Helix
+    Vision classification
+  - Multiple freezer proposals sized without accounting for the HX-450
+    cold-chain runtime penalty (approximately 4.5 hours at -25 C rather than
+    7 hours, with charge time extended by roughly 40 percent)
+
+
+8. WHAT WE DO NOT SELL
+
+Consistency matters here; these come up regularly.
+
+  - Outdoor or yard operation. The HX-200 is IP54 and certified for indoor
+    mixed-traffic use only. Not a configuration option, not a roadmap item.
+  - High-bay racking. Neither product reaches above 2,400 mm. The HX-700 concept
+    is a feasibility study with a July 2025 decision gate and must not be
+    represented to customers as planned. Scope deals to what we can service.
+  - Cloud-hosted Fleet OS. Deliberate architectural commitment, not a gap.
+  - Multi-tenant Fleet OS. One instance per facility.
+  - Automatic warm-standby failover. Manual by design, for safety reasons.
+  - Third-party robot support in Fleet OS.
+  - Raising the HX-450 mast-extended speed limit above 0.3 m/s.
+
+The correct posture on all of these is a clear no with the reason, not a vague
+"not currently." Prospects respect the former and lose trust over the latter.
+
+
+9. CURRENT COMMERCIAL NOTES
+
+  - SSO is the single largest gated revenue item in the pipeline. Approximately
+    4.4 million USD across all accounts is blocked on Operator Console SSO, of
+    which 2.6 million USD is Voss Pharma expansion (Frankfurt and Dublin).
+    Roadmap item 3.1, H1 2025.
+  - Helix Vision attaches on only 31 percent of units. It is high margin and
+    materially improves obstacle handling. Attach rate improvement is a 2025
+    priority and should be a default part of every proposal rather than an
+    upsell attempted late.
+  - EU data residency will become a gating requirement for EMEA expansion.
+    Roadmap H2 2025. Scope it into EMEA proposals now rather than discovering it
+    at contract stage.

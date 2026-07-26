@@ -1,0 +1,191 @@
+HELIX ROBOTICS — COMPETITIVE LANDSCAPE
+Owner: Elena Vasquez, VP Sales
+Contributors: Grace Chen (Product), Rowan Achebe (CEO)
+Last revised: 2024-12-04
+Classification: Internal — Confidential. Do not share externally. Do not
+                paraphrase competitor weaknesses to prospects as fact; use the
+                positioning language in section 6.
+
+
+1. MARKET POSITION
+
+Helix competes in indoor autonomous mobile robots for distribution and
+fulfillment. We are a mid-size player: 1,510 robots deployed, 38 sites, 33.2
+million USD ARR. We are neither the volume leader nor the technology leader by
+raw capability. Where we win is the combination of mixed-traffic safety
+certification, on-premise architecture, and operational transparency.
+
+Win rate in competitive deals, 2024: 41 percent overall. 58 percent in deals
+where mixed human-robot floor operation is a stated requirement. 12 percent in
+deals involving high-bay racking, which is a segment we effectively do not serve.
+
+
+2. PRINCIPAL COMPETITORS
+
+VERTEX LOGISTICS SYSTEMS
+  The volume leader in North America. Roughly 9,000 units deployed. Well
+  capitalized, broad product line including high-bay.
+
+  Strengths
+    - Scale and reference density. Almost every prospect has heard of them.
+    - Full product range including high-bay, which we cannot answer.
+    - Aggressive pricing; they will go below our floor and can absorb it.
+
+  Weaknesses we observe consistently
+    - Cloud-dependent control plane. Their fleet controller requires connectivity
+      to their cloud for task orchestration. Several prospects have told us about
+      site outages caused by internet or cloud availability rather than by
+      anything in the facility. This is our single strongest differentiator.
+    - Availability commitments defined loosely. Their standard agreement counts a
+      robot as available if it is powered and connected. Ours, since 2024-10-01,
+      requires eligibility for dispatch.
+    - Slower on safety certification for genuinely mixed-traffic environments.
+      Several of their deployments segregate robots from people by physical
+      barrier, which is a different product category.
+
+  Where they beat us
+    High-bay. Price. Deals where the buyer is optimizing for lowest cost per
+    unit and does not have a mixed-traffic safety requirement.
+
+ORBIT ROBOTICS
+  Venture-backed, fast-moving, strong perception technology. Roughly 2,200 units.
+
+  Strengths
+    - Genuinely excellent perception. Their obstacle classification is ahead of
+      Helix Vision and we should be honest about that internally.
+    - Slick product experience. Their operator interface demos extremely well.
+    - Fast release cadence.
+
+  Weaknesses
+    - Reliability at scale. Their largest deployment is under 100 units; we run
+      240 at Cardinal Foods Memphis on a single instance. Prospects above 150
+      units should be asked directly what Orbit's largest reference is.
+    - Fast release cadence cuts both ways. Regulated customers find their change
+      velocity difficult; Voss Pharma evaluated them and eliminated them on
+      exactly this basis.
+    - Thin support organization. No named TAM equivalent.
+
+  Where they beat us
+    Perception-heavy requirements. Smaller, design-conscious buyers. Deals where
+    the demo decides.
+
+KRONOS INTRALOGISTICS
+  European, established, conservative. Strong in DACH and Benelux. Roughly 4,500
+  units, mostly in Europe.
+
+  Strengths
+    - Deep European presence and regulatory familiarity. CE, EU data residency,
+      and works-council dynamics are native to them.
+    - Strong SSO, identity, and audit capability. This is where they beat us
+      today and it is why they are a live threat at Voss Pharma expansion.
+    - Long track record; low perceived risk.
+
+  Weaknesses
+    - Older architecture. Slower to adopt modern perception.
+    - Weak in North America; effectively no presence.
+    - Rigid. Customization and integration work is slow and expensive.
+
+  Where they beat us
+    EMEA regulated accounts. Any deal where identity governance and audit are
+    gating. This is precisely the Voss Pharma Frankfurt and Dublin situation.
+
+
+3. WHERE WE WIN
+
+  - Mixed human-robot floor operation with a real safety requirement. Our
+    ISO 3691-4 certification, dual safety-rated scanner chain at IEC 61508 SIL 2,
+    and firmware-authoritative safety architecture are genuinely differentiated.
+    Fleet OS cannot override an e-stop, disable obstacle detection, or command
+    motion outside the certified envelope, and that is not configurable. Buyers
+    with a safety officer in the room understand what that means.
+  - On-premise control. A network partition cannot stop robots from working.
+    Against Vertex specifically this closes deals.
+  - Scale references. 240 units on one instance at Cardinal Foods is a number
+    Orbit cannot match and that Vertex will not quote a comparable single-
+    instance figure for.
+  - Operational transparency. Covered in section 5; it is becoming our most
+    distinctive asset and it came out of our worst incident.
+
+
+4. WHERE WE LOSE
+
+  - High-bay racking. 12 percent win rate. Neither the HX-200 nor the HX-450
+    reaches above 2,400 mm. Scope deals to what we can service and say so
+    plainly; the HX-700 concept is a feasibility study with a July 2025 decision
+    gate and must never be represented as planned.
+  - Identity governance and audit. Operator Console SSO does not exist. This
+    blocks approximately 4.4 million USD of pipeline, of which 2.6 million USD is
+    Voss Pharma. Kronos wins these today. Roadmap item 3.1, H1 2025, protected.
+  - Lowest-price deals. Our gross margin was 51 percent in Q3 2024 and our floor
+    is 38 percent. Vertex will go lower than we should.
+  - EU data residency. Telemetry exports to US regions. Becoming a gating
+    requirement in EMEA. Roadmap H2 2025.
+
+
+5. OPERATIONAL TRANSPARENCY AS A DIFFERENTIATOR
+
+This is worth its own section because it is counterintuitive and because it has
+started winning deals.
+
+After INC-2024-017 — the September 2024 charge dock deadlock that cost Cardinal
+Foods 6 hours 47 minutes and cost us 148,000 USD in credits — we did four things
+that competitors generally do not:
+
+  1. Delivered a technically complete customer-facing postmortem naming the
+     actual mechanism, three days inside our five-day commitment.
+  2. Sent the CTO on site to walk the customer's operations and IT leads through
+     the real root cause rather than a sanitized version.
+  3. Changed our own SLA definition against our own interest, because the old
+     definition let a total operational failure measure as near-perfect
+     availability.
+  4. Shipped the fix in four days and the process remediation within eight weeks.
+
+Denise Okafor at Cardinal Foods summarized it as: "You broke it, you told us
+exactly how, you fixed it in four days, and you changed your own contract terms
+because of it. That is more than I get from most vendors."
+
+We now use this deliberately. In competitive evaluations against Vertex, asking a
+prospect to request their most recent customer-facing postmortem and their
+precise availability definition is an extremely effective question, because
+Vertex's answer to both is weak.
+
+Handle with care. This works only if we are honest about the incident, including
+that our monitoring did not detect it for 41 minutes and a customer shift
+supervisor telephoned us. Presenting it as a triumph rather than as a failure we
+handled well destroys the effect entirely.
+
+
+6. APPROVED POSITIONING LANGUAGE
+
+Use these formulations. Do not assert competitor weaknesses as fact; ask
+questions that let the prospect discover them.
+
+On architecture
+  "Fleet OS runs entirely on-premise. If your internet connection fails, your
+  robots keep working. It is worth asking any vendor what happens to their fleet
+  during a cloud outage."
+
+On safety
+  "Our robots are certified for continuous shared operation with your people
+  under ISO 3691-4. Safety is enforced in robot firmware, not in the fleet
+  controller, and cannot be overridden by software. Ask what a competitor's fleet
+  controller is able to override."
+
+On availability
+  "Our availability commitment counts a robot as available only if it is
+  eligible to do work. We changed that definition ourselves in October 2024 after
+  an incident showed us the old one was too weak. Ask other vendors for their
+  exact definition in writing."
+
+On scale
+  "We run 240 robots on a single instance at our largest customer. It is fair to
+  ask any vendor for their largest single-site production reference and the
+  number of units in it."
+
+On high-bay
+  "We do not serve high-bay racking today, and I would rather tell you that now
+  than scope a deal we deliver badly."
+
+On transparency
+  "Ask us for a postmortem from a real incident. Then ask our competitors for
+  one."

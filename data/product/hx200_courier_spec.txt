@@ -1,0 +1,216 @@
+HELIX ROBOTICS — PRODUCT SPECIFICATION
+Product: HX-200 "Courier" Autonomous Mobile Robot
+Specification revision: E (hardware revision C)
+Owner: Grace Chen, Director of Product
+Engineering contact: Tobias Lindqvist, Principal Engineer, Firmware
+Last revised: 2024-10-14
+Classification: Internal. A customer-facing datasheet derived from this document
+                is maintained by Marketing and omits sections 8 and 9.
+
+
+1. PRODUCT SUMMARY
+
+The HX-200 Courier is Helix Robotics' tote and case-handling autonomous mobile
+robot. It is the company's highest-volume product, representing 78 percent of
+units shipped and the substantial majority of hardware revenue. It moves totes,
+cases, and light containers between pick faces, packing stations, staging areas,
+and outbound docks in distribution and fulfillment environments.
+
+The Courier is designed for facilities where robots and humans share floor space
+continuously. It is certified for mixed-traffic operation under ISO 3691-4 and
+carries the safety architecture required for that classification.
+
+First shipped: June 2021. Current hardware revision C, shipping since June 2024.
+Deployed fleet as of Q4 2024: approximately 1,180 units across 31 customer sites.
+Largest single deployment: Cardinal Foods Memphis distribution center, 240 units.
+
+
+2. PHYSICAL SPECIFICATIONS
+
+  Length                          780 mm
+  Width                           560 mm
+  Height (deck surface)           340 mm
+  Height (with tote fixture)      510 mm
+  Mass, unladen                   118 kg
+  Rated payload                   200 kg
+  Maximum payload (derated)       240 kg, speed limited to 1.0 m/s
+  Ground clearance                35 mm
+  Minimum aisle width             900 mm for single-direction travel
+                                  1,650 mm for bidirectional passing
+  Turning radius                  Zero. Differential drive, turns in place.
+  Deck surface                    Anti-slip textured aluminium, or roller/
+                                  conveyor top as a configured option
+  Ingress protection              IP54
+  Operating temperature           0 C to 40 C ambient
+  Storage temperature             -20 C to 55 C
+  Operating humidity              10 to 90 percent, non-condensing
+
+
+3. DRIVE AND MOTION
+
+  Drive configuration             Differential drive, two powered wheels,
+                                  four passive castors
+  Motors                          2 x 400 W brushless DC, integrated encoders
+  Maximum speed, unladen          2.0 m/s
+  Maximum speed, rated load       1.6 m/s
+  Maximum speed, mixed-traffic    1.2 m/s (enforced by firmware in zones
+                                  flagged mixed-traffic in the facility map)
+  Acceleration                    0.8 m/s^2 nominal
+  Emergency stop distance         Under 350 mm at 1.2 m/s with rated load
+  Gradient capability             3 percent sustained, 5 percent transient
+  Positioning accuracy            +/- 10 mm at pick face, +/- 2 degrees heading
+
+Speed envelopes are enforced in firmware and cannot be overridden by Fleet OS.
+The dynamic speed envelope feature, which automatically reduces maximum speed in
+mixed-traffic zones, was introduced in firmware 3.7.0 and is part of the
+ISO 3691-4 certified configuration. Disabling it voids the certification.
+
+
+4. POWER AND CHARGING
+
+  Battery chemistry               LiFePO4 (lithium iron phosphate)
+  Capacity                        6.4 kWh
+  Nominal voltage                 48 V
+  Runtime, typical duty cycle     8.5 hours
+  Runtime, continuous heavy duty  6.0 hours
+  Charge time, 20 to 90 percent   75 minutes
+  Charge time, 20 to 100 percent  135 minutes
+  Charging method                 Automatic docking, conductive contacts
+  Dock ratio, recommended         One dock per four robots
+  Rated cycle life                4,000 cycles to 80 percent capacity
+  Expected battery service life   Approximately 5 years at typical duty
+
+LiFePO4 was selected over higher-density chemistries specifically for thermal
+safety and cycle life. In a facility containing flammable inventory and
+continuous human presence, thermal runaway risk dominates the energy density
+tradeoff. This decision is revisited annually and has been reaffirmed each time.
+
+Charging behavior is orchestrated by the Fleet OS Charge Scheduler, not by the
+robot. The robot reports state of charge; Fleet OS decides when it charges and
+which dock it uses. The interface between these — how state of charge is
+reported and how thresholds are compared — is the site of incident INC-2024-017.
+Any change to SoC reporting semantics in firmware is now classified as a
+cross-subsystem interface change and requires review under the two-approver rule
+plus a cross-version CI matrix pass.
+
+Minimum firmware for correct charge threshold behavior: 3.8.2.
+Minimum Fleet OS for correct dock reservation handling: 4.2.2.
+Both are required. See the postmortem for INC-2024-017.
+
+
+5. SENSING AND NAVIGATION
+
+  Primary navigation              2D LiDAR, 360 degree, 25 m range, 15 Hz
+  Safety scanner                  Dual safety-rated 2D LiDAR, front and rear,
+                                  certified to IEC 61508 SIL 2
+  Secondary sensing               Helix Vision stereo module (optional add-on)
+  Odometry                        Wheel encoders plus 6-axis IMU
+  Localization method             Scan matching against a facility map, fused
+                                  with odometry
+  Cold-start localization         9 seconds typical (firmware 3.9.0 and later);
+                                  22 seconds on earlier firmware
+  Obstacle detection              Safety scanners, always active, firmware
+                                  authority. Classification requires Helix
+                                  Vision.
+  Fixed obstacle envelope         400 mm (without Helix Vision)
+  Adaptive obstacle envelope      Modulated by obstacle class (with Helix Vision
+                                  and firmware 3.9.0 or later)
+
+Localization depends on facility map quality. Facilities with highly repetitive
+rack geometry can defeat scan matching; this affected Brightline Apparel Reno and
+was addressed in firmware 3.9.0. Facilities below 200 lux in the aisles degrade
+Helix Vision classification, which affects two aisles at Trellis Home Goods
+Columbus. Lighting is a facility-side requirement documented in the site
+requirements guide.
+
+
+6. SAFETY ARCHITECTURE
+
+The HX-200 is certified for operation in shared human-robot workspaces. Its
+safety functions are implemented entirely in firmware and in safety-rated
+hardware. Fleet OS has no authority over any of them.
+
+  - Dual safety-rated LiDAR scanners providing a protective field around the
+    robot. Field violation triggers immediate controlled stop.
+  - Physical emergency stop button on all four faces of the chassis.
+  - Wireless emergency stop, facility-wide, via the operator pendant.
+  - Speed envelope enforcement, including automatic reduction in mixed-traffic
+    zones.
+  - Payload shift detection (E-118), using IMU signature analysis to halt the
+    robot when a load moves during transit. Added in firmware 3.8.0 following
+    three tote spill events at Cardinal Foods in Q2 2024.
+  - Fail-static behavior. Loss of Fleet OS connectivity, loss of localization
+    confidence, or any unrecoverable fault results in a controlled stop and hold
+    position. The robot never continues under uncertainty.
+
+Certification: ISO 3691-4, ANSI/RIA R15.08, IEC 61508 SIL 2 for the safety
+scanner chain, UL 3100, CE marking for EMEA deployment. Full details are
+maintained in the Safety Standards and Certification document owned by Nikolai
+Petrov.
+
+
+7. FAULT CODES
+
+The HX-200 reports faults on the telemetry channel. Full diagnostic procedures
+are in the Support Troubleshooting Guide; the codes are listed here for
+reference.
+
+  E-115   Emergency stop engaged
+  E-118   Payload shift detected
+  E-207   LiDAR occlusion — sensor obstructed or excessively dirty
+  E-330   WMS sync failure (Fleet OS side, surfaced on the robot)
+  E-401   Charge reservation timeout
+  E-502   Battery thermal cutoff
+  E-611   Localization confidence lost
+  E-704   Drive motor overcurrent
+
+
+8. CONFIGURATION OPTIONS AND PRICING
+
+  Base unit                                      47,500 USD
+  Roller-top deck (powered conveyor)             +6,200 USD
+  Helix Vision perception module                 +8,900 USD
+  Extended battery (8.9 kWh, 11 h runtime)       +4,400 USD
+  Cold-chain package (0 C rated, sealed)         +7,100 USD
+
+  Lease, 36 month, base unit                     1,450 USD per month
+  Fleet OS licence, Professional tier            180 USD per robot per month
+  Fleet OS licence, Enterprise tier              265 USD per robot per month
+
+Full commercial terms, volume discount bands, and support tier definitions are
+in the Pricing and Packaging document maintained by Elena Vasquez.
+
+
+9. KNOWN LIMITATIONS
+
+Recorded openly for internal planning and for honest conversations with
+prospects. Sales staff may discuss these; they are not confidential.
+
+  - Not rated for outdoor use or for yard operations. IP54 covers dust and
+    splash, not weather.
+  - Cannot handle pallets. Pallet handling requires the HX-450 Stacker.
+  - Requires a prepared floor. Floor flatness must meet the Helix site
+    requirements; expansion joints wider than 12 mm require ramping.
+  - Requires facility Wi-Fi meeting the Helix RF site requirements. Coverage
+    gaps produce task reassignment churn rather than unsafe behavior, but they
+    are disruptive at high fleet density.
+  - Hardware revision A units (under 8 percent of the deployed fleet) have
+    slower cold-start localization in dense facilities and are being retired
+    through normal replacement rather than recalled.
+  - Maximum practical fleet size per Fleet OS instance is 400 units. Larger
+    facilities require partitioning into multiple instances, which cannot share
+    floor space.
+  - No SSO support in the Operator Console. Voss Pharma has raised this as a
+    compliance blocker for their Basel deployment; it is on the 2025 roadmap.
+
+
+10. REVISION HISTORY
+
+  Rev E   2024-10-14  Added INC-2024-017 minimum version requirements to section
+                      4. Updated cold-start localization figures for firmware
+                      3.9.0. Added adaptive obstacle envelope.
+  Rev D   2024-06-28  Hardware revision C. Revised drive board, updated motor
+                      current specifications. Added payload shift detection.
+  Rev C   2024-04-20  Helix Vision integration, dynamic speed envelope.
+  Rev B   2023-09-11  Extended battery option, cold-chain package.
+  Rev A   2021-06-02  Initial release.

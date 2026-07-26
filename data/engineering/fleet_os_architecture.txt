@@ -1,0 +1,209 @@
+HELIX ROBOTICS — INTERNAL ENGINEERING DOCUMENTATION
+Document: Helix Fleet OS — System Architecture Overview
+Version: 4.2
+Owner: Dana Whitfield, Chief Technology Officer
+Contributors: Jae-won Park (Staff Engineer, Scheduling), Rosa Iglesias (SRE Lead)
+Last revised: 2024-11-03
+Classification: Internal — Engineering
+
+
+1. PURPOSE AND SCOPE
+
+Helix Fleet OS is the orchestration layer that coordinates every Helix robot
+deployed at a customer site. A single Fleet OS instance manages one physical
+facility. It is responsible for deciding which robot performs which task, how
+robots move through shared floor space without colliding or deadlocking, when
+robots charge, and how facility state is reported back to the customer's
+warehouse management system.
+
+This document describes the 4.2 architecture as shipped to general availability
+on 2024-08-12. It supersedes the 3.x architecture document, which is retained in
+the archive for customers still running long-term-support builds.
+
+Fleet OS runs on-premise. We do not operate a cloud control plane for robot
+motion, and this is a deliberate decision rather than an incidental one. A
+network partition between a customer facility and the public internet must never
+be able to stop robots from working. Telemetry is exported to Helix Cloud for
+analytics and support, but that export path is strictly one-way and strictly
+non-critical. If it fails, the fleet keeps running.
+
+
+2. DEPLOYMENT TOPOLOGY
+
+A standard installation consists of:
+
+  - One Fleet OS server appliance (Helix-supplied, rack-mounted 2U). Runs the
+    full control stack. 32 physical cores, 128 GB RAM, dual 10 GbE.
+  - One optional warm-standby appliance for Enterprise-tier customers. Failover
+    is manual by design; see section 7.
+  - Facility Wi-Fi infrastructure meeting the Helix RF Site Requirements
+    (802.11ax, minimum -65 dBm at floor level across the full operating area,
+    roaming handoff under 50 ms).
+  - The robot fleet itself, between 8 and 400 units per instance. The largest
+    production deployment as of Q4 2024 is Cardinal Foods Memphis at 240 HX-200
+    units.
+  - Charging dock infrastructure, typically one dock per four robots for HX-200
+    fleets and one per three for HX-450 fleets.
+
+Fleet OS is not multi-tenant. Each facility is fully isolated. Customers with
+multiple distribution centers run multiple independent instances, and those
+instances do not communicate with one another.
+
+
+3. CORE COMPONENTS
+
+3.1 Dispatcher
+
+The Dispatcher converts inbound work into robot assignments. Work arrives from
+the Site Adapter as discrete tasks: move tote from location A to location B,
+present pallet at station 4, return to staging. The Dispatcher maintains a
+priority queue and assigns tasks to robots using a cost function over estimated
+travel time, current battery state of charge, robot capability class, and task
+deadline.
+
+The Dispatcher is intentionally stateless with respect to robot motion. Once a
+task is assigned, the robot and the Traffic Manager own execution. The
+Dispatcher only learns the outcome.
+
+3.2 Traffic Manager
+
+The Traffic Manager owns the shared floor. It maintains a live occupancy graph
+of the facility and grants robots time-bounded reservations on path segments,
+intersections, and pick faces. It is the component that prevents two robots from
+attempting to occupy the same aisle segment simultaneously.
+
+Reservations are leases with expiry. If a robot fails to report progress before
+its lease expires, the Traffic Manager reclaims the segment and re-plans around
+the stalled unit. Lease expiry is what allows the system to recover from a robot
+that has lost power or network connectivity without operator intervention.
+
+The lease-expiry model is central to how Fleet OS avoids deadlock on the floor.
+It is worth noting explicitly that in 4.2 this model was applied to floor
+segments but NOT to charging dock reservations. That asymmetry is the direct
+cause of incident INC-2024-017 and is discussed in the postmortem for that
+incident. It was corrected in 4.2.2.
+
+3.3 Charge Scheduler
+
+The Charge Scheduler decides when each robot stops working and goes to charge,
+and which dock it uses. It is a constrained optimization: keep enough robots on
+the floor to meet throughput commitments, while never allowing a robot to run
+its battery below the reserve floor needed to reach a dock under load.
+
+Each robot reports state of charge on the telemetry channel. When a robot's
+reported SoC falls below the configured charge threshold (default 20 percent),
+the scheduler reserves a dock for that robot and routes it there. The
+reservation is held until the robot reports that it has reached the target
+charge level (default 90 percent) and has physically undocked.
+
+Two properties of this design mattered enormously in practice. First, the
+threshold comparison in 4.2.0 and 4.2.1 was a strict inequality against the
+robot's reported SoC value. Second, dock reservations had no expiry lease,
+unlike floor segment reservations. Together these two properties made it
+possible for a robot to hold a dock reservation indefinitely if its reported SoC
+never satisfied the release condition. See postmortem INC-2024-017.
+
+3.4 Telemetry Pipeline
+
+Every robot streams a telemetry frame at 4 Hz containing pose, velocity, battery
+state, motor currents, fault flags, and the identifier of its current task. The
+Telemetry Pipeline ingests these frames, writes them to a local time-series
+store with 90-day retention, evaluates alerting rules, and forwards a
+downsampled 0.2 Hz subset to Helix Cloud for support and analytics.
+
+Alerting rules are the primary mechanism by which Fleet OS notices that
+something is wrong. As of 4.2.0 the rule set covered robot-level faults
+comprehensively — a robot that faults, stalls, or disconnects generates an alert
+within seconds. It did not cover fleet-level emergent conditions such as
+sustained decline in the number of robots available for dispatch. This gap is
+why INC-2024-017 ran for 41 minutes before anyone at either Helix or Cardinal
+Foods was aware of it. Fleet-level rules were added in 4.2.2.
+
+3.5 Site Adapter
+
+The Site Adapter is the integration boundary with the customer's warehouse
+management system. It translates between the customer's WMS vocabulary and
+Helix task primitives. We ship adapters for Manhattan Associates, Blue Yonder,
+SAP EWM, and a generic REST/CSV adapter for everything else.
+
+Site Adapter failures surface as error code E-330 (WMS sync failure). These are
+the single most common category of support ticket by volume, though they are
+usually caused by changes on the customer side rather than defects in our code.
+
+3.6 Operator Console
+
+A browser-based interface for facility staff. Shows live fleet state, lets
+operators pause or resume individual robots or the entire fleet, acknowledge
+faults, and manually dispatch tasks. The console is also where an operator would
+execute the recovery procedures described in the Fleet Recovery Runbook.
+
+
+4. ROBOT-SIDE SOFTWARE
+
+Robots run Helix firmware, versioned independently of Fleet OS. The HX-200 is on
+the 3.x firmware line; the HX-450 is on the 2.x line. Firmware owns everything
+safety-critical and everything real-time: motor control, emergency stop handling,
+obstacle detection and avoidance, localization, and battery management.
+
+The division of responsibility is strict. Fleet OS tells a robot where to go.
+Firmware decides how to get there and retains absolute authority to refuse or
+abort any command that would violate a safety constraint. Fleet OS cannot
+override an emergency stop, cannot disable obstacle detection, and cannot
+command motion that exceeds the certified speed envelope. This separation is a
+requirement of our ISO 3691-4 certification and is not configurable.
+
+
+5. VERSION COMPATIBILITY
+
+Fleet OS and firmware are released on independent cadences, which means that in
+production a given Fleet OS version will encounter a range of firmware versions
+across the fleet. We support a compatibility window of Fleet OS N against
+firmware releases within the preceding twelve months.
+
+Prior to Q4 2024 the compatibility matrix was maintained as a document and
+verified by manual test passes. It was not enforced in code and there was no
+automated cross-version integration testing. INC-2024-017 was caused precisely
+by an interaction between two individually correct versions — Fleet OS 4.2.1 and
+firmware 3.8.1 — that had never been tested together. The remediation for that
+incident established a permanent cross-version test matrix in CI; see the QA
+process notes in the engineering onboarding guide.
+
+
+6. DATA MODEL AND PERSISTENCE
+
+Fleet OS uses PostgreSQL for durable state (facility map, robot registry, task
+history, user accounts, audit log) and an embedded time-series store for
+telemetry. Live floor state — occupancy, reservations, robot pose — is held in
+memory and rebuilt from robot reports on restart. A Fleet OS restart therefore
+causes a brief planning pause, typically 20 to 40 seconds, but does not lose
+durable state and does not require robots to be re-homed.
+
+
+7. FAILURE MODES AND FAILOVER
+
+Fleet OS server failure stops new task assignment. Robots already executing a
+task complete it and then hold position. Nothing moves unsafely; the system
+fails static. Recovery is restart of the service, which takes under a minute on
+the standard appliance.
+
+Warm-standby failover is manual. This is deliberate: automatic failover between
+two controllers that both believe they own the floor is a substantially worse
+failure mode than a two-minute manual cutover performed by a human who has
+confirmed the primary is genuinely down. The procedure is documented in the
+Fleet Recovery Runbook, section 5.
+
+
+8. KNOWN ARCHITECTURAL DEBT
+
+Tracked openly here so it is visible during planning:
+
+  - Charge Scheduler and Traffic Manager maintain separate reservation systems
+    with different semantics. Unifying them onto the lease model is scheduled
+    for Fleet OS 5.0. The 4.2.2 hotfix added leases to dock reservations but did
+    not merge the two implementations.
+  - The Site Adapter plugin API is versioned but not sandboxed. A misbehaving
+    adapter can consume unbounded memory in the Fleet OS process.
+  - Facility maps are edited through a desktop tool and imported as a binary
+    blob. There is no diff, no review, and no rollback for map changes.
+  - Operator Console authentication does not support SSO. Voss Pharma has raised
+    this as a compliance blocker for their Basel deployment.

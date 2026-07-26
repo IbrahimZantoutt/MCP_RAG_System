@@ -1,0 +1,257 @@
+HELIX ROBOTICS — SUPPORT SLA AND ESCALATION POLICY
+Owner: Aisha Bello, Director of Customer Support
+Approved by: Elena Vasquez (VP Sales), Marcus Ozturk (Director of Field
+             Operations), Sam Delacroix (CFO)
+Effective: 2024-10-01
+Supersedes: policy dated 2023-11-15
+Last revised: 2024-10-01
+Classification: Internal. Tier definitions and response commitments in sections
+                2 and 3 may be shared with customers. Sections 6 through 8 are
+                internal only.
+
+
+1. PURPOSE
+
+This document defines what Helix commits to when a customer has a problem, how
+fast we must respond, who gets involved at each stage, and when a customer is
+entitled to a service credit.
+
+It was substantially revised following incident INC-2024-017. The revisions
+concern availability measurement, detection obligations, and credit calculation.
+Where this document differs from the 2023 policy, the difference is deliberate
+and is noted in section 9.
+
+
+2. SUPPORT TIERS
+
+Every customer holds one of three tiers, set in their commercial agreement.
+
+STANDARD
+  Availability commitment       99.0 percent monthly fleet availability
+  Critical response             Next business day
+  Support hours                 Business hours, customer local time,
+                                Monday to Friday
+  Channels                      Email, web portal
+  Named contact                 None
+  Software licence              180 USD per robot per month (Professional
+                                pricing applies; Standard is a support tier,
+                                not a licence tier)
+
+PROFESSIONAL
+  Availability commitment       99.5 percent monthly fleet availability
+  Critical response             4 hours, 24x7
+  Non-critical response         Next business day
+  Support hours                 24x7 for critical, business hours otherwise
+  Channels                      Email, web portal, telephone
+  Named contact                 Assigned support engineer
+  Software licence              180 USD per robot per month
+
+ENTERPRISE
+  Availability commitment       99.9 percent monthly fleet availability
+  Critical response             1 hour, 24x7
+  Non-critical response         4 hours during business hours
+  Support hours                 24x7
+  Channels                      Email, web portal, telephone, dedicated
+                                escalation line
+  Named contact                 Named Technical Account Manager
+  Quarterly business review     Included
+  On-site response              Within 24 hours for SEV-1 where remote
+                                resolution has failed
+  Software licence              265 USD per robot per month
+
+Current tier distribution: 4 Enterprise accounts, 19 Professional, 15 Standard.
+Enterprise accounts are Cardinal Foods, Voss Pharma, Trellis Home Goods, and
+Meridian Grocers.
+
+
+3. SEVERITY DEFINITIONS
+
+Severity is set by Helix support based on observed impact, not by the customer's
+assertion. Customers may dispute a severity assignment and that dispute is
+resolved by the Director of Customer Support.
+
+SEV-1 — CRITICAL
+  Fleet-wide outage, or throughput loss exceeding 50 percent, or any safety-
+  relevant event, or any condition preventing the customer from meeting a
+  committed shipping window.
+  Examples: Fleet OS unreachable; more than half the fleet unavailable; any
+  robot behaving unexpectedly in a way that could endanger personnel; the
+  charge dock reservation deadlock signature described in Fleet Recovery Runbook
+  section 4.
+
+SEV-2 — MAJOR
+  Significant degradation not meeting SEV-1 thresholds. Throughput loss between
+  15 and 50 percent, or loss of a major function, or a defect with no workaround
+  that materially impacts operations.
+
+SEV-3 — MINOR
+  Limited impact. A workaround exists. Individual robot faults, cosmetic
+  defects, isolated task failures.
+
+SEV-4 — INFORMATIONAL
+  Questions, documentation requests, feature enquiries, planned change
+  coordination.
+
+Severity escalates automatically. Any SEV-2 unresolved after 8 hours escalates
+to SEV-1. Any SEV-3 unresolved after 5 business days escalates to SEV-2.
+
+
+4. ESCALATION MATRIX
+
+  Level 1   Support Engineer (on duty)
+            Owns initial triage, runbook execution, known-issue resolution.
+            Escalates within 30 minutes for SEV-1 if not resolved.
+
+  Level 2   Field Operations (Marcus Ozturk's group)
+            Owns on-site dispatch, hardware diagnosis, customer-site
+            coordination. First line for customer sites. Engineering is not the
+            first voice on the phone with a customer and should not try to be.
+
+  Level 3   Engineering on-call
+            Primary responds within 15 minutes for SEV-1, 1 hour for SEV-2.
+            Secondary is backup. Rotation covers Fleet Software, Firmware, and
+            Platform.
+
+  Level 4   Group lead / CTO
+            Engaged for any SEV-1 exceeding 2 hours, any incident affecting
+            multiple customer sites, or any safety-relevant event without
+            exception.
+
+Additional Enterprise obligations
+  - TAM notified at SEV-1 declaration regardless of hour.
+  - Named executive sponsor notified for any SEV-1 exceeding 4 hours.
+  - Written incident summary delivered to the customer within 5 business days of
+    resolution.
+
+
+5. AVAILABILITY MEASUREMENT
+
+This section changed materially in the 2024 revision.
+
+Fleet availability is measured monthly per site as:
+
+    availability = (fleet-minutes available) / (fleet-minutes scheduled)
+
+where a robot-minute counts as available if the robot is powered, connected, not
+faulted, AND eligible for task dispatch.
+
+The eligibility clause is the change. Under the 2023 policy, availability counted
+robots that were powered, connected, and unfaulted. During INC-2024-017 the 61
+deadlocked robots satisfied all three of those conditions perfectly — they were
+powered, connected, and reported no fault — while being completely unable to do
+any work. Under the old definition, the worst outage in company history measured
+as near-perfect availability. That was indefensible, and Cardinal Foods said so.
+
+A robot sitting at a charging dock holding a reservation it will never release is
+not available. A robot that is charging on a normal cycle is not counted against
+scheduled fleet-minutes at all, because charging is expected. The distinction is
+between planned unavailability, which is excluded from the denominator, and
+unplanned ineligibility, which counts as downtime.
+
+Excluded from availability calculation:
+  - Scheduled maintenance windows agreed with the customer at least 5 business
+    days in advance
+  - Normal charge cycles within the site's provisioned dock capacity
+  - Customer-caused outages: facility power loss, customer network failure,
+    customer WMS unavailability, facility Wi-Fi below the contracted RF site
+    requirement
+  - Force majeure
+
+Not excluded, and this is deliberate:
+  - Any Helix software defect, including defects arising from interactions
+    between individually correct versions
+  - Any condition where robots are ineligible for dispatch for reasons under
+    Helix control
+  - Detection delay. If we did not notice, the clock still runs.
+
+
+6. SERVICE CREDITS — INTERNAL
+
+Credits are calculated against the monthly software licence fee for the affected
+site, not against hardware or total contract value.
+
+  Availability below commitment but above commitment minus 0.5 pp   10 percent
+  Below commitment minus 0.5 pp, above commitment minus 2.0 pp      25 percent
+  Below commitment minus 2.0 pp                                     50 percent
+  Any single SEV-1 exceeding 6 hours                                additional
+                                                                    25 percent
+
+Credits are capped at 100 percent of the monthly licence fee for the affected
+site. Credits are applied to the following invoice and are not paid in cash.
+
+Credit assessment is performed by Support and approved by the CFO. Support staff
+must not discuss credit eligibility with customers. That conversation belongs to
+the account team, always, without exception. A well-meaning support engineer
+speculating about credits creates a commitment we may not be able to honour.
+
+INC-2024-017 worked example, recorded here as the reference case:
+  Site: Cardinal Foods Memphis, 240 units, Enterprise tier
+  Monthly licence: 240 x 265 USD = 63,600 USD
+  Duration: 6 hours 47 minutes of degraded operation, peak 71 percent
+            throughput loss
+  Measured September availability under the revised definition: 98.7 percent
+  Commitment: 99.9 percent. Shortfall: 1.2 pp, placing it in the 25 percent band
+  SEV-1 exceeding 6 hours: additional 25 percent
+  Total: 50 percent of monthly licence...
+
+  The assessed credit was 148,000 USD rather than the formula figure of
+  31,800 USD. The difference is a negotiated goodwill credit approved by Rowan
+  Achebe and Sam Delacroix, extending across the full quarter's licence fees for
+  the Memphis site plus a contribution toward the customer's expedited freight
+  costs on the two missed trailers. This was a commercial decision to protect a
+  renewal, not a contractual entitlement, and it should not be treated as
+  precedent. See the Cardinal Foods account record for the commercial context.
+
+
+7. DETECTION OBLIGATIONS — INTERNAL
+
+Added in the 2024 revision. This has no customer-facing equivalent and creates
+no contractual obligation, but it is how we hold ourselves accountable.
+
+For every incident, support must record the detection method:
+  A. Helix automated alerting
+  B. Helix staff observation
+  C. Customer report
+
+Any SEV-1 or SEV-2 detected by method C is automatically treated as a monitoring
+defect and raised with SRE, regardless of how well the subsequent response went.
+
+During INC-2024-017 the detection gap was 41 minutes and the notification
+arrived by telephone from a Cardinal Foods shift supervisor. Our response after
+that point was fast and comfortably inside the 1-hour Enterprise commitment. It
+did not matter. The customer knew before we did, and that single fact drove more
+change than anything else in the postmortem — including the three new fleet-level
+alerting rules shipped in Fleet OS 4.2.2.
+
+The standard we hold: the customer is not our monitoring.
+
+
+8. INCIDENT DOCUMENTATION REQUIREMENTS — INTERNAL
+
+  - Every SEV-1 requires a written postmortem within 5 business days. Use the
+    INC-2024-017 postmortem as the structural template.
+  - Every SEV-2 exceeding 4 hours requires a written summary.
+  - Postmortems are blameless. Blameless does not mean vague — name the exact
+    code, the exact mechanism, the exact process gap. Do not name an individual
+    as the cause.
+  - Every postmortem must record detection method per section 7.
+  - Action items require a named owner and a date. The INC-2024-017 postmortem
+    carried nine action items; eight were complete within eight weeks and the
+    ninth was formally deferred to Fleet OS 5.0 as tracked architectural debt.
+    Formal deferral is acceptable. Silent drift is not.
+
+
+9. CHANGES FROM THE 2023 POLICY
+
+  - Availability now requires dispatch eligibility, not merely power, connection,
+    and absence of faults (section 5). Direct consequence of INC-2024-017.
+  - Detection method recording is now mandatory, and customer-detected SEV-1 and
+    SEV-2 events are automatically monitoring defects (section 7).
+  - Enterprise critical response tightened from 2 hours to 1 hour.
+  - Added the additional 25 percent credit band for any single SEV-1 exceeding
+    6 hours (section 6).
+  - Added explicit exclusion for facility Wi-Fi below the contracted RF site
+    requirement, after repeated disputes where coverage gaps at customer sites
+    were attributed to robot performance.
+  - Clarified that support staff must not discuss credit eligibility with
+    customers under any circumstances.

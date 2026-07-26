@@ -1,0 +1,213 @@
+HELIX ROBOTICS — PRODUCT SPECIFICATION
+Product: HX-450 "Stacker" Autonomous Pallet Handling Robot
+Specification revision: C
+Owner: Grace Chen, Director of Product
+Engineering contact: Tobias Lindqvist, Principal Engineer, Firmware
+Last revised: 2024-11-18
+Classification: Internal
+
+
+1. PRODUCT SUMMARY
+
+The HX-450 Stacker is Helix Robotics' pallet-handling autonomous mobile robot.
+Where the HX-200 Courier moves totes and cases, the Stacker moves full pallets,
+lifts them to racking height, and handles the heavier end of intralogistics work.
+
+The Stacker is a newer and lower-volume product than the Courier. First shipped
+in March 2023, it represents 22 percent of units shipped and roughly 34 percent
+of hardware revenue, reflecting its substantially higher unit price. Deployed
+fleet as of Q4 2024 is approximately 330 units across 14 customer sites.
+
+The Stacker runs the 2.x firmware line, versioned independently from the
+Courier's 3.x line. This is a frequent source of confusion for new staff: HX-200
+firmware 3.8.1 and HX-450 firmware 2.x are unrelated releases on unrelated
+lines. The charge dock deadlock of INC-2024-017 affected HX-200 units running
+firmware 3.8.1 only. HX-450 units were not affected, because the 2.x firmware
+line never adopted the SoC hysteresis band that caused the interaction.
+
+
+2. PHYSICAL SPECIFICATIONS
+
+  Length                          1,240 mm
+  Width                           840 mm
+  Height, mast retracted          1,180 mm
+  Height, mast extended           2,340 mm
+  Mass, unladen                   340 kg
+  Rated payload                   450 kg
+  Maximum lift height             1,800 mm
+  Minimum lift height             85 mm (floor pick)
+  Fork length                     1,150 mm, adjustable spread 250 to 680 mm
+  Ground clearance                40 mm
+  Minimum aisle width             1,400 mm single-direction
+                                  2,600 mm bidirectional passing
+  Turning radius                  Zero. Differential drive with steered load
+                                  wheels.
+  Ingress protection              IP54
+  Operating temperature           0 C to 40 C ambient
+  Cold-chain variant              -25 C to 25 C (see section 8)
+
+
+3. DRIVE, LIFT, AND MOTION
+
+  Drive configuration             Differential drive, two powered wheels
+  Drive motors                    2 x 750 W brushless DC
+  Lift system                     Electro-hydraulic mast, single stage
+  Lift motor                      1.5 kW
+  Lift speed, laden               0.18 m/s
+  Lift speed, unladen             0.30 m/s
+  Maximum speed, unladen          1.5 m/s
+  Maximum speed, rated load       1.1 m/s
+  Maximum speed, mast extended    0.3 m/s (firmware enforced, non-negotiable)
+  Maximum speed, mixed-traffic    0.9 m/s
+  Emergency stop distance         Under 500 mm at 1.1 m/s with rated load
+  Gradient capability             2 percent sustained, laden
+  Fork positioning accuracy       +/- 8 mm horizontal, +/- 5 mm vertical
+
+The mast-extended speed limit of 0.3 m/s is a hard firmware constraint tied to
+the stability envelope calculated for the rated load at maximum lift height. It
+cannot be raised by configuration, by Fleet OS, or by service tooling. Several
+customers have asked; the answer is permanently no.
+
+
+4. POWER AND CHARGING
+
+  Battery chemistry               LiFePO4
+  Capacity                        11.2 kWh
+  Nominal voltage                 48 V
+  Runtime, typical duty cycle     7.0 hours
+  Runtime, continuous heavy duty  4.5 hours
+  Charge time, 20 to 90 percent   110 minutes
+  Charge time, 20 to 100 percent  185 minutes
+  Charging method                 Automatic docking, conductive contacts
+  Dock ratio, recommended         One dock per three robots
+  Rated cycle life                4,000 cycles to 80 percent capacity
+
+The recommended dock ratio is higher than the Courier's (one per three rather
+than one per four) because the Stacker's longer charge time and shorter runtime
+compress the available duty window. Under-provisioning docks is the single most
+common site design error on Stacker deployments and produces chronic throughput
+shortfall that customers frequently misattribute to robot performance.
+
+As with the Courier, charging is orchestrated by the Fleet OS Charge Scheduler.
+The Stacker's 2.x firmware reports state of charge as an integer percentage and
+has never used a hysteresis band, which is why the HX-450 fleet was unaffected
+by INC-2024-017. The dock reservation lease fix shipped in Fleet OS 4.2.2
+nonetheless applies to Stacker fleets and is recommended for all sites.
+
+
+5. SENSING AND NAVIGATION
+
+  Primary navigation              2D LiDAR, 360 degree, 25 m range, 15 Hz
+  Safety scanners                 Dual safety-rated 2D LiDAR, front and rear,
+                                  IEC 61508 SIL 2
+  Mast-mounted sensing            Downward-facing depth camera for fork
+                                  alignment and pallet pocket detection
+  Load presence                   Fork-mounted load sensors, four points
+  Secondary sensing               Helix Vision stereo module (optional)
+  Odometry                        Wheel encoders plus 6-axis IMU
+  Localization method             Scan matching against facility map, fused
+                                  with odometry
+  Pallet detection                Depth camera pocket detection, tolerant of
+                                  +/- 40 mm placement error and +/- 6 degrees
+                                  rotation
+
+Pallet condition matters more than most customers expect. Damaged stringers,
+missing blocks, and heavily shrink-wrapped overhang all degrade pocket detection.
+Sites running a mixed or poor-quality pallet pool see materially higher pick
+failure rates. This should be raised during site assessment, not discovered
+after deployment.
+
+
+6. SAFETY ARCHITECTURE
+
+The Stacker carries all HX-200 safety functions plus additional constraints
+specific to lifting:
+
+  - Dual safety-rated LiDAR protective fields, firmware authority, always active
+  - Physical emergency stop on all four chassis faces plus one at mast height
+  - Wireless facility-wide emergency stop via operator pendant
+  - Speed envelope enforcement including the mast-extended limit
+  - Load stability monitoring. Fork load sensors plus IMU detect load shift or
+    asymmetric loading and halt the robot.
+  - Lift interlock. The mast cannot be raised while the robot is in motion above
+    0.3 m/s, and the robot cannot accelerate above 0.3 m/s while the mast is
+    extended. Enforced in firmware, bidirectionally.
+  - Overhead clearance check before lift, using the mast depth camera
+  - Fail-static behavior. On any unrecoverable fault the robot performs a
+    controlled stop, holds position, and if the mast is extended it holds the
+    load at its current height rather than lowering. Lowering under fault
+    conditions was judged the more dangerous option.
+
+Certification: ISO 3691-4, ANSI/RIA R15.08, IEC 61508 SIL 2 safety scanner
+chain, UL 3100, CE marking. The Stacker required a separate certification
+assessment from the Courier due to the lifting function; it is not covered by
+the Courier's certificate.
+
+
+7. FAULT CODES
+
+Shares the common code set with the HX-200, plus Stacker-specific codes:
+
+  E-115   Emergency stop engaged
+  E-207   LiDAR occlusion
+  E-330   WMS sync failure
+  E-401   Charge reservation timeout
+  E-502   Battery thermal cutoff
+  E-611   Localization confidence lost
+  E-704   Drive motor overcurrent
+  E-820   Pallet pocket detection failure
+  E-822   Load stability fault — asymmetric or shifting load
+  E-826   Lift interlock violation
+  E-831   Overhead clearance obstruction
+  E-838   Hydraulic pressure out of range
+
+
+8. CONFIGURATION OPTIONS AND PRICING
+
+  Base unit                                      89,000 USD
+  Extended mast (2,400 mm lift)                  +12,500 USD
+  Helix Vision perception module                 +8,900 USD
+  Cold-chain package (-25 C rated)               +14,800 USD
+  Fork camera upgrade (high-contrast, low light) +3,900 USD
+
+  Lease, 36 month, base unit                     2,720 USD per month
+  Fleet OS licence, Professional tier            180 USD per robot per month
+  Fleet OS licence, Enterprise tier              265 USD per robot per month
+
+Fleet OS licensing is per robot regardless of model, so mixed fleets are billed
+uniformly. Volume bands and support tier definitions are in the Pricing and
+Packaging document.
+
+
+9. KNOWN LIMITATIONS
+
+  - Maximum lift height of 1,800 mm on the base mast limits the Stacker to
+    ground-level and first-rack-level work in most facilities. The extended mast
+    reaches 2,400 mm. Neither reaches high-bay racking, and we do not currently
+    compete in that segment.
+  - Sensitive to pallet quality. See section 5.
+  - Higher dock ratio requirement than the Courier. Under-provisioning is the
+    most common site design error.
+  - Cannot handle slip sheets, half pallets under 600 mm, or non-standard
+    pallet geometries without a custom fork configuration.
+  - Aisle width requirements are substantially higher than the Courier's. Some
+    facilities that can accept a Courier fleet cannot accept Stackers without
+    rack reconfiguration.
+  - Mixed HX-200 and HX-450 fleets share floor space and are managed by a single
+    Fleet OS instance, but traffic planning for mixed fleets is less efficient
+    than for homogeneous fleets. Improved mixed-fleet planning is on the 2025
+    roadmap.
+  - Cold-chain variant is rated to -25 C but battery runtime degrades to
+    approximately 4.5 hours typical at that temperature, and charge time extends
+    by roughly 40 percent. Site designs for freezer applications must account for
+    this; several early proposals did not.
+
+
+10. REVISION HISTORY
+
+  Rev C   2024-11-18  Clarified INC-2024-017 non-applicability to the 2.x
+                      firmware line. Added mixed-fleet planning limitation.
+                      Updated cold-chain runtime figures.
+  Rev B   2024-05-30  Extended mast option, fork camera upgrade, cold-chain
+                      package.
+  Rev A   2023-03-14  Initial release.

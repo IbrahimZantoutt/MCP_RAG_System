@@ -1,0 +1,188 @@
+HELIX ROBOTICS — TRAVEL AND EXPENSE POLICY
+Owner: Sam Delacroix, Chief Financial Officer
+Administered by: Wei-Lin Tsai (Finance), Priya Raghunathan (People Ops)
+Effective: 2024-07-01
+Last revised: 2024-11-04
+Applies to: All employees and contractors
+Classification: Internal
+
+
+1. PRINCIPLES
+
+Three rules govern everything below.
+
+  Spend the company's money as you would spend your own, if you were reasonably
+  well off and in a hurry.
+
+  If you would be uncomfortable explaining an expense to a colleague, do not
+  incur it.
+
+  Getting a customer's fleet working takes precedence over this policy. Field
+  Operations and on-call engineering responding to a SEV-1 do not need
+  pre-approval for anything. Book the flight, take the taxi, get there. Explain
+  afterward. Section 7 covers this explicitly.
+
+This policy is deliberately short. It is not an attempt to enumerate every case.
+
+
+2. APPROVAL THRESHOLDS
+
+  Under 200 USD                    No pre-approval. Submit with receipt.
+  200 to 1,000 USD                 Manager approval.
+  1,000 to 5,000 USD               Director approval.
+  5,000 to 25,000 USD              VP approval.
+  Above 25,000 USD                 CFO approval.
+
+  Any single expense above 500 USD requires an itemized receipt regardless of
+  category.
+
+
+3. AIR TRAVEL
+
+  Economy class for flights under 6 hours. Premium economy permitted for flights
+  over 6 hours. Business class requires VP approval and is generally reserved for
+  overnight transatlantic travel where the traveller works the following day.
+
+  Book at least 14 days in advance where the trip is foreseeable. Fares booked
+  inside 7 days require a note explaining why, except for incident response
+  travel (section 7), which requires no explanation.
+
+  Preferred booking through the corporate travel tool. Direct booking is
+  permitted where it is cheaper or where the travel tool cannot handle the
+  itinerary, which is common for Rotterdam-originating EMEA travel.
+
+  Airline loyalty points belong to the traveller. Choosing a materially more
+  expensive flight to accrue them does not.
+
+
+4. ACCOMMODATION
+
+  Nightly caps, excluding tax:
+
+    Austin, Nashville, Columbus, Reno       220 USD
+    Memphis                                 190 USD
+    San Francisco, New York, Boston         340 USD
+    Basel, Zurich, Frankfurt                310 CHF / EUR equivalent
+    Rotterdam, Amsterdam                    260 EUR
+    Dublin                                  270 EUR
+    All other locations                     240 USD
+
+  Exceeding a cap requires manager approval and a one-line reason. Conference
+  venue rates and customer-site proximity are both acceptable reasons.
+
+  Extended field deployments exceeding 14 consecutive nights should use serviced
+  apartments rather than hotels. Field Operations coordinates this; it is
+  materially cheaper and considerably more humane.
+
+
+5. MEALS
+
+  Per diem, or actuals with receipts, not both. Choose per trip.
+
+    Domestic per diem                       75 USD per day
+    EMEA per diem                           95 EUR per day
+    Partial travel days                     60 percent of per diem
+
+  Team meals and customer entertainment are actuals, require the attendee list
+  in the expense note, and require director approval above 500 USD.
+
+  Alcohol is reimbursable with meals in reasonable quantity. It is not
+  reimbursable on customer sites, at any Helix facility with a robot test bay, or
+  at any point during an on-call shift. This is a safety policy, not a
+  temperance one.
+
+
+6. GROUND TRANSPORT
+
+  Rideshare and taxi are reimbursable. Rental cars require manager approval and
+  are expected where a trip involves multiple customer sites in a region.
+
+  Personal vehicle mileage is reimbursed at the current IRS standard rate for US
+  travel and the equivalent statutory rate for EMEA.
+
+  Parking and tolls are reimbursable. Traffic and parking fines are not, ever,
+  under any circumstances.
+
+
+7. INCIDENT RESPONSE TRAVEL
+
+This section exists because of what happened in September 2024, and it is the
+part of this policy most worth reading.
+
+During INC-2024-017, a Helix field engineer delayed booking a same-day flight to
+Memphis while attempting to reach a director for approval on a 1,400 USD fare on
+a Saturday. That delay was measured in hours during an active SEV-1 at our
+largest customer, and it was entirely the fault of this document as it was then
+written.
+
+The rules now:
+
+  7.1  For any active SEV-1 or SEV-2, no pre-approval is required for any travel
+       expense. Book the flight. Take the taxi. Get the hotel. Go.
+
+  7.2  This applies to Field Operations, on-call engineering, support, and any
+       named account team member. It applies at any hour on any day.
+
+  7.3  Notify your manager when convenient. Convenient means after the customer
+       situation is stable, not before departure.
+
+  7.4  Submit the expense afterward with the incident identifier in the note.
+       Incident-tagged expenses are approved by Finance directly and do not route
+       through the standard chain.
+
+  7.5  Nightly accommodation caps do not apply to incident response travel.
+       Proximity to the customer site is the only relevant criterion.
+
+  7.6  If you are ever unsure whether a situation qualifies, it qualifies. The
+       cost of an unnecessary same-day flight is trivial next to the cost of an
+       hour of degraded fleet at an Enterprise customer. For reference, the
+       September 2024 incident cost 338,000 USD in direct costs and deferred a
+       1.9 million USD expansion decision by approximately two months.
+
+Finance will not question incident-tagged expenses on cost grounds. If a pattern
+emerges suggesting the classification is being misused, I will address it as a
+management matter with the individuals concerned, not by adding friction for
+everyone else.
+
+
+8. FIELD TECHNICIAN STANDING ARRANGEMENTS
+
+Field technicians travelling to customer sites on a scheduled basis operate under
+a standing approval covering flights, accommodation within cap, ground transport,
+and per diem for the assigned site. No per-trip approval is needed.
+
+Tools, consumables, and replacement parts are procured through Field Operations
+supply channels, never on personal expense cards. The exception is genuinely
+urgent local purchase during an incident, which falls under section 7.
+
+
+9. NON-REIMBURSABLE
+
+  Traffic and parking fines
+  Personal entertainment, including in-flight purchases unrelated to work
+  Travel insurance beyond the corporate policy, which already covers all
+    business travel
+  Upgrades purchased with personal funds and then expensed
+  Alcohol on customer sites, at Helix test bay facilities, or during on-call
+    shifts
+  Expenses submitted more than 90 days after they were incurred, absent an
+    explanation
+  Home office equipment, which is handled separately by People Ops under the
+    employee handbook
+
+
+10. SUBMISSION
+
+  Submit through the expense system within 30 days. Receipts required above
+  500 USD in all categories, and for all accommodation and air travel regardless
+  of amount.
+
+  Incident-tagged expenses require the incident identifier and are routed to
+  Finance directly.
+
+  Reimbursement runs weekly. Expenses approved by Wednesday are paid the
+  following Tuesday.
+
+  Questions on interpretation go to Wei-Lin Tsai. Questions on whether something
+  is reasonable go to your manager. Genuine edge cases come to me, and there are
+  fewer of them than people expect.

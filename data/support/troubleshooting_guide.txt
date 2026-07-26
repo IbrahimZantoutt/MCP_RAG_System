@@ -1,0 +1,377 @@
+HELIX ROBOTICS — SUPPORT TROUBLESHOOTING GUIDE
+Fault codes and diagnostic procedures
+Owner: Aisha Bello, Director of Customer Support
+Technical review: Tobias Lindqvist (Firmware), Marcus Ozturk (Field Operations)
+Applies to: HX-200 firmware 3.7.0+, HX-450 firmware 2.4.0+, Fleet OS 4.2.x
+Last revised: 2024-12-01
+Classification: Internal — may be shared with customer facility staff
+
+
+HOW TO USE THIS GUIDE
+
+Each fault code entry gives the meaning, the common causes in rough order of
+frequency, the diagnostic steps, and the resolution. Follow the steps in order.
+
+This guide covers individual faults. If you are looking at a fleet-level problem
+— many robots affected, throughput declining, no individual fault codes present
+— this is the wrong document. Go to the Fleet Recovery Runbook. In particular,
+robots queuing at chargers while reporting healthy is runbook section 4, not a
+fault code, because the defining characteristic of that condition is the
+*absence* of a fault code.
+
+SAFETY. Nothing in this guide requires entering the robot operating area while
+robots are live. Where floor access is needed, the procedure says so explicitly
+and the fleet must be paused and the zone locked out first per the Field
+Technician Training Manual.
+
+
+=============================================================================
+E-115  —  EMERGENCY STOP ENGAGED
+=============================================================================
+
+Meaning
+  A physical or wireless emergency stop has been triggered. The robot is stopped
+  and will not move until the stop is cleared and reset.
+
+Common causes
+  1. Deliberate operator action
+  2. Physical e-stop button knocked or pressed accidentally, most often by a
+     passing pallet jack or by contact with racking
+  3. Wireless pendant e-stop triggered facility-wide
+  4. E-stop button mechanically stuck
+
+Diagnostics
+  - Determine which e-stop is engaged: helixctl robot detail <ROBOT_ID>
+  - If facility-wide, check whether the pendant e-stop is latched
+  - Establish why before clearing. An e-stop that was pressed deliberately was
+    pressed for a reason and someone knows what it was.
+
+Resolution
+  - Confirm the area is clear and the reason for the stop is resolved
+  - Physically twist-release the engaged button, or release the pendant
+  - Reset from the Operator Console or the robot's reset control
+  - On firmware earlier than 3.8.0, a race in the reset path could require two
+    physical presses. Fixed in 3.8.0. On hardware revision A units with firmware
+    earlier than 3.7.1, E-115 could fail to clear on the console after a
+    successful physical reset; fixed in 3.7.1.
+
+Escalate if
+  The e-stop cannot be cleared after physical reset on current firmware, which
+  suggests a hardware fault in the e-stop chain. This is safety-relevant. Take
+  the robot out of service and escalate to Level 3 immediately.
+
+
+=============================================================================
+E-118  —  PAYLOAD SHIFT DETECTED
+=============================================================================
+
+Meaning
+  IMU signature analysis detected the load moving during transit. The robot has
+  halted to prevent losing the load.
+
+Common causes
+  1. Improperly seated tote or container
+  2. Overloaded or unevenly loaded tote
+  3. Load exceeding rated payload
+  4. Floor irregularity — expansion joint, damaged floor, debris
+
+Diagnostics
+  - Visually inspect the load (fleet paused, zone locked out)
+  - Check reported payload mass: helixctl robot detail <ROBOT_ID> --telemetry
+  - Check whether the event location correlates with a known floor issue. Repeat
+    E-118 events at the same coordinates almost always mean a floor problem, not
+    a loading problem.
+
+Resolution
+  - Reseat or redistribute the load, acknowledge the fault, resume
+  - If location-correlated, raise a facility floor remediation request with the
+    customer. Floor flatness is a customer-side site requirement.
+
+Notes
+  E-118 was introduced in firmware 3.8.0 following three tote spill events at
+  Cardinal Foods in Q2 2024. It is a safety feature and a nuisance-fault source
+  in roughly equal measure during the first weeks after a site enables it. A
+  spike in E-118 immediately after a firmware upgrade to 3.8.0 or later is
+  expected and usually reflects pre-existing loading practice rather than a new
+  problem.
+
+
+=============================================================================
+E-207  —  LIDAR OCCLUSION
+=============================================================================
+
+Meaning
+  A navigation or safety LiDAR is obstructed or excessively dirty and cannot
+  return reliable data.
+
+Common causes
+  1. Dust or debris accumulation on the sensor window — by far the most common
+  2. Airborne dust, particularly in grocery and dry goods facilities
+  3. Physical obstruction: shrink wrap, label, packaging debris
+  4. Sensor hardware failure
+
+Diagnostics
+  - Identify which scanner: helixctl robot detail <ROBOT_ID>
+  - Check whether the fault is persistent or intermittent. Intermittent
+    strongly suggests airborne dust; persistent suggests physical obstruction or
+    hardware failure.
+  - Check the site's E-207 rate over time. A rising trend across many robots
+    indicates a facility air quality change, not robot failures.
+
+Resolution
+  - Clean the sensor window with the supplied lens cloth. This resolves the
+    large majority of cases.
+  - On firmware 3.9.0 and later, E-207 self-clears after 3 consecutive clean
+    scans. On earlier firmware it latches and requires manual acknowledgement —
+    a significant nuisance at dusty sites and one of the main reasons to upgrade.
+  - Persistent E-207 after cleaning means scanner replacement. Safety scanners
+    are safety-rated components; replacement requires a Helix field technician
+    and post-replacement verification. Customer staff must not replace them.
+
+Notes
+  Cardinal Foods Memphis historically generated a high E-207 rate from airborne
+  dust. Firmware 3.7.1 improved transient occlusion recovery and 3.9.0 added
+  self-clearing, which together reduced their E-207 ticket volume by roughly
+  70 percent.
+
+
+=============================================================================
+E-330  —  WMS SYNC FAILURE
+=============================================================================
+
+Meaning
+  The Site Adapter cannot exchange data with the customer's warehouse management
+  system. Surfaced on robots because it stops task flow, but the fault is in
+  Fleet OS, not in the robot.
+
+Common causes
+  1. Expired customer WMS credentials
+  2. Expired TLS certificate on the WMS endpoint
+  3. Customer WMS upgrade changing message schema
+  4. Customer network change, firewall rule, or endpoint address change
+  5. Customer WMS unavailable
+
+Diagnostics
+  Full procedure is Fleet Recovery Runbook section 6. In brief:
+  - helixctl adapter status
+  - helixctl adapter test-connection
+  - journalctl -u helix-site-adapter --since "1 hour ago"
+
+Resolution
+  - Credential and certificate expiry require customer IT. Helix cannot rotate
+    customer WMS credentials. Engage the TAM and the customer integration
+    contact.
+  - Schema changes require engineering. Capture a failing message sample and
+    escalate with it attached. Never hand-edit adapter mappings in production.
+
+Notes
+  E-330 is the highest-volume support category by ticket count. The cause is on
+  the customer side in the substantial majority of cases, which makes tone
+  important: the goal is to get the customer's IT team engaged quickly, not to
+  win an argument about whose fault it is. Availability impact from
+  customer-caused WMS outages is excluded from SLA measurement.
+
+
+=============================================================================
+E-401  —  CHARGE RESERVATION TIMEOUT
+=============================================================================
+
+Meaning
+  A robot's charging dock reservation expired before it completed charging, or
+  the robot could not reach its reserved dock in time.
+
+Common causes
+  1. Robot blocked en route to the dock
+  2. Dock occupied by an obstruction or a manually parked robot
+  3. Dock hardware fault preventing handshake
+  4. Insufficient dock capacity for fleet size
+
+Diagnostics
+  - helixctl dock status
+  - Check the robot's path history to the dock
+  - Check dock queue depth: helixctl dock queue
+
+Resolution
+  - Clear physical obstructions from the dock and approach path
+  - Verify dock firmware. Handshake failures occur on docks running dock
+    firmware older than 1.4; update the dock.
+  - If E-401 is widespread, evaluate dock provisioning. Recommended ratios are
+    one dock per four HX-200 units and one per three HX-450 units. Under-
+    provisioning is the most common Stacker site design error.
+
+IMPORTANT DISTINCTION
+  E-401 is a timeout — the system noticed a problem and reported it. This is the
+  healthy failure mode.
+
+  The dangerous condition is the opposite: a robot holding a dock reservation
+  with NO fault code at all, reporting itself perfectly healthy, forever. That
+  is the INC-2024-017 signature and it produces no E-401 and no alert. On Fleet
+  OS 4.2.0 and 4.2.1 dock reservations had no expiry, so nothing could ever time
+  out. If you are seeing robots accumulate at docks with no fault codes and
+  declining fleet availability, go to Fleet Recovery Runbook section 4 and check
+  versions first. Fixed in Fleet OS 4.2.2 with firmware 3.8.2; both are required.
+
+
+=============================================================================
+E-502  —  BATTERY THERMAL CUTOFF
+=============================================================================
+
+Meaning
+  Battery temperature exceeded safe operating range. Charging and high-current
+  discharge are inhibited until temperature returns to range.
+
+Common causes
+  1. High ambient temperature. HX-200 operating range is 0 C to 40 C ambient.
+  2. Sustained heavy duty cycle with insufficient rest
+  3. Blocked ventilation
+  4. Battery cell degradation near end of service life
+  5. Spurious reports on firmware 3.8.0 and earlier above 32 C ambient — fixed
+     in 3.8.1
+
+Diagnostics
+  - helixctl robot detail <ROBOT_ID> --telemetry, check battery temperature and
+    cell voltage deviation
+  - Check facility ambient temperature in the robot's operating zone
+  - Check cumulative charge cycle count. Rated life is 4,000 cycles to 80
+    percent capacity, roughly 5 years at typical duty.
+
+Resolution
+  - Allow the robot to cool. It resumes automatically when in range.
+  - Clear ventilation obstructions
+  - If ambient exceeds 40 C, this is a facility issue. Zones near loading doors
+    in summer are the usual offenders.
+  - High cell voltage deviation with elevated cycle count means battery
+    replacement. Follow the battery replacement procedure exactly, including the
+    cycle-count transfer utility — replacing the battery management board
+    without it resets cumulative cycle count and destroys the replacement
+    history (known issue FW-1163).
+
+
+=============================================================================
+E-611  —  LOCALIZATION CONFIDENCE LOST
+=============================================================================
+
+Meaning
+  The robot cannot determine its position with sufficient confidence. It has
+  performed a controlled stop and holds position. This is fail-static behavior
+  working as designed.
+
+Common causes
+  1. Facility layout changed without a map update — the most common cause by a
+     wide margin
+  2. Highly repetitive rack geometry defeating scan matching
+  3. Large moving obstructions occluding reference features
+  4. Robot physically moved while powered off
+  5. Corrupted or wrong facility map loaded
+
+Diagnostics
+  - Compare the facility map version against recent physical changes. Ask the
+    customer directly whether anything moved. Racking changes, seasonal displays,
+    and temporary staging areas are frequent culprits.
+  - helixctl map version
+  - Check whether E-611 clusters geographically. Clustering means a map problem;
+    scattered events mean a robot problem.
+
+Resolution
+  - Re-localize from the Operator Console by specifying the robot's actual
+    position
+  - If the layout has genuinely changed, the facility map must be updated. Note
+    that map editing is done in a desktop tool and imported as a binary blob
+    with no diff and no rollback, so map updates require care. Map lifecycle
+    management is on the 2025 roadmap.
+  - Repetitive rack geometry was addressed in firmware 3.9.0, which fixed
+    localization drift at Brightline Apparel Reno specifically. Their rack layout
+    is unusually uniform and defeated the previous scan-matching heuristic.
+  - Cold-start localization takes 9 seconds on firmware 3.9.0+ and 22 seconds on
+    earlier firmware. Hardware revision A units in facilities above 60 percent
+    rack occupancy can exceed 30 seconds (known issue FW-1171).
+
+
+=============================================================================
+E-704  —  DRIVE MOTOR OVERCURRENT
+=============================================================================
+
+Meaning
+  A drive motor drew current beyond its limit. The robot has stopped.
+
+Common causes
+  1. Physical obstruction jamming a wheel
+  2. Debris wrapped around a wheel or axle — shrink wrap and strapping are the
+     classic offenders
+  3. Attempting to traverse a gradient or obstacle beyond capability
+  4. Castor wheel seized
+  5. Motor or drive board fault
+
+Diagnostics
+  - Visual inspection with the fleet paused and zone locked out
+  - helixctl robot detail <ROBOT_ID> --telemetry, review motor current history
+  - Note: motor current reporting scale factor was incorrect on units
+    manufactured after 2024-06 with the revised drive board, on firmware earlier
+    than 3.9.0. Verify firmware version before concluding a hardware fault from
+    current readings.
+
+Resolution
+  - Remove obstruction or debris, acknowledge, resume
+  - Check castor wheels for free rotation
+  - Persistent E-704 with no visible obstruction means drive train or drive
+    board fault. Take out of service and dispatch a field technician.
+
+
+=============================================================================
+HX-450 STACKER SPECIFIC CODES
+=============================================================================
+
+E-820  Pallet pocket detection failure
+  Damaged stringers, missing blocks, shrink-wrap overhang, or poor pallet
+  quality. Detection tolerates +/- 40 mm placement error and +/- 6 degrees
+  rotation; beyond that it will refuse the pick. Sites running a mixed or
+  poor-quality pallet pool see materially higher rates. Raise pallet quality
+  during site assessment, not after deployment. The fork camera upgrade helps in
+  low-contrast and low-light conditions.
+
+E-822  Load stability fault
+  Asymmetric or shifting load detected by fork load sensors and IMU. Inspect
+  load distribution. Repeated events from one customer location usually mean a
+  palletizing practice problem upstream.
+
+E-826  Lift interlock violation
+  The mast cannot rise while the robot moves above 0.3 m/s, and the robot cannot
+  exceed 0.3 m/s with the mast extended. Enforced bidirectionally in firmware.
+  This code generally indicates a Fleet OS planning issue or an attempted manual
+  override. Escalate to Level 3; it should not occur in normal operation.
+
+E-831  Overhead clearance obstruction
+  Mast depth camera detected an obstruction above the lift path. Check for
+  overhead conduit, sprinkler heads, lighting, or improperly stored inventory.
+  Frequently a facility survey gap rather than a robot problem.
+
+E-838  Hydraulic pressure out of range
+  Lift hydraulic system fault. Take out of service and dispatch a field
+  technician. Do not attempt customer-side remediation on the hydraulic system.
+
+
+=============================================================================
+CONDITIONS WITH NO FAULT CODE
+=============================================================================
+
+Some of the worst problems produce no fault code at all. These are the ones to
+watch for, because every instinct trained on fault codes will miss them.
+
+Robots healthy but idle, work queued
+  Dispatch stall. Fleet Recovery Runbook section 3.
+
+Robots accumulating at chargers, all reporting healthy, fleet availability
+declining
+  Charge dock reservation deadlock. Fleet Recovery Runbook section 4. Check
+  Fleet OS and firmware versions first — the combination of Fleet OS 4.2.0 or
+  4.2.1 with HX-200 firmware 3.8.1 is the INC-2024-017 exposure. This condition
+  produced no fault codes, no alerts, and 41 minutes of undetected degradation
+  before a customer telephoned us.
+
+Throughput declining with no faults and no dock queue
+  Check for facility changes, Wi-Fi degradation, or task mix changes. Compare
+  against the site's throughput baseline.
+
+Individual robot slower than fleet average, no faults
+  Check battery cycle count and cell voltage deviation. A degrading battery
+  reduces effective duty cycle before it produces any fault.

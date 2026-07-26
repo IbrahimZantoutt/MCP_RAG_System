@@ -1,0 +1,200 @@
+HELIX ROBOTICS — UNIT ECONOMICS ANALYSIS
+Subject: HX-200 Courier
+Prepared by: Sam Delacroix, Chief Financial Officer
+Analyst: Wei-Lin Tsai, Senior Financial Analyst
+Contributors: Grace Chen (Product), Marcus Ozturk (Field Operations)
+Data period: trailing twelve months to 2024-09-30
+Last revised: 2024-11-12
+Classification: Internal — Confidential. Bill-of-materials detail must not
+                leave the company under any circumstances.
+
+
+PURPOSE
+
+The HX-200 Courier is 78 percent of units shipped and the majority of hardware
+revenue. Company blended gross margin is 51 percent and hardware gross margin is
+34 percent, so HX-200 economics substantially determine company economics.
+
+This analysis establishes where the cost sits, what a robot earns over its life,
+and what the H2 2025 hardware revision D cost reduction is actually worth.
+
+
+1. BILL OF MATERIALS — HX-200 BASE UNIT (HARDWARE REVISION C)
+
+  Chassis, frame, and enclosure                        3,850 USD
+  Drive assembly (2 motors, gearboxes, wheels)         4,120 USD
+  Drive electronics (drive board, revision C)          2,940 USD
+  Battery pack (6.4 kWh LiFePO4, BMS)                  5,610 USD
+  Safety scanner chain (2 safety-rated LiDAR,
+    safety controller, certified to IEC 61508 SIL 2)   6,780 USD
+  Navigation LiDAR (360 degree, 25 m)                  2,190 USD
+  Compute module                                       1,730 USD
+  IMU, encoders, sensors                                 890 USD
+  Emergency stop hardware (4 buttons, wiring,
+    wireless receiver)                                   740 USD
+  Castors, deck, fasteners, harness                    1,180 USD
+  Charging contacts and dock interface                   520 USD
+  Total component cost                                30,550 USD
+
+  Assembly labour                                      2,180 USD
+  Test and commissioning                                 940 USD
+  Certification amortization                             310 USD
+  Warranty reserve (3 percent of revenue)              1,425 USD
+  Freight, inbound and outbound                          890 USD
+  Total cost of goods sold                            36,295 USD
+
+  List price, base unit                               47,500 USD
+  Realized average selling price (TTM)                 43,180 USD
+  Gross profit per unit                                 6,885 USD
+  Gross margin per unit                                   16 percent
+
+Realized ASP sits 9.1 percent below list, reflecting volume banding. Cardinal
+Foods at 350 aggregate units qualifies at the top 17 percent band, and their
+volume weights the average heavily.
+
+The 16 percent margin on a base unit is uncomfortable. Reported hardware gross
+margin of 34 percent is materially higher because options carry far better
+economics — see section 2 — and because dock sales and the HX-450 lift the
+blend.
+
+
+2. OPTION ECONOMICS
+
+  Helix Vision module
+    Component cost                                     3,240 USD
+    Assembly and test                                    260 USD
+    Total cost                                         3,500 USD
+    List price                                         8,900 USD
+    Gross margin                                          61 percent
+    Attach rate                                           31 percent
+
+  Extended battery (8.9 kWh)
+    Incremental cost                                   2,180 USD
+    List price                                         4,400 USD
+    Gross margin                                          50 percent
+    Attach rate                                           19 percent
+
+  Roller-top deck
+    Incremental cost                                   3,410 USD
+    List price                                         6,200 USD
+    Gross margin                                          45 percent
+    Attach rate                                           24 percent
+
+  Cold-chain package
+    Incremental cost                                   4,020 USD
+    List price                                         7,100 USD
+    Gross margin                                          43 percent
+    Attach rate                                            7 percent
+
+Helix Vision is the clearest opportunity in this entire analysis. It carries 61
+percent margin, it materially improves obstacle handling and reduces
+conservative stops, and it attaches on fewer than one unit in three. Every
+percentage point of attach rate improvement across TTM volume is worth
+approximately 43,000 USD of annual gross profit. Moving attach from 31 to 50
+percent would add roughly 820,000 USD.
+
+The 2025 roadmap addresses this two ways: reducing module cost, and surfacing the
+capability in the Operator Console for non-Vision fleets so customers can see
+what they are missing rather than being sold it abstractly.
+
+
+3. RECURRING REVENUE PER UNIT
+
+This is where the business actually works.
+
+  Fleet OS licence, Professional          180 USD per robot per month
+  Fleet OS licence, Enterprise            265 USD per robot per month
+  Weighted average realized (TTM)         214 USD per robot per month
+
+  Annual recurring revenue per robot      2,568 USD
+  Cost to serve per robot per year          308 USD
+  Gross profit per robot per year         2,260 USD
+  Software gross margin                      88 percent
+
+Cost to serve comprises support staffing, field operations allocation, cloud
+telemetry infrastructure, and a warranty and SLA credit reserve. The reserve was
+raised from 190 to 308 USD per robot per year in the Q4 2024 revision, for two
+reasons: the actual credit experience of Q3 2024, and the revised SLA definition
+effective 2024-10-01, which requires dispatch eligibility for a robot to count as
+available and therefore increases credit exposure by an estimated 120,000 to
+200,000 USD annually across the fleet.
+
+
+4. LIFETIME VALUE PER UNIT
+
+Assumptions: 5-year service life, matching expected battery service life at
+4,000 rated cycles under typical duty. 92 percent annual logo retention. No
+churn assumed within a deployed fleet, which reflects actual experience — we have
+never had a customer reduce a deployed fleet size.
+
+  Hardware gross profit, at sale                       6,885 USD
+  Options gross profit (weighted by attach)            2,940 USD
+  Software gross profit, 5 years                      11,300 USD
+  Services gross profit, allocated                       620 USD
+  Total gross profit per unit over 5 years            21,745 USD
+
+  Customer acquisition cost, allocated per unit        3,910 USD
+  Deployment cost, allocated per unit                  1,240 USD
+  Net lifetime value per unit                         16,595 USD
+
+  Payback period on fully loaded cost                 14 months
+
+The structure is unambiguous. Hardware gross profit at sale is 6,885 USD; software
+gross profit over the same five years is 11,300 USD. Software is 52 percent of
+lifetime gross profit from a product that is, at the point of sale, a hardware
+purchase.
+
+This is the arithmetic behind the rule that software licence discounting requires
+CFO approval and is essentially never granted. Trading recurring high-margin
+software revenue to win a one-time hardware price negotiation is the worst trade
+available to this company, and it is a trade that feels reasonable in the room.
+
+
+5. HARDWARE REVISION D — PROJECTED IMPACT
+
+Targeted for H2 2025. Objective is a 14 percent component cost reduction with no
+change to the certified safety envelope.
+
+  Drive board integration (merge drive electronics
+    and compute carrier)                             (1,340) USD
+  Single-vendor LiDAR strategy (replace dual-source
+    navigation and safety LiDAR arrangement)         (1,620) USD
+  Chassis part-count reduction                         (780) USD
+  Harness simplification                               (410) USD
+  Battery pack cost (renegotiated supply)              (290) USD
+  Projected component cost reduction                 (4,440) USD
+
+  Revised component cost                             26,110 USD
+  Revised cost of goods sold                         31,855 USD
+  Gross profit per unit at current ASP               11,325 USD
+  Gross margin per unit                                 26 percent
+
+A move from 16 to 26 percent on the base unit. At TTM HX-200 volume this is worth
+approximately 2.6 million USD of annual gross profit, which is the single largest
+identified margin improvement available to the company.
+
+Principal risk: the single-vendor LiDAR change touches the safety scanner chain
+and requires IEC 61508 SIL 2 re-assessment. Re-assessment timelines are set by
+the certification body and are outside our control. If re-assessment slips,
+revision D slips with it and the 1,620 USD LiDAR saving — the largest single line
+— is the piece at risk.
+
+Mitigation is sequencing: Nikolai Petrov and the certification body are engaged
+from Q1 2025 rather than at design freeze. This is explicit in the 2025 roadmap.
+
+
+6. SENSITIVITY
+
+  Each 1 percent of realized ASP           ~432 USD gross profit per unit
+  Each 1 pp of Vision attach rate          ~43,000 USD annual gross profit
+  Each 10 USD of monthly licence price     ~600 USD lifetime gross profit
+                                            per unit
+  Each 1 pp of logo retention              ~340 USD lifetime value per unit
+
+Price realization on hardware is the most sensitive single lever and the one
+most exposed to sales discretion. At 16 percent base-unit margin, a 5 percent
+discount consumes roughly 2,160 USD of a 6,885 USD gross profit — nearly a third
+— for a single point of negotiating leverage.
+
+The discount floor of 38 percent blended gross margin exists for this reason and
+should be treated as a genuine floor rather than an opening position.
