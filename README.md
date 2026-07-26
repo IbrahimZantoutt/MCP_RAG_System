@@ -28,7 +28,6 @@ combines passages from several files and cites each one.
 
 **Sources cited in the answer**
 
-
 <img src="https://github.com/user-attachments/assets/74f9b486-f030-4b5e-ac1d-ee0076fbfb57" alt="Cited passages with vector, BM25, rerank and RRF scores" width="100%">
 
 </td>
@@ -36,7 +35,7 @@ combines passages from several files and cites each one.
 
 **The same passage in the original document**
 
-<img src="docs/original.png" alt="The cited section shown in its source document" width="100%">
+<img src="https://github.com/user-attachments/assets/ff019350-bca5-445b-8849-c3d6ced5e6be" alt="The cited section shown in its source document" width="100%">
 
 </td>
 </tr>
