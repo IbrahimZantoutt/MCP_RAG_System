@@ -40,10 +40,6 @@ AGENTS = [
     "T. Osei", "L. Brenner", "C. Villanueva", "P. Deshmukh", "J. Kowalski",
 ]
 
-ENGINEERS = [
-    "J. Park", "T. Lindqvist", "R. Iglesias", "D. Nair", "G. Chen", "M. Ozturk",
-]
-
 # fault code -> (summary templates, typical severity, typical resolution)
 FAULTS = [
     (

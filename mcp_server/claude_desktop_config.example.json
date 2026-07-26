@@ -1,0 +1,30 @@
+{
+  "_comment": [
+    "Register the Helix RAG server with an MCP client.",
+    "",
+    "Claude Desktop config location:",
+    "  Windows  %APPDATA%\\Claude\\claude_desktop_config.json",
+    "  macOS    ~/Library/Application Support/Claude/claude_desktop_config.json",
+    "",
+    "Replace the absolute paths below with your own, then restart the client.",
+    "Run 'python scripts/index_data.py' first -- the server starts with an",
+    "empty index otherwise and every search returns nothing.",
+    "",
+    "For Claude Code instead, from the project root run:",
+    "  claude mcp add helix-rag -- python mcp_server/server.py"
+  ],
+
+  "mcpServers": {
+    "helix-rag": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\zanto\\OneDrive\\Desktop\\Projects\\all agents development\\RAG_MCP_Server\\mcp_server\\server.py"
+      ],
+      "env": {
+        "HELIX_MODEL": "deepseek",
+        "HELIX_RERANK": "1",
+        "HELIX_HYBRID": "1"
+      }
+    }
+  }
+}
